@@ -1,6 +1,7 @@
 import "reflect-metadata"
 import '@shared/container'
 import '@shared/infra/typeorm'
+import '@modules/Users/providers'
 import express, { Request, Response, NextFunction} from 'express';
 import 'dotenv/config';
 import cors from 'cors';

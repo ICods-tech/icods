@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import SignUpService from '@modules/Users/infra/typeorm/services/SignUpService'
+import { classToClass } from 'class-transformer'
 
 export default class SignUpController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -15,9 +16,10 @@ export default class SignUpController {
         password
       })
 
-      return response.json(user)
+      return response.json(classToClass(user))
 
     } catch (err) {
+      console.error(err)
       return response.status(400).json(err)
     }
   }

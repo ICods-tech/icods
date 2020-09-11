@@ -13,6 +13,7 @@
     "@types/cors": "^2.8.7",
     "bcrypt": "^5.0.0",
     "celebrate": "^13.0.2",
+    "class-transformer": "^0.3.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "eslint": "6.8.0",

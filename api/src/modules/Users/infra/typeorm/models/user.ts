@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn } from 'typeorm'
+import QRCode from '../../../../QRCodes/infra/typeorm/models/QRCode'
 import { Exclude } from 'class-transformer'
 
 @Entity('users')
 export default class User {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -16,6 +16,9 @@ export default class User {
   @Column()
   @Exclude()
   password: string;
+
+  @OneToMany(() => QRCode, qrcode => qrcode.link)
+  qrcode_ids: QRCode[];
 
   @CreateDateColumn()
   created_at: Date;

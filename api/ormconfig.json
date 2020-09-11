@@ -4,6 +4,7 @@
   "port": "5436",
   "username": "postgres",
   "password": "icods_password",
+  "synchronize": true,
 
   "entities": [
     "./src/**/models/*.ts"

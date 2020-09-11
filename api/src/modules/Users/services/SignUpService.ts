@@ -29,13 +29,12 @@ export default class SignUpService {
     }
 
     const hashedPassword = await this.hashProvider.encrypt(password)
-
     const user = await this.usersRepository.create({
       name,
       email,
       password: hashedPassword
     })
-
+    console.log('xau')
     return user
   }
 }

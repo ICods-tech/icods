@@ -17,7 +17,7 @@ export default class SignInController {
 
       return response.json(classToClass(user))
     } catch(err) {
-      return response.status(400).json(err)
+      return response.status(400).json(err.message)
     }
   }
 }

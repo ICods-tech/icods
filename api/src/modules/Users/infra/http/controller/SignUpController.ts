@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import SignUpService from '@modules/Users/infra/typeorm/services/SignUpService'
+import SignUpService from '@modules/Users/services/SignUpService'
 import { classToClass } from 'class-transformer'
 
 export default class SignUpController {
@@ -19,7 +19,6 @@ export default class SignUpController {
       return response.json(classToClass(user))
 
     } catch (err) {
-      console.error(err)
       return response.status(400).json(err)
     }
   }

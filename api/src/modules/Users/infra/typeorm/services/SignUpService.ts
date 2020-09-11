@@ -1,3 +1,4 @@
+import AppError from '@shared/error/AppError';
 import User from '@modules/Users/infra/typeorm/models/user';
 import { injectable, inject } from 'tsyringe'
 import IUserDTO from '@modules/Users/DTOs/IUserDTO'
@@ -12,15 +13,15 @@ export default class SignUpService {
   ) {}
 
   public async run({ name, email, password }: IUserDTO): Promise<User> {
-    console.log('PORRA')
+
     if (!name || !email || !password ) {
-      throw new Error('All fields must be filled')
+      throw new AppError('All fields must be filled')
     }
 
     const checkEmail = await this.usersRepository.findByEmail(email)
 
     if(checkEmail) {
-      throw new Error('User with this email already exists')
+      throw new AppError('User with this email already exists')
     }
 
     const user = await this.usersRepository.create({

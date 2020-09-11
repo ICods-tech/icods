@@ -6,9 +6,9 @@ export default class SignUpController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const {name, email, password } = request.body
-      console.log('pica')
+
       const signUp = container.resolve(SignUpService)
-      console.log('pal')
+
       const user = await signUp.run({
         name,
         email,

@@ -9,7 +9,11 @@
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/cors": "^2.8.7",
+    "bcrypt": "^5.0.0",
+    "celebrate": "^13.0.2",
+    "class-transformer": "^0.3.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "eslint": "6.8.0",
@@ -19,6 +23,7 @@
     "express": "^4.17.1",
     "pg": "^8.3.3",
     "prettier": "^2.1.1",
+    "tsyringe": "^4.3.0",
     "typeorm": "^0.2.25"
   },
   "devDependencies": {

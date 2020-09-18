@@ -9,6 +9,14 @@ export default createGlobalStyle`
   }
 
   body {
+    text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialised;
+    background-color: #F1F5FA;
+    height: 100%;
+  }
+
+  input, 
+  button {
+    outline: none;
   }
 `

@@ -2,7 +2,6 @@ import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express'
 import SignInService from '@modules/Users/services/SignInService'
 import {container} from 'tsyringe'
-import jwt from 'jsonwebtoken'
 
 export default class SignInController {
   public async create(request: Request, response: Response): Promise<Response> {

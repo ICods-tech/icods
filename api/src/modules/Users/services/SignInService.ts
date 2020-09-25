@@ -5,6 +5,7 @@ import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
 import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
 import { inject, injectable } from 'tsyringe'
 import jwt from 'jsonwebtoken'
+import { request } from 'express'
 
 @injectable()
 export default class SignInService {

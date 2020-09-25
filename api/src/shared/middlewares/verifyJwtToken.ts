@@ -3,9 +3,9 @@ import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
 
 interface TokenPayload {
+  id: string,
   iat: number,
-  exp: number,
-  sub: string
+  exp: number
 }
 
 export default function ensureAuthenticated(req: Request, res: Response, next: NextFunction): void {
@@ -19,10 +19,10 @@ export default function ensureAuthenticated(req: Request, res: Response, next: N
 
   try {
     const verifyToken = verify(token, process.env.SECRET as string)
-    const { sub } = verifyToken as TokenPayload
+    const { id } = verifyToken as TokenPayload
 
     req.user = {
-      id: sub
+      id
     }
 
     return next()

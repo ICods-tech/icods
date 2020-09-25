@@ -17,9 +17,6 @@ export default class User {
   @Exclude()
   password: string;
 
-  @OneToMany(() => QRCode, qrcode => qrcode.link)
-  qrcode_ids: QRCode[];
-
   @CreateDateColumn()
   created_at: Date;
 

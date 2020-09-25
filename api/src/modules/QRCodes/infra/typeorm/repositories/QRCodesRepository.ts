@@ -40,6 +40,12 @@ export default class QRCodesRepository implements IQRCodesRepository {
     return existingQRCode
   }
 
+  public async findAllUserQRCodes(user_id: string): Promise<QRCode[]> {
+    const userQrcodes = await this.ormRepostory.find({ where: { user_id }})
+
+    return userQrcodes
+  }
+
   public async delete(id: string): Promise<void> {
     await this.ormRepostory.delete(id)
   }

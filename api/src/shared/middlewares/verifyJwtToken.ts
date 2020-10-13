@@ -19,6 +19,7 @@ export default function ensureAuthenticated(req: Request, res: Response, next: N
 
   try {
     const verifyToken = verify(token, process.env.SECRET as string)
+
     const { id } = verifyToken as TokenPayload
 
     req.user = {

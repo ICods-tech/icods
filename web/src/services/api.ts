@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-const connection = axios.create({})
+const api = axios.create({baseURL: "http://localhost:5000"})
 
-export default connection
+export default api

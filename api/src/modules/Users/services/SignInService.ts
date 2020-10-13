@@ -19,18 +19,22 @@ export default class SignInService {
   ) {}
 
   public async run(email: string, password: string): Promise<{ user: User, token: string }> {
-
+     console.log("Aqui anteriormente 0")
     if (!email || !password ) {
       throw new AppError('All fields must be filled')
     }
 
+    console.log('adas')
     const user = await this.usersRepository.findByEmail(email)
+    console.log(user)
 
     if(!user) {
       throw new AppError('User with this email does not exist')
     }
 
-    const passwordValidation = await this.hashProvider.compareHash(password, user.password)
+
+    const passwordValidation  = await this.hashProvider.compareHash(password, user.password)
+    console.log(passwordValidation)
 
     if(!passwordValidation) {
       throw new AppError('User password is incorrect')
@@ -38,9 +42,13 @@ export default class SignInService {
 
     const { id } = user
 
+    console.log(process.env.SECRET)
+
     const token = jwt.sign({ id }, process.env.SECRET as string, {
       expiresIn: 3600
     });
+
+
 
     return { user, token }
   }

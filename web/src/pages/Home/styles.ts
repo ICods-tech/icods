@@ -64,7 +64,7 @@ export const Input = styled.input`
   }
 `
 
-export const SingUPButton = styled.a `
+export const SingUpButton = styled.a `
   font-family: 'Rubik';
   font-weight: bolder;
   text-transform: uppercase;
@@ -82,10 +82,6 @@ export const SingUPButton = styled.a `
   cursor: pointer;
 
   :hover {
-    border: 2px solid #364A61;
-    border-radius: 100px;
-    background-color: #364A61;
-    color: #F1F5FA;
-    transform: translateY(-3px);
-  }
+    color: #4A6685;
+  } 
 `

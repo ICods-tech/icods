@@ -59,7 +59,7 @@ export const Input = styled.input`
   border-radius: 4px;
   padding: 8px;
   border: 2px solid black;
-  :nth-child(3) {
+  :nth-child(4) {
     margin-bottom: 36px;
   }
 `
@@ -82,10 +82,6 @@ export const SingUPButton = styled.a `
   cursor: pointer;
 
   :hover {
-    border: 2px solid #364A61;
-    border-radius: 100px;
-    background-color: #364A61;
-    color: #F1F5FA;
-    transform: translateY(-3px);
+    color: #4A6685;
   }
 `

@@ -1,14 +1,15 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
+import Route from './AlteredRoute'
 import Home from '../pages/Home'
 import SingUp from '../pages/SingUp'
-import UserPage from '../pages/UserPage'
+import Dashboard from '../pages/Dashboard'
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route exact path='/' component={Home} />
-    <Route exact path='/singup' component={SingUp} />
-    <Route exact path='/user' component={UserPage} />
+    <Route path='/' exact component={Home}/>
+    <Route path='/singup' exact component={SingUp}/>
+    <Route path='/dashboard' exact component={Dashboard} isPrivate/>
   </Switch>
 )
 

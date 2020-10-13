@@ -39,24 +39,24 @@ const SingUp: React.FC = () => {
                 <SignSection>
                     <Logo src={logo} alt="logo icods" />
                     <Input
-                        type='email'
-                        placeholder='Email'
-                        value={email}
-                        onChange={(value: any) => setEmail(value.target.value)}
+                        type='text'
+                        placeholder='Full Name'
+                        value={name}
+                        onChange={(e: any) => setName(e.target.value)}
                     />
 
                     <Input
-                        type='text'
-                        placeholder='name'
-                        value={name}
-                        onChange={(value: any) => setName(value.target.value)}
+                        type='email'
+                        placeholder='Email'
+                        value={email}
+                        onChange={(e: any) => setEmail(e.target.value)}
                     />
 
                     <Input
                         type='password'
                         placeholder='Senha'
                         value={password}
-                        onChange={(value: any) => setPassword(value.target.value)}
+                        onChange={(e: any) => setPassword(e.target.value)}
                     />
 
                     <SignButtons onClick={SingUpOnClick}>Cadastrar</SignButtons>

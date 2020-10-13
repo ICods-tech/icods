@@ -6,30 +6,38 @@ import {
   SignSection, 
   Logo,
   SignButtons,
-  Input, SingUPButton
+  Input, 
+  SingUpButton
 } from './styles'
 import sessionsCover from '../../assets/qrcode-scan.png'
 import logo from '../../assets/logo.svg'
-
 import api from '../../services/api'
+import { useAuth } from '../../hooks/auth'
+import { useHistory } from 'react-router-dom'
+ 
 
-const Home: React.FC = () => {
+const Home: React.FC = () => {  
+    const history = useHistory()
+    const { signIn, user } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const SingIn =  useCallback(() => {
+    const SingIn =  useCallback(async () => {
       try {         
-        console.log(email, password)
-        api.post('/signin', {email, password}).then((response:any) => {
-            console.log(response.data)
-            // setError(false)
+        await signIn({
+          email,
+          password
         })
+
+        console.log(user)
+
+        history.push('dashboard')
       }catch(err) {
           // setError(true)
           console.error(err.message)
       }
 
-    }, [email, password]
+    }, [email, password, history, signIn, user]
   )
 
 
@@ -50,7 +58,7 @@ const Home: React.FC = () => {
             onChange={(value:any) => setPassword(value.target.value)}/>
 
           <SignButtons onClick={SingIn}>Entrar</SignButtons>
-          <SingUPButton href="/singup" >Criar nova conta</SingUPButton>
+          <SingUpButton href="/singup" >Criar nova conta</SingUpButton>
         </SignSection>
         <SessionsImage src={sessionsCover} alt='people scanning qrcode image'/>
       </SessionsInformation>

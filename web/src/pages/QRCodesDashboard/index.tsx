@@ -13,7 +13,7 @@ import UserQRCodes from '../../components/UserQRCodes'
 import { useHistory } from 'react-router-dom'
 
 
-const Dashboard = () => {
+const QRCodes = () => {
     const history = useHistory()
     const { user, token, signOut } = useAuth();
     const [dashboardPage, setDashboardPage] = useState<'home'|'my_qrcodes'>('home')
@@ -24,21 +24,19 @@ const Dashboard = () => {
     
     return (
         <Container>
-            <Sidebar
-                homePage={() => setDashboardPage('home')} 
-                qrCodesPage={() => {
-                    setDashboardPage('my_qrcodes')
-                }}
-                signOut={signOut}
-            /> 
-           {dashboardPage === 'my_qrcodes' && (
-                <UserQRCodes
-                    token={token}
-                    id={user.id}
-                />
-           )}
+          <Sidebar
+              homePage={() => setDashboardPage('home')} 
+              qrCodesPage={() => {
+                  setDashboardPage('my_qrcodes')
+              }}
+              signOut={signOut}
+          /> 
+          <UserQRCodes
+              token={token}
+              id={user.id}
+          />
         </Container>    
     );
 }
 
-export default Dashboard;
+export default QRCodes;

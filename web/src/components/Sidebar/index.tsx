@@ -7,7 +7,7 @@ import {
 import { AiFillHome } from 'react-icons/ai'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { ImQrcode } from 'react-icons/im'
-
+import { Link } from 'react-router-dom'
 
 interface SidebarData {
   homePage: () => void
@@ -20,18 +20,21 @@ const Sidebar = (props: SidebarData) => {
         <SidebarContent>
             <IconsBarWrapper>
                 <IconsBar>
-                    <AiFillHome 
-                        onClick={props.homePage}
-                        color={'#1A2B3F'}
-                        size={27.5}    
-                    />
+                    <Link to='/dashboard'>
+                        <AiFillHome 
+                            onClick={props.homePage}
+                            color={'#1A2B3F'}
+                            size={27.5}    
+                        />
+                    </Link>
                 </IconsBar>
                 <IconsBar>
-                    <ImQrcode
-                        onClick={props.qrCodesPage}
-                        color={'#1A2B3F'}
-                        size={27.5}    
-                    />
+                    <Link to='/dashboard/qr_codes'>
+                        <ImQrcode
+                            color={'#1A2B3F'}
+                            size={27.5}    
+                        />
+                    </Link>
                 </IconsBar>
             </IconsBarWrapper>    
             <IconsBar>

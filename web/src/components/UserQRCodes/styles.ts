@@ -31,3 +31,7 @@ export const HorizontalLine = styled.hr`
   margin-top: 24px;
 `
 
+export const QRCodesWrapper = styled.div`
+  display: flex;
+  margin: 20px;
+` 

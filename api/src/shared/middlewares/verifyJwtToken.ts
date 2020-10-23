@@ -9,7 +9,7 @@ interface TokenPayload {
 }
 
 export default function ensureAuthenticated(req: Request, res: Response, next: NextFunction): void {
-  const authHeader = req.headers.authorization
+  const authHeader = req.headers.authorization?.split(',')[0]
 
   if (!authHeader) {
     throw new AppError('Missing JWT Token', 401)

@@ -14,8 +14,9 @@ export default class AddQRCodeToUserService {
   public async run(qrcode_id: string, id: string): Promise<QRCode> {
     try {
       const qrcode = await this.qrCodesRepository.activate(qrcode_id, id)
-
+      
       return qrcode
+
     } catch(err) {
       throw new AppError(err.message)
     }

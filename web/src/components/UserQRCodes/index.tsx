@@ -4,42 +4,64 @@ import {
   Header,
   QRCodeContent,
   HorizontalLine,
-  HeaderText
+  HeaderText,
+  QRCodesWrapper
 } from './styles'
 import { AiFillHome } from 'react-icons/ai'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { HiQrcode } from 'react-icons/hi'
 import api from '../../services/api';
-
+import QRCode from "qrcode.react";
+import { Link } from 'react-router-dom'
 
 interface UserQRCodesData {
+  token: string;
   id: string;
 }
 
 const UserQRCodes = (props: UserQRCodesData) => {
-    const [qrcodes, setQRCodes] = useState([] as any[])
+  const { id, token } = props
+  const [qrcodes, setQRCodes] = useState([] as string[])
+  const authHeader = `Bearer ${token}`
 
-    useEffect(() => {
-        try {
-          api.get(`/qrcodes/${props.id}`).then((response: any) => {
-              console.log(response.data)
-          })
-        } catch (err) {
-            console.error(err.message)
-        }
-    }, [])
+  useEffect(() => {
+    async function loadQRCodes() {
+      try {
+        await api.get(`/qrcodes/${id}`, {
+          headers: { 
+            'Authorization': authHeader 
+        }}).then((response: any) => {
+            const qrcodeIds = response.data.map((qrcode: any) => qrcode.id)
 
-    return (
-      <Container>
-        <QRCodeContent>
-          <Header>
-            <HeaderText>My QRCodes</HeaderText>
-            <HiQrcode size={70} />
-          </Header>
-          <HorizontalLine/>
-        </QRCodeContent>
-      </Container>     
-    );
+            setQRCodes(qrcodeIds)
+        })
+      } catch (err) {
+          console.error(err.message)
+      }
+    }
+      
+    loadQRCodes()
+  }, [id, token, authHeader])
+
+  return (
+    <Container>
+      <QRCodeContent>
+        <Header>
+          <HeaderText>My QRCodes</HeaderText>
+          <HiQrcode size={70} />
+        </Header>
+        <HorizontalLine/>
+        <QRCodesWrapper>
+          {qrcodes.map(qrcode => (
+            <Link to={`/dashboard/qr_codes/${qrcode}`}>
+              <QRCode value={qrcode} style={{'margin': '16px 16px'}}/>
+            </Link>
+            )
+          )}
+        </QRCodesWrapper>
+      </QRCodeContent>
+    </Container>     
+  );
 }
 
 export default UserQRCodes;

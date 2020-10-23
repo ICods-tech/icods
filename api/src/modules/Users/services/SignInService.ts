@@ -42,13 +42,9 @@ export default class SignInService {
 
     const { id } = user
 
-    console.log(process.env.SECRET)
-
     const token = jwt.sign({ id }, process.env.SECRET as string, {
-      expiresIn: 3600
+      expiresIn: "10h"
     });
-
-
 
     return { user, token }
   }

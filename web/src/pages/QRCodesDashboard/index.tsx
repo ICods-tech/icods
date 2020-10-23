@@ -34,6 +34,7 @@ const QRCodes = () => {
           <UserQRCodes
               token={token}
               id={user.id}
+              signOut={signOut}
           />
         </Container>    
     );

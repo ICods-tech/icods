@@ -17,10 +17,11 @@ import { Link } from 'react-router-dom'
 interface UserQRCodesData {
   token: string;
   id: string;
+  signOut: () => void;
 }
 
 const UserQRCodes = (props: UserQRCodesData) => {
-  const { id, token } = props
+  const { id, token, signOut } = props
   const [qrcodes, setQRCodes] = useState([] as string[])
   const authHeader = `Bearer ${token}`
 
@@ -36,12 +37,16 @@ const UserQRCodes = (props: UserQRCodesData) => {
             setQRCodes(qrcodeIds)
         })
       } catch (err) {
-          console.error(err.message)
+        const { message } = err.response.data
+        
+        if (message === 'Invalid JWT token') {
+          signOut()
+        }
       }
     }
       
     loadQRCodes()
-  }, [id, token, authHeader])
+  }, [id, token, authHeader, signOut])
 
   return (
     <Container>

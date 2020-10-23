@@ -8,6 +8,7 @@ import { AiFillHome } from 'react-icons/ai'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { ImQrcode } from 'react-icons/im'
 import { Link } from 'react-router-dom'
+import { BsCloudUpload } from 'react-icons/bs' 
 
 interface SidebarData {
   homePage: () => void
@@ -31,6 +32,14 @@ const Sidebar = (props: SidebarData) => {
                 <IconsBar>
                     <Link to='/dashboard/qr_codes'>
                         <ImQrcode
+                            color={'#1A2B3F'}
+                            size={27.5}    
+                        />
+                    </Link>
+                </IconsBar>
+                <IconsBar>
+                    <Link to='/dashboard/new'>
+                        <BsCloudUpload
                             color={'#1A2B3F'}
                             size={27.5}    
                         />

@@ -25,7 +25,7 @@ export const IconsBar = styled.div`
   :nth-child(1) {
     margin-top: 32px;
   }
-  margin-top: 16px;
+  margin-top: 24px;
   cursor: pointer;
 `
 

@@ -5,6 +5,7 @@ import Home from '../pages/Home'
 import SingUp from '../pages/SingUp'
 import Dashboard from '../pages/Dashboard'
 import QRCodes from '../pages/QRCodesDashboard'
+import UploadContentQRCode from '../pages/UploadContentQRCode'
 
 const Routes: React.FC = () => (
   <Switch>
@@ -13,6 +14,7 @@ const Routes: React.FC = () => (
     <Route path='/dashboard' exact component={Dashboard} isPrivate/>
     <Route path='/dashboard/qr_codes' exact component={QRCodes} isPrivate/>
     <Route path='/dashboard/qr_codes/:id' exact component={QRCodes} isPrivate/>
+    <Route path='/dashboard/new' exact component={UploadContentQRCode} isPrivate/>
   </Switch>
 )
 

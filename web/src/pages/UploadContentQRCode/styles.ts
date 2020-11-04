@@ -95,3 +95,9 @@ export const CameraContainer = styled.div`
   align-items: center;
   justify-content: center;
 ` 
+
+export const WebcamWrapper = styled.div`
+  padding-bottom: 64px;
+  background: #15212F;
+  border: 8px solid #15212F;
+`

@@ -8,7 +8,7 @@ import {
     SignButtons,
     Input, SingUPButton
 } from './styles'
-import sessionsCover from '../../assets/qrcode-scan.png'
+import sessionsCover from '../../assets/qrcodescan-signup.svg'
 import logo from '../../assets/logo.svg'
 import api from '../../services/api'
 

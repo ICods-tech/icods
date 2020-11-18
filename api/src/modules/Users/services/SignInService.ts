@@ -28,7 +28,7 @@ export default class SignInService {
     if(!user) {
       throw new AppError('User with this email does not exist')
     }
-
+    console.log('xau')
     const passwordValidation  = await this.hashProvider.compareHash(password, user.password)
 
     if(!passwordValidation) {

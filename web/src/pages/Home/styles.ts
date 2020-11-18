@@ -12,6 +12,10 @@ export const SessionsImage = styled.img`
   width: 530px;
   height: 350px;
   margin-left: 256px;
+
+  @media(max-width: 1100px){
+    display: none;
+  }
 `
 
 export const SessionsInformation = styled.div`

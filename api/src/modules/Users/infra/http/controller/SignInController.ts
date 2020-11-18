@@ -9,12 +9,12 @@ export default class SignInController {
       const { email, password } = request.body
 
       const signInService = container.resolve(SignInService)
-      console.log(email, password)
+
       const { user, token } = await signInService.run(
         email,
         password
       )
-
+      console.log('oi')
       return response.json({user: classToClass(user), token, auth: true,  });
     } catch(err) {
       console.log(err.message)

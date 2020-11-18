@@ -32,7 +32,7 @@ export const IconsBarWrapper = styled.div`
   padding: 16px 0;
 `
 
-export const UploadButtons = styled.button`
+export const UploadButtons = styled.p`
   font-family: 'Rubik';
   width: 300px;
   font-weight: bolder;
@@ -96,8 +96,12 @@ export const CameraContainer = styled.div`
   justify-content: center;
 ` 
 
-export const WebcamWrapper = styled.div`
-  padding-bottom: 64px;
-  background: #15212F;
-  border: 8px solid #15212F;
+export const ImagePreview = styled.img`
+  height: 40px;
+  width: 40px;
+  margin-right: 8px;
+
+  :nth-child(0) {
+    margin-right: 0;
+  }
 `

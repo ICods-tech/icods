@@ -4,9 +4,7 @@ import SignUpController from '../controller/SignUpController'
 import SignInController from '../controller/SignInController'
 import ResetPasswordController from '../controller/ResetPasswordController'
 
-
 const sessionsRouter = Router()
-
 const signUpController = new SignUpController()
 const signInController = new SignInController()
 const resetPasswordController = new ResetPasswordController()

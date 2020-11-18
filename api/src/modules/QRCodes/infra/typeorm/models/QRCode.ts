@@ -12,6 +12,9 @@ export default class QRCode {
   @Column()
   link: string;
 
+  @Column()
+  content: string;
+
   @ManyToOne(() => User, user => user.id)
   user_id: string;
 }

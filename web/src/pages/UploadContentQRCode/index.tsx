@@ -1,17 +1,18 @@
-import React, {useState, useEffect, useCallback, useRef } from 'react';
+import React, {useState, useEffect, useCallback, useRef, ChangeEvent } from 'react';
 import { 
     Container,
     IconsBar,
     IconsBarWrapper,
-    WebcamWrapper,
     UploadButtons,
     RecordButtons,
     ButtonsContainer,
-    CameraContainer
+    CameraContainer,
+    ImagePreview
 } from './styles'
 import { AiFillHome } from 'react-icons/ai'
 import { FaSignOutAlt } from 'react-icons/fa'
 import { ImQrcode } from 'react-icons/im'
+import { FiPlus } from 'react-icons/fi'
 import { useAuth } from '../../hooks/auth'
 import Sidebar from '../../components/Sidebar'
 import UserQRCodes from '../../components/UserQRCodes'
@@ -26,6 +27,21 @@ const UploadContentQRCode = () => {
     const { user, token, signOut } = useAuth();
     const [dashboardPage, setDashboardPage] = useState<'home'|'my_qrcodes'>('home')
     const [record, setRecord] = useState(false)
+    const [images, setImages] = useState<File[]>([]);
+    const [previewImages, setPreviewImages] = useState<string[]>([])
+
+    function handleSelectImage(event: ChangeEvent<HTMLInputElement>) {
+        if (!event.target.files){
+          return;
+        }
+        
+        const selectedImages = Array.from(event.target.files) as File[]
+        setImages(selectedImages);
+        const selectedImagesPreview = selectedImages.map(image => {
+          return URL.createObjectURL(image);
+        })
+        setPreviewImages(selectedImagesPreview);
+    }
 
     // const WebcamCapture = () => {
     //     const webcamRef = React.useRef(null);
@@ -68,7 +84,33 @@ const UploadContentQRCode = () => {
             >
                 Record a message
             </RecordButtons>
-            <UploadButtons>Upload from your machine</UploadButtons>
+
+            <div>
+              <label htmlFor="images">
+              </label>
+
+              <div className="images-container">
+                <label htmlFor="image[]"  className="new-image">
+                    <UploadButtons>Upload from your machine</UploadButtons>
+                </label>
+                
+                {previewImages.map(image => {
+                  return (
+                    <ImagePreview
+                        key={image} 
+                        src={image} 
+                        alt={image}
+                    />
+                  )
+                })}
+              </div>
+
+              <input multiple onChange={handleSelectImage} type="file" id="image[]" style={{
+                  display: 'none'
+              }}>
+              </input>
+        </div>
+
         </ButtonsContainer>
         <CameraContainer>
             {record 

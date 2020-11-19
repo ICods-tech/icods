@@ -32,11 +32,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@ICods:token');
     const user = localStorage.getItem('@ICods:user');
-    console.log('AUTH CONTEXT')
-    console.log({
-      user,
-      token
-    })
+  
     if (user && token) {
       api.defaults.headers.authorization = `Bearer ${token}`
 

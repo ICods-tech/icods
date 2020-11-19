@@ -22,7 +22,6 @@ import WebcamCapture from '../../components/WebcamCapture'
 
 
 const UploadContentQRCode = () => {
-    // const WebcamComponent = () => <Webcam />;
     const history = useHistory()
     const { user, token, signOut } = useAuth();
     const [dashboardPage, setDashboardPage] = useState<'home'|'my_qrcodes'>('home')
@@ -42,28 +41,6 @@ const UploadContentQRCode = () => {
         })
         setPreviewImages(selectedImagesPreview);
     }
-
-    // const WebcamCapture = () => {
-    //     const webcamRef = React.useRef(null);
-      
-    //     const capture = React.useCallback(
-    //       () => {
-    //         const imageSrc = webcamRef.current.getScreenshot();
-    //       },
-    //       [webcamRef]
-    // );
-    
-    // const WebcamCapture = () => {
-    //     let webcamRef = useRef<WebcamProps>(null);
-    //     console.log(webcamRef)
-
-        // const capture = useCallback(
-        //     () => {
-        //         webcamRef = webcamRef as any
-        //         const imageSrc = webcamRef.current.getScreenshot();
-        //     },
-        //     [webcamRef]
-        // );
 
     useEffect(() => {
         console.log(dashboardPage)

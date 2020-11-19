@@ -13,7 +13,6 @@ export default class GetUserQRCodeService {
   public async run(qrcode_id: string): Promise<QRCode> {
     try {
       const qrcode = await this.qrCodesRepository.get(qrcode_id) as QRCode
-      console.log(qrcode)
       return qrcode
     } catch(err) {
       throw new AppError(err.message)

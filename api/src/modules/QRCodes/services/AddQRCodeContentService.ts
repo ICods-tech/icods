@@ -16,6 +16,7 @@ export default class AddQRCodeToUserService {
 
   public async run(qrcode_id: string, contentFilename: string): Promise<QRCode> {
     try {
+      console.log(contentFilename)
       const qrcode = await this.qrCodesRepository.get(qrcode_id) as QRCode
 
       if (qrcode.content) {
@@ -33,6 +34,7 @@ export default class AddQRCodeToUserService {
 
       return qrcode
     } catch(err) {
+      console.log(err.message)
       throw new AppError(err.message)
     }
   }

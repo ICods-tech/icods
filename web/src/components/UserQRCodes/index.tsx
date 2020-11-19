@@ -28,7 +28,7 @@ const UserQRCodes = (props: UserQRCodesData) => {
   useEffect(() => {
     async function loadQRCodes() {
       try {
-        await api.get(`/qrcodes/${id}`, {
+        await api.get(`/qrcodes`, {
           headers: { 
             'Authorization': authHeader 
         }}).then((response: any) => {

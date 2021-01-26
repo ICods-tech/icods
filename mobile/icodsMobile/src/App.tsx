@@ -1,8 +1,10 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const App: React.FC = () => {
+const App = () => {
   <View>
     <Text>ICods 🦾</Text>
   </View>
 }
+
+export default App

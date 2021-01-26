@@ -75,11 +75,10 @@ const WebcamCapture = () => {
     async function uploadContentToQRCode() {
       try {
         let base64Data = imageSrc[0].replace('data:image/jpeg;base64,', '')
-        console.log(`oi ${base64Data}`)
         let b64File = b64toFile(base64Data, '1.jpeg', 'image/jpeg')
         const data = new FormData()
         data.append('content', b64File)
-        
+
         await api.post(`/qrcodes/${qrcode}`, data,
           { headers: { 
               'Content-Type': 'multipart/form-data',

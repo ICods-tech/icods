@@ -10,6 +10,7 @@ import { ImQrcode } from 'react-icons/im'
 import { useAuth } from '../../hooks/auth'
 import Sidebar from '../../components/Sidebar'
 import UserQRCodes from '../../components/UserQRCodes'
+import QRCodeDetails from '../../components/QRCodeDetails'
 import { useHistory } from 'react-router-dom'
 
 

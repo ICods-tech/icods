@@ -1,10 +1,15 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
+import Login from './pages/login';
+import Register from './pages/register';
+
 const App = () => {
-  <View>
-    <Text>ICods 🦾</Text>
-  </View>
+  return (
+    <View>
+      <Register/>
+    </View>
+  )
 }
 
-export default App
+export default App;

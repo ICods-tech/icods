@@ -1,14 +1,20 @@
+import 'react-native-gesture-handler';
 import React from 'react'
-import { View, Text } from 'react-native'
-
-import Login from './pages/login';
+import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native'
+import Routes from './routes'
+import { View, Text, StatusBar } from 'react-native'
 import Register from './pages/register';
+
 
 const App = () => {
   return (
-    <View>
-      <Register/>
-    </View>
+    <NavigationContainer>
+      <StatusBar barStyle='dark-content' backgroundColor='#312e38'/>
+      <View style={{ flex: 1, backgroundColor: '#312e38'}}>
+        <Routes/>
+      </View>
+    </NavigationContainer>
   )
 }
 

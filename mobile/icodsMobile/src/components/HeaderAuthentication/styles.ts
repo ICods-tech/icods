@@ -5,14 +5,12 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     display: 'flex',
-    backgroundColor: '#E5E5E5',
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
+    backgroundColor: '#FFF',
   },
 
   iconPanel: {
     position: 'relative',
-    left: 15,
+    left: 25,
     top: -20,
     display: 'flex',
     alignItems: 'center',
@@ -22,22 +20,16 @@ const styles = StyleSheet.create({
   icodsIcon: {
     position: 'absolute',
     top: 77,
-    left: 126,
-    width: 128,
-    height: 96
+    left: 132,
+    width: 132,
+    height: 104
   },
 
-  fundoInferior: {
+  bottomBackground: {
     position: 'absolute',
     top: 570,
     left: 20,
-  },
-
-  backMenu: {
-    position: 'absolute',
-    left: -20,
-    top: 28,
-  },
+  }
 })
 
 export default styles;

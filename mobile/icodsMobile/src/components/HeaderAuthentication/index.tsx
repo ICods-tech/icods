@@ -10,7 +10,6 @@ const HeaderAuthentication = () => {
     <View style={styles.container}>
       <View style={styles.iconPanel}>
         <Asteroid/>
-        <Text>TENDI</Text>
         <IcodsIcon style={styles.icodsIcon} />
       </View>
     </View>

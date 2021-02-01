@@ -11,6 +11,11 @@ const styles = StyleSheet.create({
     flex: 1,
     height: Dimensions.get('window').height,
     backgroundColor: '#fff'
+  },
+  inputContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
   }
 })
 

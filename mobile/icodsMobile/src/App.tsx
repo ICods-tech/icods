@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import Routes from './routes'
 import { View, Text, StatusBar } from 'react-native'
-import Register from './pages/register';
+import Register from './pages/Register';
 
 
 const App = () => {

@@ -14,7 +14,15 @@ const Register = () => {
     <View style={styles.background}>
       <HeaderAuthentication />
       <Back style={styles.backMenu} onPress={() => { navigation.navigate('SignIn') }} />
-      <Input></Input>
+      <Text>Fazer uma conta no iCODS é simples e 
+            rápido, basta preencher os campos!
+      </Text>
+      <View style={styles.inputContainer}>
+        <Input placeholder={'Digite um username'} radius={'top'}></Input>
+        <Input placeholder={'Digite seu email principal'}></Input>
+        <Input placeholder={'Digite sua senha'} isPassword={true}></Input>
+        <Input placeholder={'Digite novamente sua senha'} radius={'bottom'} isPassword={true}></Input>
+      </View>
     </View>
   )
 }

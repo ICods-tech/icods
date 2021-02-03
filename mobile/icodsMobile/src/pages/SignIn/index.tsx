@@ -1,17 +1,36 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react';
-import {View, Text, Image, StatusBar, Button} from 'react-native';
+import {View, Text, Image, StatusBar, Button, SafeAreaView, TouchableWithoutFeedback} from 'react-native';
 import styles from './styles';
 import Asteroid from '../../assets/images/asteroid_image.svg';
 import IcodsIcon from '../../assets/images/icods_icon.svg';
 import Back from '../../assets/images/back.svg';
+import Input from '../../components/Input'
 import HeaderAuthentication from '../../components/HeaderAuthentication'
+import ButtonAuthentication from '../../components/ButtonAuthentication'
 
 const SignIn = () => {
+  const navigation = useNavigation()
   return (
-    <View>
+    <View style={styles.background}>
       <HeaderAuthentication />
-      <Text>FAAAALAAAA</Text>
+      <View style={styles.inputContainer}>
+        <Input placeholder={'Email/Username'} radius={'top'}></Input>
+        <Input placeholder={'Senha'} radius={'bottom'}></Input>
+      </View>
+      <View style={styles.textUnderneathInputsContainer}>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('Register') }} >
+          <View style={styles.underlineText}>
+            <Text style={styles.textUnderneathInputs}>Cadastre-se</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <View style={styles.underlineSecondText}>
+          <Text style={styles.textUnderneathInputs}>Esqueceu a senha?</Text>
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        <ButtonAuthentication />
+      </View>
     </View>
   )
 }

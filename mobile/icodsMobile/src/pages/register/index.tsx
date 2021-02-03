@@ -14,7 +14,7 @@ const Register = () => {
     <View style={styles.background}>
       <HeaderAuthentication />
       <Back style={styles.backMenu} onPress={() => { navigation.navigate('SignIn') }} />
-      <Text>Fazer uma conta no iCODS é simples e 
+      <Text style={styles.midText}>Fazer uma conta no iCODS é simples e 
             rápido, basta preencher os campos!
       </Text>
       <View style={styles.inputContainer}>

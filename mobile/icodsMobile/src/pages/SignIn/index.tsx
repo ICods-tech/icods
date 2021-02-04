@@ -7,7 +7,9 @@ import IcodsIcon from '../../assets/images/icods_icon.svg';
 import Back from '../../assets/images/back.svg';
 import Input from '../../components/Input'
 import HeaderAuthentication from '../../components/HeaderAuthentication'
+import BottomAuthentication from '../../components/BottomAuthentication'
 import ButtonAuthentication from '../../components/ButtonAuthentication'
+import api from '../../services/api'
 
 const SignIn = () => {
   const navigation = useNavigation()
@@ -29,8 +31,9 @@ const SignIn = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonAuthentication />
+        <ButtonAuthentication text={'Login'} />
       </View>
+      <BottomAuthentication/>
     </View>
   )
 }

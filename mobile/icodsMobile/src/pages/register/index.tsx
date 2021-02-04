@@ -7,6 +7,8 @@ import IcodsIcon from '../../assets/images/icods_icon.svg';
 import Back from '../../assets/images/back.svg';
 import Input from '../../components/Input'
 import HeaderAuthentication from '../../components/HeaderAuthentication'
+import BottomAuthentication from '../../components/BottomAuthentication'
+import ButtonAuthentication from '../../components/ButtonAuthentication'
 
 const Register = () => {
   const navigation = useNavigation()
@@ -23,6 +25,10 @@ const Register = () => {
         <Input placeholder={'Digite sua senha'} isPassword={true}></Input>
         <Input placeholder={'Digite novamente sua senha'} radius={'bottom'} isPassword={true}></Input>
       </View>
+      <View style={styles.buttonContainer}>
+        <ButtonAuthentication text={'Cadastrar'} />
+      </View>
+      <BottomAuthentication/>
     </View>
   )
 }

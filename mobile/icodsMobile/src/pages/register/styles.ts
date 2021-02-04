@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  buttonContainer: {
+    marginTop: 24,
+    alignItems: 'center'
   }
 })
 

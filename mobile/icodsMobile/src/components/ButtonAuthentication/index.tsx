@@ -4,9 +4,14 @@ import { View, Text, Image, StatusBar, Button } from 'react-native';
 import {RectButton} from 'react-native-gesture-handler'
 import styles from './styles';
 
-const ButtonAuthentication = (props) => {
+interface ButtonProps {
+  pressed: () => void,
+  text: string
+}
+
+const ButtonAuthentication = (props: ButtonProps) => {
   return (
-    <RectButton style={styles.buttonStyling}>
+    <RectButton style={styles.buttonStyling} onPress={props.pressed}>
       <Text style={styles.textStyling}>{props.text}</Text>
     </RectButton>
   )

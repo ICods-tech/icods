@@ -26,7 +26,7 @@ const Register = () => {
         <Input placeholder={'Digite novamente sua senha'} radius={'bottom'} isPassword={true}></Input>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonAuthentication text={'Cadastrar'} />
+        <ButtonAuthentication text={'Cadastrar'} pressed={() => {}}/>
       </View>
       <BottomAuthentication/>
     </View>

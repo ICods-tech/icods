@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {View, Text, Image, StatusBar, Button, SafeAreaView, TouchableWithoutFeedback} from 'react-native';
 import styles from './styles';
 import Asteroid from '../../assets/images/asteroid_image.svg';
@@ -13,12 +13,32 @@ import api from '../../services/api'
 
 const SignIn = () => {
   const navigation = useNavigation()
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+
+  const handleLogin = () => {
+    console.log('dsaodasiodsaiodsa')
+    console.log({email, password})
+  }
+
   return (
     <View style={styles.background}>
       <HeaderAuthentication />
       <View style={styles.inputContainer}>
-        <Input placeholder={'Email/Username'} radius={'top'}></Input>
-        <Input placeholder={'Senha'} radius={'bottom'}></Input>
+        <Input 
+          placeholder={'Email/Username'}
+          radius={'top'}
+          change={(email: string) => setEmail(email)}
+          value={email}
+        >  
+        </Input>
+        <Input 
+          placeholder={'Senha'} 
+          radius={'bottom'}
+          change={(password: string) => setPassword(password)}
+          value={password}
+        >
+        </Input>
       </View>
       <View style={styles.textUnderneathInputsContainer}>
         <TouchableWithoutFeedback onPress={() => { navigation.navigate('Register') }} >
@@ -31,7 +51,7 @@ const SignIn = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonAuthentication text={'Login'} />
+        <ButtonAuthentication text={'Login'} pressed={() => { handleLogin() }}/>
       </View>
       <BottomAuthentication/>
     </View>

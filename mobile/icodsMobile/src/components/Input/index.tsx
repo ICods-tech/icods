@@ -1,34 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { TextInput, View } from 'react-native'
-import { useField } from '@unform/core';
+import { TextInput, View, TextInputProps } from 'react-native'
 import styles from './styles'
 
-const Input = ({name: any, ...rest}, props) => {
-  const inputRef = useRef(null) as any
-  const { fieldName, registerField, defaultValue, error } = useField(name);
+interface Props {
+  radius: 'top'|'bottom';
+  placeholder: string;
+  change: (event: string) => void,
+  value: string;
+};
 
-  useEffect(() => {
-    inputRef.current.value = defaultValue;
-  }, [defaultValue]);
-
-  useEffect(() => {
-    registerField({
-      name: fieldName,
-      ref: inputRef.current,
-      path: 'value',
-      clearValue(ref: any) {
-        ref.value = '';
-        ref.clear();
-      },
-      setValue(ref: any, value: any) {
-        ref.setNativeProps({ text: value });
-        inputRef.current.value = value;
-      },
-      getValue(ref: any) {
-        return ref.value;
-      },
-    });
-  }, [fieldName, registerField]);
+const Input = (props: Props) => {;
 
   let divStyle = styles.divStylePlain
 
@@ -41,18 +22,10 @@ const Input = ({name: any, ...rest}, props) => {
   return (
     <View style={divStyle} >
       <TextInput 
-        ref={inputRef}
         style={styles.inputStyle} 
         placeholder={props.placeholder}
-        keyboardAppearance="dark"
-        defaultValue={defaultValue}
-        placeholderTextColor="#666360"
-        onChangeText={value => {
-          if (inputRef.current) {
-            inputRef.current.value = value;
-          }
-        }}
-        {...rest}
+        onChangeText={props.change}
+        defaultValue={props.value}
       />
     </View>)
 }

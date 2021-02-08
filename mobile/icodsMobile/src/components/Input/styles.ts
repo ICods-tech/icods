@@ -33,7 +33,18 @@ const styles = StyleSheet.create({
     padding: '0 40%',
   },
   inputStyle: {
-    margin: 10
+    margin: 10,
+    display: 'flex',
+  },
+  inputStylePassword: {
+    margin: 10,
+    display: 'flex',
+    width: '79%'
+  },
+  eyes: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

@@ -22,7 +22,7 @@ const Register = () => {
       <View style={styles.inputContainer}>
         <Input placeholder={'Digite um username'} radius={'top'}></Input>
         <Input placeholder={'Digite seu email principal'}></Input>
-        <Input placeholder={'Digite sua senha'} isPassword={true}></Input>
+        <Input placeholder={'Digite sua senha'} isPassword></Input>
         <Input placeholder={'Digite novamente sua senha'} radius={'bottom'} isPassword={true}></Input>
       </View>
       <View style={styles.buttonContainer}>

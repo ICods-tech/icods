@@ -35,11 +35,12 @@ const SignIn = () => {
         <Input 
           placeholder={'Senha'} 
           radius={'bottom'}
+          isPassword
           change={(password: string) => setPassword(password)}
           value={password}
         >
         </Input>
-      </View>
+      </View> 
       <View style={styles.textUnderneathInputsContainer}>
         <TouchableWithoutFeedback onPress={() => { navigation.navigate('Register') }} >
           <View style={styles.underlineText}>

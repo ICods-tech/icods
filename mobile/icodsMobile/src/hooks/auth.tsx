@@ -1,5 +1,6 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
+import React, { createContext, useCallback, useState, useContext, useEffect } from 'react';
 import api from '../services/api'
+import AsyncStorage from '@react-native-community/async-storage'
 
 interface User {
   name: string;
@@ -8,8 +9,8 @@ interface User {
 }
 
 interface AuthState {
+  user: object;
   token: string;
-  user: User;
 }
 
 interface SignInCredentials {
@@ -29,18 +30,19 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
 
-  const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@ICods:token');
-    const user = localStorage.getItem('@ICods:user');
-  
-    if (user && token) {
-      api.defaults.headers.authorization = `Bearer ${token}`
+  const [data, setData] = useState<AuthState>({} as AuthState)
 
-      return { token, user: JSON.parse(user)}
+  useEffect(() => {
+    async function loadStoredData(): Promise<void> {
+      const [token, user] = await AsyncStorage.multiGet(['@ICods:token', '@ICods:user'])
+
+      if (token[1] && user[1]) {
+        setData({ token: token[1], user: JSON.parse(user[1])})
+      }
     }
-
-    return {} as AuthState
-  })
+    
+    loadStoredData()
+  }, [])
 
   const signIn = useCallback(async ({ email, password }) => {
     try {
@@ -48,11 +50,12 @@ const AuthProvider: React.FC = ({ children }) => {
           email,
           password
       })
-
       const { token, user } = res.data
       
-      localStorage.setItem('@ICods:token', token);
-      localStorage.setItem('@ICods:user', JSON.stringify(user));
+      await AsyncStorage.multiSet([
+        ['@ICods:token', token],
+        ['@ICods:user', JSON.stringify(user)]
+      ])
 
       api.defaults.headers.authorization = `Bearer ${token}`
 
@@ -62,16 +65,15 @@ const AuthProvider: React.FC = ({ children }) => {
     }
   }, [])
 
-  const signOut = useCallback(() => {
-    localStorage.removeItem('@ICods:token')  
-    localStorage.removeItem('@ICods:user')
+  const signOut = useCallback(async () => {
+    await AsyncStorage.multiRemove(['@ICods:token', '@ICods:user'])  
 
     setData({} as AuthState)
   }, [])
 
   const updateUser = useCallback((updatedUser: User) => {
 
-    localStorage.setItem('@ICods:user', JSON.stringify(updatedUser));
+    AsyncStorage.setItem('@ICods:user', JSON.stringify(updatedUser));
 
     setData({
       token: data.token,
@@ -91,7 +93,12 @@ const AuthProvider: React.FC = ({ children }) => {
 const useAuth = () => {
   const context = useContext(AuthContext)
 
+  if (!context) {
+    throw new Error('useAuth must be wrapped inside an AuthProvider')
+  }
+
   return context;
 }
+ 
 
 export { AuthContext, AuthProvider, useAuth }

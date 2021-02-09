@@ -25,7 +25,8 @@ const Input = (props: Props) => {;
 
   return (
     <View style={divStyle} >
-        <TextInput
+      <TextInput
+          autoCapitalize='none'
           secureTextEntry={props.isPassword && eyeState}
           style={props.isPassword ? styles.inputStylePassword : styles.inputStyle}
           placeholder={props.placeholder}

@@ -9,7 +9,7 @@ interface User {
 }
 
 interface AuthState {
-  user: object;
+  user: User;
   token: string;
 }
 
@@ -46,12 +46,14 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signIn = useCallback(async ({ email, password }) => {
     try {
+      console.log(email, password)
       const res = await api.post('signin', {
           email,
           password
-      })
-      const { token, user } = res.data
+        })
       
+      const { token, user } = res.data
+        
       await AsyncStorage.multiSet([
         ['@ICods:token', token],
         ['@ICods:user', JSON.stringify(user)]
@@ -63,7 +65,7 @@ const AuthProvider: React.FC = ({ children }) => {
     } catch (err) {
       throw new Error('User is not Authenticated')
     }
-  }, [])
+  }, [data, setData])
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@ICods:token', '@ICods:user'])  
@@ -84,7 +86,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [data])
 
   return (  
-    <AuthContext.Provider value={{ user: data.user, signIn, token: data.token, signOut, updateUser }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, token: data.token, signOut, updateUser } as AuthContextData}>
       { children } 
     </AuthContext.Provider>
   );

@@ -27,45 +27,13 @@ const SignIn = () => {
 
       console.log(user)
     } catch (err) {
-      console.log('Error catched! 🧤')
       console.error(err.message)
     }
   }, [email, password, signIn, user])
 
   return (
     <View style={styles.background}>
-      <HeaderAuthentication />
-      <View style={styles.inputContainer}>
-        <Input
-          placeholder={'Email/Username'}
-          radius={'top'}
-          change={(email: string) => setEmail(email)}
-          value={email}
-        >  
-        </Input>
-        <Input 
-          placeholder={'Senha'} 
-          radius={'bottom'}
-          isPassword
-          change={(password: string) => setPassword(password)}
-          value={password}
-        >
-        </Input>
-      </View> 
-      <View style={styles.textUnderneathInputsContainer}>
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate('Register') }} >
-          <View style={styles.underlineText}>
-            <Text style={styles.textUnderneathInputs}>Cadastre-se</Text>
-          </View>
-        </TouchableWithoutFeedback>
-        <View style={styles.underlineSecondText}>
-          <Text style={styles.textUnderneathInputs}>Esqueceu a senha?</Text>
-        </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <ButtonAuthentication text={'Login'} pressed={() => { handleLogin() }}/>
-      </View>
-      <BottomAuthentication/>
+      <Text>🎸🦾</Text>
     </View>
   )
 }

@@ -13,18 +13,16 @@ import { useAuth } from '../../hooks/auth'
 import api from '../../services/api'
 
 const SignIn = () => {
-  const { signIn, user } = useAuth()
+  const { signIn, user, signOut } = useAuth()
   const navigation = useNavigation()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  console.log(user)
 
   const handleLogin = useCallback(async () => {
     try {
-      await signIn({
-        email,
-        password
-      })
-
+      console.log("Estou aqui")
+      await signIn({email, password})
       console.log(user)
     } catch (err) {
       console.log('Error catched! 🧤')

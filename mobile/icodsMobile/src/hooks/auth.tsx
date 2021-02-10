@@ -21,16 +21,17 @@ interface SignInCredentials {
 interface AuthContextData {
   user: User;
   token: string;
-  signIn(Credentials: SignInCredentials): Promise<void>;
-  signOut(): void;
+  isLoading: boolean;
+  signIn: (credentials : SignInCredentials) => Promise<void>;
+  signOut: () => Promise<void>;
   updateUser(user: User): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-
   const [data, setData] = useState<AuthState>({} as AuthState)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     async function loadStoredData(): Promise<void> {
@@ -41,16 +42,18 @@ const AuthProvider: React.FC = ({ children }) => {
       }
     }
     
+    setIsLoading(false)
     loadStoredData()
   }, [])
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async (credentials: SignInCredentials ) => {
     try {
+      const { email, password } = credentials;
       console.log(email, password)
       const res = await api.post('signin', {
-          email,
-          password
-        })
+        email,
+        password
+      })
       
       const { token, user } = res.data
         
@@ -63,9 +66,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
       setData({token, user})
     } catch (err) {
+      console.log("err.message")
       throw new Error('User is not Authenticated')
     }
-  }, [data, setData])
+  }, [])
 
   const signOut = useCallback(async () => {
     await AsyncStorage.multiRemove(['@ICods:token', '@ICods:user'])  
@@ -86,7 +90,14 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [data])
 
   return (  
-    <AuthContext.Provider value={{ user: data.user, signIn, token: data.token, signOut, updateUser } as AuthContextData}>
+    <AuthContext.Provider value={{ 
+      user: data.user, 
+      signIn, 
+      token: data.token, 
+      signOut,
+      isLoading,
+      updateUser
+    }}>
       { children } 
     </AuthContext.Provider>
   );

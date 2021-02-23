@@ -10,10 +10,11 @@ import styles from './styles';
 
 interface HeaderProps {
   avatar?: string;
-  id?: string;
+  name?: string;
+  surname?: string;
 }
 
-const HeaderDashboard = (props: HeaderProps) => {
+const HeaderDashboard = ({ name, surname, avatar }: HeaderProps) => {
   return (
     <>
     <SafeAreaView style={{backgroundColor: '#2b90d9' }} />
@@ -21,10 +22,13 @@ const HeaderDashboard = (props: HeaderProps) => {
         <Header style={styles.headerColor} />
         <View style={styles.headerInformation}>
           <View style={styles.profileInfo}>
-            <ProfilePictureDashboard style={styles.profilePicture} />
+            {avatar
+              ? <></>
+              : <ProfilePictureDashboard style={styles.profilePicture} />
+            }
             <View style={styles.nameAndSurname}>
-              <Text style={styles.profileName}>Marcelo</Text>
-              <Text style={styles.profileName}>Alves</Text>
+              <Text style={styles.profileName}>{ name ? name : 'Unknown'}</Text>
+              <Text style={styles.profileName}>{ surname ? surname : 'Surname'}</Text>
             </View>
           </View>
           <View style={styles.infoAndEllipsis}>

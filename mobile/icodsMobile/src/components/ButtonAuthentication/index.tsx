@@ -9,10 +9,10 @@ interface ButtonProps {
   text: string
 }
 
-const ButtonAuthentication = (props: ButtonProps) => {
+const ButtonAuthentication = ({pressed, text}: ButtonProps) => {
   return (
-    <RectButton style={styles.buttonStyling} onPress={props.pressed}>
-      <Text style={styles.textStyling}>{props.text}</Text>
+    <RectButton style={styles.buttonStyling} onPress={pressed}>
+      <Text style={styles.textStyling}>{text}</Text>
     </RectButton>
   )
 }

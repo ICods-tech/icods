@@ -8,11 +8,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   dashboardContainer: {
-
+    marginLeft: 24
   },
   welcomeContainer: {
     marginTop: 12,
-    marginLeft: 24
   },
   welcomeText: {
     // fontFamily: 'Manrope',
@@ -40,6 +39,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  selectOneOptionText: {
+    // fontfamily: Manrope;
+    color: 'rgba(40, 44, 55, 0.4)',
+    letterSpacing: 1,
+    marginTop: 12,
+    fontSize: 14
   }
 })
 

@@ -8,6 +8,7 @@ import { useAuth } from '../../hooks/auth'
 import extracNameAndSurname from '../../utils/extractNameAndSurname'
 import CloudRightSmall from '../../assets/images/cloud-right-stripe-sm.svg'
 import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg'
+import DashboardBlock from '../../components/DashboardBlock'
 
 const Dashboard = () => {
   const { user } = useAuth()
@@ -31,13 +32,14 @@ const Dashboard = () => {
               <Text style={styles.welcomeText}>Bem-Vindo</Text>
               <CloudLeftLarge style={styles.cloudLeftLargeWelcome} />
             </View>
-
             <View style={styles.toICodsTextContainer}>
               <Text style={styles.welcomeText}>ao iCODS!</Text>
               <CloudRightSmall style={styles.cloudRightSmallWelcomeText}/>
             </View>
           </View>
         </View>
+        <Text style={styles.selectOneOptionText}>Selecione uma das opções abaixo</Text>
+        <DashboardBlock text={'Escanear'}/>
       </View>
     </View>
   )

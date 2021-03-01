@@ -51,6 +51,46 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: 10,
     marginLeft: 48,
+    width: 36,
+    height: 36
+  },
+  ellipsisContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 24,
+    height: 25,
+    marginLeft: 42
+  },
+  dropdownStyle: {
+    position: 'absolute',
+    backgroundColor: '#282c37',
+    right: 12,
+    top: 44,
+    paddingLeft: 14,
+    paddingRight: 14,
+    paddingTop: 8,
+    paddingBottom: 6,
+    borderRadius: 16
+  },
+  dropdownOptions: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 12,
+    marginBottom: 16
+  },
+  dropdownOptionsText: {
+    fontSize: 12,
+    color: '#fff',
+    marginLeft: 8
+  },
+  signOutContainer: {
+    position: 'absolute',
+    bottom: 4,
+    width: 156,
+    height: 36,
+    backgroundColor: '#292',
   }
 })
 

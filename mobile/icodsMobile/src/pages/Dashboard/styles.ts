@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     marginLeft: 8
   },
   cloudRightSmallWelcomeText: {
-    marginRight: 36
+    marginRight: 36,
   },
   cloudLeftLargeWelcome: {
-    marginLeft: 64
+    marginLeft: 64,
   },
   welcomeTextContainer: {
     display: 'flex',
@@ -129,6 +129,18 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     paddingBottom: 8,
     color: '#2B90D9'
+  },
+  belowActivitiesTextContainer: {
+    marginTop: 16
+  }, 
+  belowActivitiesText: {
+    // fontFamily: Manrope,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontSize: 14,
+    lineHeight: 19,
+    letterSpacing: 0.2,
+    color: 'rgba(40, 44, 55, 0.4)',
   }
 })
 

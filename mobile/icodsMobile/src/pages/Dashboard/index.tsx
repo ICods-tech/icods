@@ -11,8 +11,8 @@ import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg'
 import DashboardBlock from '../../components/DashboardBlock'
 
 const Dashboard = () => {
-  const [choosenActivityScope, setChoosenActivityScope] = useState<'all'|'mine'>('all')
-  const { user } = useAuth()
+  const [choosenActivityScope, setChoosenActivityScope] = useState<'all' | 'mine'>('all')
+  const { user, signOut} = useAuth()
   const { name, surname } = extracNameAndSurname(user.name)
 
   return (
@@ -24,6 +24,7 @@ const Dashboard = () => {
       <HeaderDashboard
         name={name}
         surname={surname}
+        signOut={() => signOut()}
       />
       <View style={styles.dashboardContainer}>
         <View style={styles.welcomeContainer}>
@@ -68,6 +69,9 @@ const Dashboard = () => {
                 </View>
               </TouchableWithoutFeedback>
             </View>
+          </View>
+          <View style={styles.belowActivitiesTextContainer}>
+            <Text style={styles.belowActivitiesText}>Fique por dentro de tudo que aconteceu</Text>
           </View>
         </View>
       </View>

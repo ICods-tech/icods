@@ -61,13 +61,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 24,
     height: 25,
+    backgroundColor: '#923',
     marginLeft: 42
   },
   dropdownStyle: {
     position: 'absolute',
+    zIndex: 2,
     backgroundColor: '#282c37',
     right: 12,
-    top: 44,
+    top: 92,
     paddingLeft: 14,
     paddingRight: 14,
     paddingTop: 8,
@@ -75,10 +77,12 @@ const styles = StyleSheet.create({
     borderRadius: 16
   },
   dropdownOptions: {
+    position: 'relative',
+    zIndex: 1,
     display: 'flex',
     flexDirection: 'row',
     marginTop: 12,
-    marginBottom: 16
+    marginBottom: 16,
   },
   dropdownOptionsText: {
     fontSize: 12,
@@ -86,8 +90,8 @@ const styles = StyleSheet.create({
     marginLeft: 8
   },
   signOutContainer: {
-    position: 'absolute',
-    bottom: 4,
+    position: 'relative',
+    zIndex: 999,
     width: 156,
     height: 36,
     backgroundColor: '#292',

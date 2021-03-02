@@ -72,6 +72,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const signOut = useCallback(async () => {
+    console.log('oi')
     await AsyncStorage.multiRemove(['@ICods:token', '@ICods:user'])  
 
     setData({} as AuthState)

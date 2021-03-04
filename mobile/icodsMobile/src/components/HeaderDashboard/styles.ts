@@ -95,6 +95,10 @@ const styles = StyleSheet.create({
     width: 156,
     height: 36,
     backgroundColor: '#292',
+  },
+  moreStyle: {
+    marginRight: 24,
+    marginTop: 12
   }
 })
 

@@ -9,23 +9,35 @@ import extracNameAndSurname from '../../utils/extractNameAndSurname'
 import CloudRightSmall from '../../assets/images/cloud-right-stripe-sm.svg'
 import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg'
 import DashboardBlock from '../../components/DashboardBlock'
+import ModalMoreDashboard from '../../components/ModalMoreDashboard'
 
 const Dashboard = () => {
   const [choosenActivityScope, setChoosenActivityScope] = useState<'all' | 'mine'>('all')
-  const { user, signOut} = useAuth()
-  const { name, surname } = extracNameAndSurname(user.name)
+  const [modalVisible, setModalVisible] = useState(false)
+  const { user, signOut } = useAuth()
+  const { name, surname } = user ? extracNameAndSurname(user.name) : { name: '', surname: '' }
 
   return (
     <View style={styles.background}>
       <StatusBar
         backgroundColor="#2b90d9"
         barStyle="light-content"
-      />
-      <HeaderDashboard
-        name={name}
-        surname={surname}
-        signOut={() => signOut()}
-      />
+      /> 
+      <View>
+        <HeaderDashboard
+          name={name}
+          surname={surname}
+          ellipsisPressed={() => setModalVisible(!modalVisible)}
+        />
+        <ModalMoreDashboard 
+          visible={modalVisible} 
+          pressedOut={() => setModalVisible(!modalVisible)}
+          signOut={async () => {
+            setModalVisible(false)
+            await signOut()
+          }}
+        />
+      </View>
       <View style={styles.dashboardContainer}>
         <View style={styles.welcomeContainer}>
           <CloudRightSmall style={styles.cloudRightSmallWelcome}/>

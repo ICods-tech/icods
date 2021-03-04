@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
   midText: {
     justifyContent: 'center',
     alignItems: 'center',
-    textAlign: 'left',
+    textAlign: 'center',
     width: 260,
-    marginTop: 18,
+    marginTop: 12,
     marginBottom: 20,
     marginLeft: 'auto',
     marginRight: 'auto',

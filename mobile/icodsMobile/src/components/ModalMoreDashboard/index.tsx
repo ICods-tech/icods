@@ -14,40 +14,40 @@ interface ModalInterface {
 }
 
 const ModalMoreDashboard = ({ visible, pressedOut, signOut }: ModalInterface) => {
-  return(
+  return (
     <Modal
       style={visible ? styles.dropdownStyle : { display: 'none' }}
       animationIn={"fadeIn"}
       animationOut={"fadeOut"}
       isVisible={visible}
       onBackdropPress={pressedOut}
-      >
+    >
       <TouchableOpacity
-          activeOpacity={1} 
-          onPressOut={() => {console.log('oe')}}
+        activeOpacity={1}
+        onPressOut={() => { console.log('oe') }}
       >
         <TouchableWithoutFeedback>
-            <View >
-              <View style={styles.dropdownOptions}>
-                <NotificationsIcon/>
-                <Text style={styles.dropdownOptionsText}>Notificações</Text>
-              </View>
-              <View style={styles.dropdownOptions}>
-                <UserIcon />
-                <Text style={styles.dropdownOptionsText}>Conta</Text>
-              </View>
-              <View style={styles.dropdownOptions}>
-                <ReportProblemIcon />
-                <Text style={styles.dropdownOptionsText}>Reportar problema</Text>
-              </View>
-                <TouchableOpacity style={styles.dropdownOptions} onPress={signOut}>
-                  <SignOutIcon />
-                  <Text style={styles.dropdownOptionsText}>Sair</Text>
-                </TouchableOpacity>
+          <View >
+            <View style={styles.dropdownOptions}>
+              <NotificationsIcon />
+              <Text style={styles.dropdownOptionsText}>Notificações</Text>
             </View>
-          </TouchableWithoutFeedback>
-        </TouchableOpacity>
-    </Modal> 
+            <View style={styles.dropdownOptions}>
+              <UserIcon />
+              <Text style={styles.dropdownOptionsText}>Conta</Text>
+            </View>
+            <View style={styles.dropdownOptions}>
+              <ReportProblemIcon />
+              <Text style={styles.dropdownOptionsText}>Reportar problema</Text>
+            </View>
+            <TouchableOpacity style={styles.dropdownOptions} onPress={signOut}>
+              <SignOutIcon />
+              <Text style={styles.dropdownOptionsText}>Sair</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableWithoutFeedback>
+      </TouchableOpacity>
+    </Modal>
   )
 }
 

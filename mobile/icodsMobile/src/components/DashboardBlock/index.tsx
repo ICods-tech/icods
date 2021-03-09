@@ -10,18 +10,18 @@ import styles from './styles';
 interface BlockProps {
   pressed?: () => void,
   image: string,
-  text?: string  
+  text?: string
 }
 
 const DashboardBlock = ({ pressed, text, image }: BlockProps) => {
   const imageSelected = {
-    scan: <ScanIcon styles={styles.iconBlockImage}/>,
-    history: <HistoryIcon styles={styles.iconBlockImage}/>,
-    social: <SocialIcon styles={styles.iconBlockImage}/>
+    scan: <ScanIcon styles={styles.iconBlockImage} />,
+    history: <HistoryIcon styles={styles.iconBlockImage} />,
+    social: <SocialIcon styles={styles.iconBlockImage} />
   }
   return (
     <RectButton style={styles.blockStyle} onPress={pressed}>
-      { imageSelected[image] }
+      { imageSelected[image]}
       <Text style={styles.textStyle}>{text}</Text>
     </RectButton>
   )

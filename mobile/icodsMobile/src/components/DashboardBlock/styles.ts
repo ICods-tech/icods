@@ -7,12 +7,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: 128,
     height: 128,
-    backgroundColor: '#282C37',
+    backgroundColor: '#3faae0',
     color: 'blue',
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginRight: 12
+    shadowOffset: { width: 1, height: 2, },
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOpacity: 1.0,
+    marginRight: 12,
+    marginBottom: 12
   },
   textStyle: {
     color: '#fff',

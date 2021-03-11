@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, {useState, useEffect, useCallback, useMemo} from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { View, Text, Image, StatusBar, Button, SafeAreaView, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import HeaderDashboard from '../../components/HeaderDashboard'
 import BottomAuthentication from '../../components/BottomAuthentication'
@@ -12,6 +12,7 @@ import DashboardBlock from '../../components/DashboardBlock'
 import ModalMoreDashboard from '../../components/ModalMoreDashboard'
 
 const Dashboard = () => {
+  const navigation = useNavigation()
   const [choosenActivityScope, setChoosenActivityScope] = useState<'all' | 'mine'>('all')
   const [modalVisible, setModalVisible] = useState(false)
   const { user, signOut } = useAuth()
@@ -22,16 +23,20 @@ const Dashboard = () => {
       <StatusBar
         backgroundColor="#2b90d9"
         barStyle="light-content"
-      /> 
+      />
       <View>
         <HeaderDashboard
           name={name}
           surname={surname}
           ellipsisPressed={() => setModalVisible(!modalVisible)}
         />
-        <ModalMoreDashboard 
-          visible={modalVisible} 
+        <ModalMoreDashboard
+          visible={modalVisible}
           pressedOut={() => setModalVisible(!modalVisible)}
+          profilePage={() => {
+            setModalVisible(false)
+            navigation.navigate('Profile')
+          }}
           signOut={async () => {
             setModalVisible(false)
             await signOut()
@@ -40,7 +45,7 @@ const Dashboard = () => {
       </View>
       <View style={styles.dashboardContainer}>
         <View style={styles.welcomeContainer}>
-          <CloudRightSmall style={styles.cloudRightSmallWelcome}/>
+          <CloudRightSmall style={styles.cloudRightSmallWelcome} />
           <View>
             <View style={styles.welcomeTextContainer}>
               <Text style={styles.welcomeText}>Bem-Vindo</Text>
@@ -48,7 +53,7 @@ const Dashboard = () => {
             </View>
             <View style={styles.toICodsTextContainer}>
               <Text style={styles.welcomeText}>ao iCODS!</Text>
-              <CloudRightSmall style={styles.cloudRightSmallWelcomeText}/>
+              <CloudRightSmall style={styles.cloudRightSmallWelcomeText} />
             </View>
           </View>
         </View>
@@ -65,19 +70,19 @@ const Dashboard = () => {
               <TouchableWithoutFeedback onPress={() => setChoosenActivityScope('all')}>
                 <View style={choosenActivityScope === 'all' && styles.allActivitiesTextWrapper}>
                   <Text
-                    style={choosenActivityScope === 'all' 
-                          ? styles.allActivitiesTextSelection 
+                    style={choosenActivityScope === 'all'
+                      ? styles.allActivitiesTextSelection
                       : styles.allActivitiesText}>Todas</Text>
                 </View>
               </TouchableWithoutFeedback>
               <TouchableWithoutFeedback onPress={() => setChoosenActivityScope('mine')}>
                 <View style={choosenActivityScope === 'mine'
-                            ? styles.myActivitiesTextWrapperSelected
-                            : styles.myActivitiesTextWrapper}>
-                <Text
-                  style={choosenActivityScope === 'mine'
-                        ? styles.myActivitiesTextSelection 
-                        : styles.myActivitiesText}>Minhas</Text>
+                  ? styles.myActivitiesTextWrapperSelected
+                  : styles.myActivitiesTextWrapper}>
+                  <Text
+                    style={choosenActivityScope === 'mine'
+                      ? styles.myActivitiesTextSelection
+                      : styles.myActivitiesText}>Minhas</Text>
                 </View>
               </TouchableWithoutFeedback>
             </View>

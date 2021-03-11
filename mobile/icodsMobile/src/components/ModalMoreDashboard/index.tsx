@@ -10,10 +10,11 @@ import styles from './styles'
 interface ModalInterface {
   visible: boolean,
   pressedOut: () => void,
+  profilePage: () => void,
   signOut: () => Promise<void>
 }
 
-const ModalMoreDashboard = ({ visible, pressedOut, signOut }: ModalInterface) => {
+const ModalMoreDashboard = ({ visible, pressedOut, profilePage, signOut }: ModalInterface) => {
   return (
     <Modal
       style={visible ? styles.dropdownStyle : { display: 'none' }}
@@ -28,18 +29,18 @@ const ModalMoreDashboard = ({ visible, pressedOut, signOut }: ModalInterface) =>
       >
         <TouchableWithoutFeedback>
           <View >
-            <View style={styles.dropdownOptions}>
+            <TouchableOpacity style={styles.dropdownOptions}>
               <NotificationsIcon />
               <Text style={styles.dropdownOptionsText}>Notificações</Text>
-            </View>
-            <View style={styles.dropdownOptions}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dropdownOptions} onPress={profilePage}>
               <UserIcon />
               <Text style={styles.dropdownOptionsText}>Conta</Text>
-            </View>
-            <View style={styles.dropdownOptions}>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dropdownOptions}>
               <ReportProblemIcon />
               <Text style={styles.dropdownOptionsText}>Reportar problema</Text>
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.dropdownOptions} onPress={signOut}>
               <SignOutIcon />
               <Text style={styles.dropdownOptionsText}>Sair</Text>

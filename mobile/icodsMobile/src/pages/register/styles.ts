@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
   backMenu: {
     position: 'absolute',
     left: 2,

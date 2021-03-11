@@ -10,8 +10,10 @@ import HeaderAuthentication from '../../components/HeaderAuthentication'
 import HeaderProfile from '../../components/HeaderProfile'
 import BottomAuthentication from '../../components/BottomAuthentication'
 import ButtonAuthentication from '../../components/ButtonAuthentication'
+import { useAuth } from '../../hooks/auth';
 
 const Profile = () => {
+  const { user } = useAuth()
   return (
     <View style={styles.background}>
       <SafeAreaView style={{ backgroundColor: '#2b90d9' }} />
@@ -19,7 +21,9 @@ const Profile = () => {
         backgroundColor="#2c92da"
         barStyle="light-content"
       />
-      <HeaderProfile />
+      <HeaderProfile
+        fullName={user.name}
+      />
       <Text>Profile</Text>
     </View>
   )

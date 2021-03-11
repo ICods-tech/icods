@@ -26,9 +26,33 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontStyle: 'normal',
     fontWeight: '800',
-    fontSize: 16,
-
+    fontSize: 22,
     letterSpacing: 0.02
+  },
+  leftCloudsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    width: 100,
+    height: 100,
+
+  },
+  rightCloudsContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 100,
+    height: 220,
+  },
+  cloudLeft: {
+    display: 'flex',
+    marginLeft: 8
+  },
+  rightCloudsTop: {
+    marginRight: 24
+  },
+  rightCloudsBottomn: {
+    marginTop: 80
   },
   headerColor: {
     position: 'absolute',

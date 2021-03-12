@@ -24,7 +24,9 @@ const Profile = () => {
       <HeaderProfile
         fullName={user.name}
       />
-      <Text>Profile</Text>
+      <View style={styles.activitiesContainer}>
+        <Text style={styles.activitiesText}>Atividades</Text>
+      </View>
     </View>
   )
 }

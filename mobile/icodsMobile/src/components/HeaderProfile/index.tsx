@@ -11,23 +11,28 @@ import ProfilePicture from '../../assets/images/profile-picture-edit.svg'
 import CloudLeft from '../../assets/images/cloud-profile-left.svg'
 import CloudRightTop from '../../assets/images/cloud-right-1.svg'
 import CloudRightBottomn from '../../assets/images/cloud-right-2.svg'
+import EditIcon from '../../assets/images/Icons/edit-icon.svg'
 import styles from './styles';
 
 interface ProfileProps {
   avatar?: string;
   fullName?: string;
+  following?: number;
+  follower?: number;
   ellipsisPressed?: () => void;
 }
 
-const HeaderProfile = ({ fullName, avatar, ellipsisPressed }: ProfileProps) => {
-  const [dropdownMenu, setDropdownMenu] = useState(false)
+const HeaderProfile = ({ fullName, avatar, following, follower, ellipsisPressed }: ProfileProps) => {
+  const navigation = useNavigation()
   return (
     <>
       <View style={styles.container}>
         <Header style={styles.headerColor} />
         <View style={styles.headerInformation}>
           <View style={styles.backButtonContainer}>
-            <BackButtonWhite />
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <BackButtonWhite />
+            </TouchableOpacity>
             <Text style={styles.accountText}>Conta</Text>
           </View>
           <View>
@@ -36,13 +41,16 @@ const HeaderProfile = ({ fullName, avatar, ellipsisPressed }: ProfileProps) => {
                 <CloudLeft style={styles.cloudLeft} />
               </View>
               <View style={styles.middleProfileContainer}>
-                <ProfilePicture />
+                <View style={styles.profilePictureContainer}>
+                  <EditIcon style={styles.editIcon} />
+                  <ProfilePicture />
+                </View>
                 {
                   fullName
-                    ? <Text style={styles.fullNameText}>
+                    ? <Text style={styles.whiteText}>
                       {fullName}
                     </Text>
-                    : <Text style={styles.fullNameText}>
+                    : <Text style={styles.whiteText}>
                       Mucas Loreira
                     </Text>
                 }
@@ -51,6 +59,24 @@ const HeaderProfile = ({ fullName, avatar, ellipsisPressed }: ProfileProps) => {
                 <CloudRightTop style={styles.rightCloudsTop} />
                 <CloudRightBottomn style={styles.rightCloudsBottomn} />
               </View>
+            </View>
+          </View>
+          <View style={styles.followingFollowersContainers}>
+            <View style={styles.connections}>
+              <Text style={styles.whiteText}>Seguidores</Text>
+              {
+                following
+                  ? <Text style={styles.whiteText}>{following}</Text>
+                  : <Text style={styles.whiteTextNumbers}>70</Text>
+              }
+            </View>
+            <View style={styles.connections}>
+              <Text style={styles.whiteText}>Seguindo</Text>
+              {
+                following
+                  ? <Text style={styles.whiteText}>{following}</Text>
+                  : <Text style={styles.whiteTextNumbers}>90</Text>
+              }
             </View>
           </View>
           {/* <TouchableOpacity onPress={ellipsisPressed}>

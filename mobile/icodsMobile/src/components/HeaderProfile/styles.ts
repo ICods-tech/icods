@@ -22,12 +22,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  fullNameText: {
+  whiteText: {
     color: '#fff',
     fontStyle: 'normal',
-    fontWeight: '800',
-    fontSize: 22,
+    fontWeight: '700',
+    fontSize: 18,
     letterSpacing: 0.02
+  },
+  whiteTextNumbers: {
+    color: '#fff',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    fontSize: 16,
+    letterSpacing: 0.02,
+    marginTop: 12
+  },
+  editIcon: {
+    position: 'absolute',
+    top: 8,
+    right: 0,
+    zIndex: 2
+  },
+  followingFollowersContainers: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 24
+  },
+  connections: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   leftCloudsContainer: {
     display: 'flex',
@@ -35,6 +59,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: 100,
     height: 100,
+  },
+  profilePictureContainer: {
+    display: 'flex',
 
   },
   rightCloudsContainer: {

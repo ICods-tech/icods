@@ -23,6 +23,7 @@ const Profile = () => {
       />
       <HeaderProfile
         fullName={user.name}
+        edit={false}
       />
       <View style={styles.activitiesContainer}>
         <Text style={styles.activitiesText}>Atividades</Text>

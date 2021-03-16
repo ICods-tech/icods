@@ -12,6 +12,7 @@ import CloudLeft from '../../assets/images/cloud-profile-left.svg'
 import CloudRightTop from '../../assets/images/cloud-right-1.svg'
 import CloudRightBottomn from '../../assets/images/cloud-right-2.svg'
 import EditIcon from '../../assets/images/Icons/edit-icon.svg'
+import ButtonProfilePicture from '../../components/ButtonProfilePicture'
 import styles from './styles';
 
 interface ProfileProps {
@@ -19,10 +20,11 @@ interface ProfileProps {
   fullName?: string;
   following?: number;
   follower?: number;
+  edit?: boolean;
   ellipsisPressed?: () => void;
 }
 
-const HeaderProfile = ({ fullName, avatar, following, follower, ellipsisPressed }: ProfileProps) => {
+const HeaderProfile = ({ fullName, avatar, following, follower, edit, ellipsisPressed }: ProfileProps) => {
   const navigation = useNavigation()
   return (
     <>
@@ -33,7 +35,13 @@ const HeaderProfile = ({ fullName, avatar, following, follower, ellipsisPressed 
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <BackButtonWhite />
             </TouchableOpacity>
-            <Text style={styles.accountText}>Conta</Text>
+            {edit ?
+              <Text style={styles.accountText}>
+                Editar
+              </Text>
+              : <Text style={styles.accountText}>
+                Conta
+              </Text>}
           </View>
           <View>
             <View style={styles.profileContainer}>
@@ -42,18 +50,28 @@ const HeaderProfile = ({ fullName, avatar, following, follower, ellipsisPressed 
               </View>
               <View style={styles.middleProfileContainer}>
                 <View style={styles.profilePictureContainer}>
-                  <EditIcon style={styles.editIcon} />
+                  {!edit && (
+                    <TouchableOpacity style={styles.editIcon} onPress={() => navigation.navigate('EditProfile')}>
+                      <EditIcon />
+                    </TouchableOpacity>
+                  )}
+
                   <ProfilePicture />
                 </View>
                 {
-                  fullName
-                    ? <Text style={styles.whiteText}>
-                      {fullName}
-                    </Text>
-                    : <Text style={styles.whiteText}>
-                      Mucas Loreira
-                    </Text>
+                  edit ?
+                    <ButtonProfilePicture
+                      text={'Trocar sua foto de perfil'}
+                    />
+                    : (fullName
+                      ? <Text style={styles.whiteText}>
+                        {fullName}
+                      </Text>
+                      : <Text style={styles.whiteText}>
+                        Mucas Loreira
+                      </Text>)
                 }
+
               </View>
               <View style={styles.rightCloudsContainer}>
                 <CloudRightTop style={styles.rightCloudsTop} />

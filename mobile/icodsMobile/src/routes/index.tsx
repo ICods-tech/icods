@@ -4,6 +4,7 @@ import Register from '../pages/Register';
 import SignIn from '../pages/SignIn'
 import Dashboard from '../pages/Dashboard'
 import Profile from '../pages/Profile'
+import EditProfile from '../pages/EditProfile'
 import Splash from '../pages/Splash'
 import { useAuth } from '../hooks/auth'
 
@@ -24,6 +25,7 @@ const Routes: React.FC = () => {
             <>
               <App.Screen name='Dashboard' component={Dashboard} />
               <App.Screen name='Profile' component={Profile} />
+              <App.Screen name='EditProfile' component={EditProfile} />
             </>
           ) : (
             <>

@@ -22,7 +22,7 @@ interface AuthContextData {
   user: User;
   token: string;
   isLoading: boolean;
-  signIn: (credentials : SignInCredentials) => Promise<void>;
+  signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => Promise<void>;
   updateUser(user: User): void;
 }
@@ -38,15 +38,15 @@ const AuthProvider: React.FC = ({ children }) => {
       const [token, user] = await AsyncStorage.multiGet(['@ICods:token', '@ICods:user'])
 
       if (token[1] && user[1]) {
-        setData({ token: token[1], user: JSON.parse(user[1])})
+        setData({ token: token[1], user: JSON.parse(user[1]) })
       }
     }
-    
+
     setIsLoading(false)
     loadStoredData()
   }, [])
 
-  const signIn = useCallback(async (credentials: SignInCredentials ) => {
+  const signIn = useCallback(async (credentials: SignInCredentials) => {
     try {
       const { email, password } = credentials;
       console.log(email, password)
@@ -54,9 +54,9 @@ const AuthProvider: React.FC = ({ children }) => {
         email,
         password
       })
-      
+
       const { token, user } = res.data
-        
+
       await AsyncStorage.multiSet([
         ['@ICods:token', token],
         ['@ICods:user', JSON.stringify(user)]
@@ -64,7 +64,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
       api.defaults.headers.authorization = `Bearer ${token}`
 
-      setData({token, user})
+      setData({ token, user })
     } catch (err) {
       console.log("err.message")
       throw new Error('User is not Authenticated')
@@ -73,7 +73,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(async () => {
     console.log('signing out')
-    await AsyncStorage.multiRemove(['@ICods:token', '@ICods:user'])  
+    await AsyncStorage.multiRemove(['@ICods:token', '@ICods:user'])
 
     setData({} as AuthState)
   }, [])
@@ -86,23 +86,23 @@ const AuthProvider: React.FC = ({ children }) => {
       token: data.token,
       user: {
         ...updatedUser
-      } 
+      }
     })
   }, [data])
 
-  return (  
-    <AuthContext.Provider value={{ 
-      user: data.user, 
-      signIn, 
-      token: data.token, 
+  return (
+    <AuthContext.Provider value={{
+      user: data.user,
+      signIn,
+      token: data.token,
       signOut,
       isLoading,
       updateUser
     }}>
-      { children } 
+      {children}
     </AuthContext.Provider>
   );
-};  
+};
 
 const useAuth = () => {
   const context = useContext(AuthContext)
@@ -113,6 +113,6 @@ const useAuth = () => {
 
   return context;
 }
- 
+
 
 export { AuthContext, AuthProvider, useAuth }

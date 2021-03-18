@@ -17,6 +17,9 @@ export default class User {
   @Exclude()
   password: string;
 
+  @Column()
+  visibility: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 

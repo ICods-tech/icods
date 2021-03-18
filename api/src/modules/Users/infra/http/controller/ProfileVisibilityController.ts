@@ -1,26 +1,18 @@
 import User from '@modules/Users/infra/typeorm/models/user';
 import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express'
-import ResetPasswordService from '@modules/Users/services/resetPasswordService'
 import { container } from 'tsyringe'
+import AlterProfileVisibilityService from '@modules/Users/services/AlterProfileVisibilityService';
 
-export default class ResetPasswordController {
+export default class ProfileController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
-      const {
-        old_password,
-        password,
-        password_confirmation
-      } = request.body
       const { id } = request.user
 
-      const resetPasswordService = container.resolve(ResetPasswordService)
+      const resetPasswordService = container.resolve(AlterProfileVisibilityService)
 
       const updatedUser = await resetPasswordService.run(
-        id,
-        old_password,
-        password,
-        password_confirmation
+        id
       )
 
       return response.json(classToClass(updatedUser))

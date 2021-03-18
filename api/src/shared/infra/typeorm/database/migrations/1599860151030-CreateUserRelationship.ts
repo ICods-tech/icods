@@ -1,10 +1,10 @@
-import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
+import { MigrationInterface, QueryRunner, TableColumn, TableForeignKey } from "typeorm";
 
 export class CreateUserRelationship1599860151030 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn('qrcodes', new TableColumn({
-      name: 'userIdId',
+      name: 'userId',
       type: 'uuid',
       isNullable: true
     }))
@@ -12,8 +12,8 @@ export class CreateUserRelationship1599860151030 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'qrcodes',
       new TableForeignKey({
-        name:'userID',
-        columnNames: ['userIdId'],
+        name: 'userID',
+        columnNames: ['userId'],
         referencedTableName: 'users',
         referencedColumnNames: ['id'],
         onDelete: 'SET NULL',
@@ -24,6 +24,6 @@ export class CreateUserRelationship1599860151030 implements MigrationInterface {
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey('qrcodes', 'userID')
-    await queryRunner.dropColumn('qrcodes', 'userIdId')
+    await queryRunner.dropColumn('qrcodes', 'userId')
   }
 }

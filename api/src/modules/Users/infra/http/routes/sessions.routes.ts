@@ -17,5 +17,4 @@ sessionsRouter.patch(
     resetPasswordController.update
 )
 
-
 export default sessionsRouter

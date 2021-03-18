@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, Image, StatusBar, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import Asteroid from '../../assets/images/asteroid_image.svg';
@@ -15,10 +15,18 @@ import ButtonOff from '../../assets/images/button-off.svg'
 import { useAuth } from '../../hooks/auth';
 
 const EditProfile = () => {
-  // Notice, this is a placeholder, when we implement a private profile
-  // functionality to the user, this useState will be altered 
-  const [buttonState, setButtonState] = useState<boolean>(false)
-  const { user } = useAuth()
+  const { user, token, alterProfileVisibility } = useAuth()
+
+  const handleProfileVisibility = useCallback(async () => {
+    try {
+      await alterProfileVisibility(user.id, token)
+      console.log(user)
+    } catch (err) {
+      console.log('Error catched! 🧤')
+      console.error(err.message)
+    }
+  }, [user, token, alterProfileVisibility])
+
   return (
     <View style={styles.background}>
       <SafeAreaView style={{ backgroundColor: '#2b90d9' }} />
@@ -42,11 +50,11 @@ const EditProfile = () => {
         <View style={styles.privateProfileContainer}>
           <Text style={styles.userInformationLabel}>Perfil privado</Text>
           {
-            buttonState
-              ? <TouchableOpacity onPress={() => setButtonState(!buttonState)}>
+            !user.visibility
+              ? <TouchableOpacity onPress={async () => await handleProfileVisibility()}>
                 <ButtonOn />
               </TouchableOpacity>
-              : <TouchableOpacity onPress={() => setButtonState(!buttonState)}>
+              : <TouchableOpacity onPress={async () => await handleProfileVisibility()}>
                 <ButtonOff />
               </TouchableOpacity>
           }

@@ -3,9 +3,10 @@ import api from '../services/api'
 import AsyncStorage from '@react-native-community/async-storage'
 
 interface User {
+  id: string;
   name: string;
   email: string;
-  id: string;
+  visibility: boolean;
 }
 
 interface AuthState {
@@ -25,6 +26,7 @@ interface AuthContextData {
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => Promise<void>;
   updateUser(user: User): void;
+  alterProfileVisibility: (id: string, token: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -78,6 +80,26 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState)
   }, [])
 
+  const alterProfileVisibility = useCallback(async (id: string, token: string) => {
+    try {
+      const res = await api.patch('changeVisibility', {
+        id
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      const user = res.data
+
+      updateUser(user)
+
+    } catch (err) {
+      console.log("err.message")
+      throw new Error('User is not Authenticated')
+    }
+  }, [])
+
   const updateUser = useCallback((updatedUser: User) => {
 
     AsyncStorage.setItem('@ICods:user', JSON.stringify(updatedUser));
@@ -97,7 +119,8 @@ const AuthProvider: React.FC = ({ children }) => {
       token: data.token,
       signOut,
       isLoading,
-      updateUser
+      updateUser,
+      alterProfileVisibility
     }}>
       {children}
     </AuthContext.Provider>

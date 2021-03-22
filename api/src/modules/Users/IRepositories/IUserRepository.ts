@@ -1,4 +1,3 @@
-import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 import IUserDTO from '../DTOs/IUserDTO'
 import User from '@modules/Users/infra/typeorm/models/user'
 

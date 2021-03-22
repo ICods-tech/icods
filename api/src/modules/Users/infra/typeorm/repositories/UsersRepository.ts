@@ -1,6 +1,6 @@
 import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
-import { Repository, getRepository, } from 'typeorm'
+import { Repository, getRepository } from 'typeorm'
 import IUserDTO from '@modules/Users/DTOs/IUserDTO'
 import User from '../models/user'
 
@@ -19,7 +19,7 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async findByEmail(email: string): Promise<User | undefined> {
-    const user = await this.ormRepository.findOne({ where: { email }})
+    const user = await this.ormRepository.findOne({ where: { email } })
 
     return user || undefined
   }

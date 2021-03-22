@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, IsNull } from 'typeorm'
 import QRCode from '../../../../QRCodes/infra/typeorm/models/QRCode'
 import { Exclude } from 'class-transformer'
 

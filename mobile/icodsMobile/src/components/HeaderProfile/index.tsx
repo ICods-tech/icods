@@ -85,7 +85,7 @@ const HeaderProfile = ({ fullName, avatar, following, follower, edit, ellipsisPr
               {
                 follower
                   ? <Text style={styles.whiteText}>{follower}</Text>
-                  : <Text style={styles.whiteTextNumbers}>70</Text>
+                  : <Text style={styles.whiteText}>0</Text>
               }
             </View>
             <View style={styles.connections}>
@@ -93,7 +93,7 @@ const HeaderProfile = ({ fullName, avatar, following, follower, edit, ellipsisPr
               {
                 following
                   ? <Text style={styles.whiteText}>{following}</Text>
-                  : <Text style={styles.whiteTextNumbers}>90</Text>
+                  : <Text style={styles.whiteText}>0</Text>
               }
             </View>
           </View>

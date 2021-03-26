@@ -136,8 +136,6 @@ const AuthProvider: React.FC = ({ children }) => {
   const alterProfileVisibility = useCallback(async (id: string, token: string) => {
     try {
       const res = await api.patch('changeVisibility', {
-        id
-      }, {
         headers: {
           Authorization: `Bearer ${token}`
         }

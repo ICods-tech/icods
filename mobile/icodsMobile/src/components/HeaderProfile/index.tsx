@@ -18,8 +18,8 @@ import styles from './styles';
 interface ProfileProps {
   avatar?: string;
   fullName?: string;
-  following?: number;
-  follower?: number;
+  following?: Number;
+  follower?: Number;
   edit?: boolean;
   ellipsisPressed?: () => void;
 }
@@ -51,7 +51,7 @@ const HeaderProfile = ({ fullName, avatar, following, follower, edit, ellipsisPr
               <View style={styles.middleProfileContainer}>
                 <View style={styles.profilePictureContainer}>
                   {!edit && (
-                    <TouchableOpacity style={styles.editIcon} onPress={() => navigation.navigate('EditProfile')}>
+                    <TouchableOpacity style={styles.editIcon} onPress={() => navigation.navigate('EditProfile', { following, follower })}>
                       <EditIcon />
                     </TouchableOpacity>
                   )}
@@ -83,8 +83,8 @@ const HeaderProfile = ({ fullName, avatar, following, follower, edit, ellipsisPr
             <View style={styles.connections}>
               <Text style={styles.whiteText}>Seguidores</Text>
               {
-                following
-                  ? <Text style={styles.whiteText}>{following}</Text>
+                follower
+                  ? <Text style={styles.whiteText}>{follower}</Text>
                   : <Text style={styles.whiteTextNumbers}>70</Text>
               }
             </View>

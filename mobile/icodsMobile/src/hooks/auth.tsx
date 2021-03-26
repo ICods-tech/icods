@@ -19,10 +19,22 @@ interface SignInCredentials {
   password: string;
 }
 
+export interface Follow {
+  followingUsers: User[],
+  followingCount: Number
+}
+
+export interface Followers {
+  followerUsers: User[],
+  followersCount: Number
+}
+
 interface AuthContextData {
   user: User;
   token: string;
   isLoading: boolean;
+  getFollowing: (id: string, token: string) => Promise<Follow>;
+  getFollowers: (id: string, token: string) => Promise<Followers>;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => Promise<void>;
   updateUser(user: User): void;
@@ -73,6 +85,47 @@ const AuthProvider: React.FC = ({ children }) => {
     }
   }, [])
 
+  const getFollowing = useCallback(async (id: string, token: string) => {
+    try {
+      const res = await api.get('follow', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      const { followingUsers, followingCount } = res.data
+
+      return {
+        followingUsers,
+        followingCount
+      }
+    } catch (err) {
+      console.log("err.message")
+      throw new Error('User is not Authenticated')
+    }
+  }, [])
+
+  const getFollowers = useCallback(async (id: string, token: string) => {
+    try {
+      const res = await api.get('followers', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      console.log(res.data)
+
+      const { followerUsers, followersCount } = res.data
+
+      return {
+        followerUsers,
+        followersCount
+      }
+    } catch (err) {
+      throw new Error(err.message)
+    }
+  }, [])
+
   const signOut = useCallback(async () => {
     console.log('signing out')
     await AsyncStorage.multiRemove(['@ICods:token', '@ICods:user'])
@@ -118,6 +171,8 @@ const AuthProvider: React.FC = ({ children }) => {
       signIn,
       token: data.token,
       signOut,
+      getFollowing,
+      getFollowers,
       isLoading,
       updateUser,
       alterProfileVisibility

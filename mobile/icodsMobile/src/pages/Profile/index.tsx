@@ -1,19 +1,41 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StatusBar, Button, SafeAreaView } from 'react-native';
 import styles from './styles';
-import Asteroid from '../../assets/images/asteroid_image.svg';
-import IcodsIcon from '../../assets/images/icods_icon.svg';
-import Back from '../../assets/images/back.svg';
-import Input from '../../components/Input'
-import HeaderAuthentication from '../../components/HeaderAuthentication'
+import { Follow, Followers } from '../../hooks/auth'
 import HeaderProfile from '../../components/HeaderProfile'
-import BottomAuthentication from '../../components/BottomAuthentication'
-import ButtonAuthentication from '../../components/ButtonAuthentication'
 import { useAuth } from '../../hooks/auth';
 
 const Profile = () => {
-  const { user } = useAuth()
+  const { user, getFollowing, getFollowers, token } = useAuth()
+  const [followingData, setFollowingData] = useState<Follow | null>(null)
+  const [followersData, setFollowersData] = useState<Followers | null>(null)
+  console.log(followingData, followersData)
+
+  useEffect(() => {
+    async function loadFollowing() {
+      const { followingUsers, followingCount } = await getFollowing(user.id, token)
+      setFollowingData({
+        followingUsers,
+        followingCount
+      })
+    }
+
+    async function loadFollowers() {
+      const { followerUsers, followersCount } = await getFollowers(user.id, token)
+      setFollowersData({
+        followerUsers,
+        followersCount
+      })
+    }
+
+    loadFollowing()
+    loadFollowers()
+
+    console.log(followingData, followersData)
+
+  }, [getFollowing, getFollowers])
+
   return (
     <View style={styles.background}>
       <SafeAreaView style={{ backgroundColor: '#2b90d9' }} />
@@ -23,6 +45,8 @@ const Profile = () => {
       />
       <HeaderProfile
         fullName={user.name}
+        following={followingData?.followingCount}
+        follower={followersData?.followersCount}
         edit={false}
       />
       <View style={styles.activitiesContainer}>

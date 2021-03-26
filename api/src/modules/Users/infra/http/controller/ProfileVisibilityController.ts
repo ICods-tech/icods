@@ -2,7 +2,7 @@ import User from '@modules/Users/infra/typeorm/models/user';
 import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import AlterProfileVisibilityService from '@modules/Users/services/AlterProfileVisibilityService';
+import AlterProfileVisibilityService from '@modules/Users/services/user/AlterProfileVisibilityService';
 
 export default class ProfileController {
   public async update(request: Request, response: Response): Promise<Response> {

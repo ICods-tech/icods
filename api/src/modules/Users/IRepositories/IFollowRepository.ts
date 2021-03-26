@@ -7,6 +7,6 @@ export default interface IFollowRepository {
   checkFollowing(id: string, followingId: string): Promise<boolean>;
   save(followEntry: Follow): Promise<Omit<Follow, 'id' | 'created_at'>>;
   findById(id: string): Promise<Follow | undefined>;
-  getAllFollowers(id: string): Promise<Number>;
-  getAllFollowing(id: string): Promise<Number>;
+  getAllFollowers(id: string): Promise<{ followers: Follow[], followersCount: Number }>;
+  getAllFollowing(id: string): Promise<{ following: Follow[], followingCount: Number }>;
 }

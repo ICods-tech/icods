@@ -10,20 +10,22 @@ export default class FollowerRepository implements IFollowRepository {
     this.ormRepository = getRepository(Follow)
   }
 
-  public async getAllFollowers(id: string): Promise<Number> {
-    const followers = await this.ormRepository.find({
-      where: { followingId: id }
+  public async getAllFollowers(id: string): Promise<{ followers: Follow[], followersCount: Number }> {
+    const [followers, followersCount] = await this.ormRepository.findAndCount({
+      where: { followingId: id },
+      select: ['userId']
     })
 
-    return followers.length
+    return { followers: followers, followersCount: followersCount }
   }
 
-  public async getAllFollowing(id: string): Promise<Number> {
-    const following = await this.ormRepository.find({
-      where: { userId: id }
+  public async getAllFollowing(id: string): Promise<{ following: Follow[], followingCount: Number }> {
+    const [following, followingCount] = await this.ormRepository.findAndCount({
+      where: { userId: id },
+      select: ['followingId']
     })
 
-    return following.length
+    return { following: following, followingCount: followingCount }
   }
 
   public async findById(id: string): Promise<Follow | undefined> {

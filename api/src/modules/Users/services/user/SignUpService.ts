@@ -16,7 +16,7 @@ export default class SignUpService {
     private hashProvider: IHashProvider
   ) { }
 
-  public async run({ name, email, password }: IUserDTO): Promise<User> {
+  public async run({ name, email, password, visibility }: IUserDTO): Promise<User> {
 
     if (!name || !email || !password) {
       throw new AppError('All fields must be filled')
@@ -33,7 +33,7 @@ export default class SignUpService {
       name,
       email,
       password: hashedPassword,
-      visibility: true
+      visibility
     })
     console.log('xau')
     return user

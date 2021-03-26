@@ -1,7 +1,7 @@
 import User from '@modules/Users/infra/typeorm/models/user';
 import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express'
-import ResetPasswordService from '@modules/Users/services/ResetPasswordService'
+import ResetPasswordService from '@modules/Users/services/user/ResetPasswordService'
 import { container } from 'tsyringe'
 
 export default class ResetPasswordController {

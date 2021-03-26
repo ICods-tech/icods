@@ -2,10 +2,10 @@ import AppError from '@shared/error/AppError'
 import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
 import { inject, injectable } from 'tsyringe'
 import Follow from '@modules/Users/infra/typeorm/models/follow'
-import IFollowRepository from '../IRepositories/IFollowRepository'
+import IFollowRepository from '../../IRepositories/IFollowRepository'
 
 @injectable()
-export default class SignInService {
+export default class FollowUserService {
 
   constructor(
     @inject('UsersRepository')
@@ -20,6 +20,10 @@ export default class SignInService {
 
     if (!user) {
       throw new AppError("Trying to follow an user that doesn't exist")
+    }
+
+    if (id === followingId) {
+      throw new AppError("You cannot follow yourself!")
     }
 
     if (await this.followersRepository.checkFollowing(id, followingId)) {

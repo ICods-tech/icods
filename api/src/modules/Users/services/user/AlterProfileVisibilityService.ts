@@ -22,7 +22,6 @@ export default class SignInService {
     if (!user) {
       throw new AppError('User does not exist')
     }
-
     Object.assign(user, { visibility: !user.visibility })
 
     this.usersRepository.save(user)

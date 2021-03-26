@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import Register from '../pages/Register';
 import SignIn from '../pages/SignIn'
@@ -6,12 +6,12 @@ import Dashboard from '../pages/Dashboard'
 import Profile from '../pages/Profile'
 import EditProfile from '../pages/EditProfile'
 import Splash from '../pages/Splash'
-import { useAuth } from '../hooks/auth'
+import { useAuth, Follow, Followers } from '../hooks/auth'
 
 const App = createStackNavigator()
 
 const Routes: React.FC = () => {
-  const { user, isLoading } = useAuth()
+  const { user, token, isLoading } = useAuth()
   return (
     <App.Navigator screenOptions={{
       headerShown: false,

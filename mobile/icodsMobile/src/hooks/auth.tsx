@@ -12,6 +12,8 @@ interface User {
 interface AuthState {
   user: User;
   token: string;
+  following: Follow;
+  followers: Followers;
 }
 
 interface SignInCredentials {
@@ -33,8 +35,8 @@ interface AuthContextData {
   user: User;
   token: string;
   isLoading: boolean;
-  getFollowing: (id: string, token: string) => Promise<Follow>;
-  getFollowers: (id: string, token: string) => Promise<Followers>;
+  following: Follow;
+  followers: Followers;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => Promise<void>;
   updateUser(user: User): void;
@@ -49,10 +51,10 @@ const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     async function loadStoredData(): Promise<void> {
-      const [token, user] = await AsyncStorage.multiGet(['@ICods:token', '@ICods:user'])
+      const [token, user, following, followers] = await AsyncStorage.multiGet(['@ICods:token', '@ICods:user', '@ICods:following', '@ICods:followers'])
 
       if (token[1] && user[1]) {
-        setData({ token: token[1], user: JSON.parse(user[1]) })
+        setData({ token: token[1], user: JSON.parse(user[1]), following: JSON.parse(following[1] as unknown as string), followers: JSON.parse(followers[1] as unknown as string) })
       }
     }
 
@@ -71,14 +73,19 @@ const AuthProvider: React.FC = ({ children }) => {
 
       const { token, user } = res.data
 
+      const following = await getFollowing(user.id, token)
+      const followers = await getFollowers(user.id, token)
+
       await AsyncStorage.multiSet([
         ['@ICods:token', token],
-        ['@ICods:user', JSON.stringify(user)]
+        ['@ICods:user', JSON.stringify(user)],
+        ['@ICods:following', JSON.stringify(following)],
+        ['@ICods:followers', JSON.stringify(followers)],
       ])
 
       api.defaults.headers.authorization = `Bearer ${token}`
 
-      setData({ token, user })
+      setData({ token, user, following, followers })
     } catch (err) {
       console.log("err.message")
       throw new Error('User is not Authenticated')
@@ -142,24 +149,25 @@ const AuthProvider: React.FC = ({ children }) => {
       })
 
       const user = res.data
-
+      console.log()
       updateUser(user)
 
     } catch (err) {
-      console.log("err.message")
-      throw new Error('User is not Authenticated')
+      throw new Error(err)
     }
   }, [])
 
   const updateUser = useCallback((updatedUser: User) => {
-
     AsyncStorage.setItem('@ICods:user', JSON.stringify(updatedUser));
-
+    const { token, following, followers } = data
+    console.log({ token, following, followers })
     setData({
-      token: data.token,
+      token,
       user: {
         ...updatedUser
-      }
+      },
+      following,
+      followers
     })
   }, [data])
 
@@ -169,8 +177,8 @@ const AuthProvider: React.FC = ({ children }) => {
       signIn,
       token: data.token,
       signOut,
-      getFollowing,
-      getFollowers,
+      following: data.following,
+      followers: data.followers,
       isLoading,
       updateUser,
       alterProfileVisibility

@@ -1,8 +1,8 @@
 import "reflect-metadata"
 import '@shared/container'
-import '@shared/infra/typeorm'
+import { startConnection } from '@shared/infra/typeorm'
 import '@modules/Users/providers'
-import express, { Request, Response, NextFunction} from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import 'dotenv/config';
 import cors from 'cors';
 import routes from './routes';
@@ -34,7 +34,8 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 })
 
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await startConnection()
   console.log(`App listening on port ${port}! 🚀`);
 });
 

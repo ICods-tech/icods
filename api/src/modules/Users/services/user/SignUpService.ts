@@ -16,9 +16,9 @@ export default class SignUpService {
     private hashProvider: IHashProvider
   ) { }
 
-  public async run({ name, email, password, visibility }: IUserDTO): Promise<User> {
+  public async run({ name, username, email, password, visibility }: IUserDTO): Promise<User> {
 
-    if (!name || !email || !password) {
+    if (!name || !username || !email || !password) {
       throw new AppError('All fields must be filled')
     }
 
@@ -31,6 +31,7 @@ export default class SignUpService {
     const hashedPassword = await this.hashProvider.encrypt(password)
     const user = await this.usersRepository.create({
       name,
+      username,
       email,
       password: hashedPassword,
       visibility

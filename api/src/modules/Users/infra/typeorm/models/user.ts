@@ -10,7 +10,17 @@ export default class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    type: 'text',
+    unique: true,
+    nullable: true,
+  })
+  username: string;
+
+  @Column({
+    type: 'text',
+    unique: true,
+  })
   email: string;
 
   @Column()

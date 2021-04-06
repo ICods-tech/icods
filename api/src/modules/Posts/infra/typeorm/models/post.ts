@@ -1,7 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, IsNull } from 'typeorm'
-import QRCode from '../../../../QRCodes/infra/typeorm/models/QRCode'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
 import Comment from './comment'
-import { Exclude } from 'class-transformer'
+import Like from './like'
 
 @Entity('posts')
 export default class Post {
@@ -15,10 +14,10 @@ export default class Post {
   qrcode_id: string;
 
   @OneToMany(type => Comment, comment => comment.post)
-  comments: Comment[];
+  comments?: Comment[] | [];
 
-  @Column()
-  likes: number;
+  @OneToMany(type => Like, like => like.post)
+  likes?: Like[] | [];
 
   @CreateDateColumn()
   created_at: Date;

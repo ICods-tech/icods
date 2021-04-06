@@ -9,9 +9,17 @@ import FollowersRepository from '@modules/Users/infra/typeorm/repositories/Follo
 import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepository'
 import QRCodeRepository from '@modules/QRCodes/infra/typeorm/repositories/QRCodesRepository'
 
+import IPostsRepository from '@modules/Posts/IRepositories/IPostsRepository'
+import PostRepository from '@modules/Posts/infra/typeorm/repositories/postsRepository'
+
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
   UsersRepository
+)
+
+container.registerSingleton<IPostsRepository>(
+  'PostsRepository',
+  PostRepository
 )
 
 container.registerSingleton<IFollowRepository>(

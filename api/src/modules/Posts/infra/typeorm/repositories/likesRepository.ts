@@ -1,5 +1,5 @@
 import ILikesRepository from '@modules/Posts/IRepositories/ILikesRepository'
-import { Repository, getRepository } from 'typeorm'
+import { Repository, getRepository, DeleteResult } from 'typeorm'
 import Like from '@modules/Posts/infra/typeorm/models/like'
 import ILikeDTO from '@modules/Posts/DTOs/ILikeDTO'
 
@@ -18,10 +18,14 @@ export default class LikesRepository implements ILikesRepository {
     return like
   }
 
-  public async unlike({ user_id, post }: ILikeDTO): Promise<Like | undefined> {
-    const like = await this.ormRepository.findOne(user_id)
-
+  public async get(user_id: string, post_id: string): Promise<Like | undefined> {
+    const like = await this.ormRepository.findOne({ user_id: user_id, post: { id: post_id } }, { relations: ['post'] })
     return like || undefined
+  }
+
+  public async unlike(id: string): Promise<void | DeleteResult> {
+    const deleted = await this.ormRepository.delete(id)
+    return deleted
   }
 
   public async save(likeEntry: Like): Promise<Like> {

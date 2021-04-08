@@ -27,7 +27,7 @@ export default class CreatePostService {
     const user = await this.usersRepository.findById(user_id)
 
     if (!user) {
-      throw new AppError("Trying to follow an user that doesn't exist")
+      throw new AppError("Trying to post with an user that doesn't exist")
     }
 
     const qrcode = await this.qrcodesRepository.get(qrcode_id)

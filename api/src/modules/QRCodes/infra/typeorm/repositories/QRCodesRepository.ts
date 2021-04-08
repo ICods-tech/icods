@@ -33,7 +33,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
   public async activate(id: string, user_id: string): Promise<QRCode> {
     let existingQRCode = await this.ormRepostory.findOne(id)
 
-    if(!existingQRCode) {
+    if (!existingQRCode) {
       throw new AppError('This QRCode does not exist')
     }
 
@@ -42,7 +42,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
       enabled: true,
       link: `generate_qrcode/${id}`,
       content: '',
-      user_id
+      userIdId: user_id
     }
 
     await this.ormRepostory.save(existingQRCode)
@@ -50,7 +50,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
   }
 
   public async findAllUserQRCodes(user_id: string): Promise<QRCode[]> {
-    const userQrcodes = await this.ormRepostory.find({ where: { user_id }})
+    const userQrcodes = await this.ormRepostory.find({ where: { userIdId: user_id } })
     return userQrcodes
   }
 

@@ -11,6 +11,12 @@ likeRouter.post(
   likeController.create
 )
 
+likeRouter.delete(
+  '/unlike',
+  verifyJwtToken,
+  likeController.destroy
+)
+
 // postRouter.get(
 //   '/post/:post_id',
 //   verifyJwtToken,

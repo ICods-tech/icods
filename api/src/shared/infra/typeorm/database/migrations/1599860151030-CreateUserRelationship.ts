@@ -4,7 +4,7 @@ export class CreateUserRelationship1599860151030 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.addColumn('qrcodes', new TableColumn({
-      name: 'userId',
+      name: 'user_id',
       type: 'uuid',
       isNullable: true
     }))
@@ -13,7 +13,7 @@ export class CreateUserRelationship1599860151030 implements MigrationInterface {
       'qrcodes',
       new TableForeignKey({
         name: 'userID',
-        columnNames: ['userId'],
+        columnNames: ['user_id'],
         referencedTableName: 'users',
         referencedColumnNames: ['id'],
         onDelete: 'SET NULL',
@@ -23,7 +23,7 @@ export class CreateUserRelationship1599860151030 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('qrcodes', 'userID')
-    await queryRunner.dropColumn('qrcodes', 'userId')
+    await queryRunner.dropForeignKey('qrcodes', 'user_id')
+    await queryRunner.dropColumn('qrcodes', 'user_id')
   }
 }

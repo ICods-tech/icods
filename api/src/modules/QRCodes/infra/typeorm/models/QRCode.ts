@@ -16,5 +16,5 @@ export default class QRCode {
   content: string;
 
   @ManyToOne(() => User, user => user.id)
-  user_id: string;
+  userIdId: string | null;
 }

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import CreatePostService from '../../../services/createPostService'
+import CreatePostService from '../../../services/CreatePostService'
+import GetPostService from '../../../services/GetPostService'
 import { container } from 'tsyringe'
 
 export default class PostController {
@@ -19,6 +20,18 @@ export default class PostController {
         id,
         qrcode_id
       )
+
+      return response.json(post)
+    } catch (error) {
+      return response.status(400).json(error.message)
+    }
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    try {
+      const { post_id } = request.params
+      const getPostService = container.resolve(GetPostService)
+      const post = await getPostService.run(post_id)
 
       return response.json(post)
     } catch (error) {

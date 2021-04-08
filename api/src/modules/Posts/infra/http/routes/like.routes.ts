@@ -1,21 +1,21 @@
 import verifyJwtToken from '@shared/middlewares/verifyJwtToken';
-import PostController from '../controller/PostController'
+import LikeController from '../controller/LikeController'
 import { Router } from 'express'
 
-const postRouter = Router()
-const postController = new PostController()
+const likeRouter = Router()
+const likeController = new LikeController()
 
-postRouter.post(
-  '/post',
+likeRouter.post(
+  '/like',
   verifyJwtToken,
-  postController.create
+  likeController.create
 )
 
-postRouter.get(
-  '/post/:post_id',
-  verifyJwtToken,
-  postController.show
-)
+// postRouter.get(
+//   '/post/:post_id',
+//   verifyJwtToken,
+//   postController.show
+// )
 
 // followRouter.delete(
 //   '/unfollow/:followingId',
@@ -30,4 +30,4 @@ postRouter.get(
 //   followerController.index
 // )
 
-export default postRouter
+export default likeRouter

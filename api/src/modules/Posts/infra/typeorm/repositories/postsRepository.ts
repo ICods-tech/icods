@@ -21,7 +21,7 @@ export default class PostRepository implements IPostRepository {
   }
 
   public async get(id: string): Promise<Post | undefined> {
-    const post = await this.ormRepository.findOne(id)
+    const post = await this.ormRepository.findOne(id, { relations: ["comments", "likes"] })
 
     return post || undefined
   }

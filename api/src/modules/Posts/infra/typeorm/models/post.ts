@@ -25,10 +25,3 @@ export default class Post {
   @UpdateDateColumn()
   updated_at: Date;
 }
-
-// Related services
-// [] -> Create Posts
-// [] -> Get Post
-// [] -> Delete Post
-// [] -> Like post
-// [] -> Comment on post

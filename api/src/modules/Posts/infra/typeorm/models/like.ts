@@ -7,9 +7,8 @@ export default class Like {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(type => User)
-  @JoinColumn()
-  user: User;
+  @Column('uuid')
+  user_id: string;
 
   @ManyToOne(type => Post, post => post.likes)
   post: Post;

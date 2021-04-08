@@ -4,6 +4,6 @@ import ILikeDTO from '../DTOs/ILikeDTO'
 
 export default interface ILikeRepository {
   like(data: ILikeDTO): Promise<Like>;
-  unlike(data: ILikeDTO): Promise<undefined>;
+  unlike(data: ILikeDTO): Promise<Like | undefined>;
   save(likeEntry: Like): Promise<Like>;
 }

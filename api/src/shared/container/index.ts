@@ -12,6 +12,12 @@ import QRCodeRepository from '@modules/QRCodes/infra/typeorm/repositories/QRCode
 import IPostsRepository from '@modules/Posts/IRepositories/IPostsRepository'
 import PostRepository from '@modules/Posts/infra/typeorm/repositories/postsRepository'
 
+import ILikesRepository from '@modules/Posts/IRepositories/ILikesRepository'
+import LikesRepository from '@modules/Posts/infra/typeorm/repositories/likesRepository'
+
+// import ICommentsRepository from '@modules/Posts/IRepositories/ICommentsRepository'
+// import CommentsRepository from '@modules/Posts/infra/typeorm/repositories/commentsRepository'
+
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
   UsersRepository
@@ -21,6 +27,16 @@ container.registerSingleton<IPostsRepository>(
   'PostsRepository',
   PostRepository
 )
+
+container.registerSingleton<ILikesRepository>(
+  'LikesRepository',
+  LikesRepository
+)
+
+// container.registerSingleton<ICommentsRepository>(
+//   'CommentsRepository',
+//   CommentsRepository
+// )
 
 container.registerSingleton<IFollowRepository>(
   'FollowersRepository',

@@ -8,11 +8,18 @@ export default class Comment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(type => User)
+  @ManyToOne(type => User, user => user.likes, {
+    onDelete: 'CASCADE'
+  })
   @JoinColumn()
-  user: User;
+  user?: User;
 
-  @ManyToOne(type => Post, post => post.comments)
+  @Column('uuid')
+  userId: string;
+
+  @ManyToOne(type => Post, post => post.likes, {
+    onDelete: 'CASCADE'
+  })
   post: Post;
 
   @Column()

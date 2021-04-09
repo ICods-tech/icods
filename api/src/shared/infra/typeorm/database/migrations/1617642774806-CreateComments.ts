@@ -50,7 +50,7 @@ export class CreateComments1617642774806 implements MigrationInterface {
                 columnNames: ['user_id'],
                 referencedTableName: 'users',
                 referencedColumnNames: ['id'],
-                onDelete: 'SET NULL',
+                onDelete: 'CASCADE',
                 onUpdate: 'CASCADE'
             })
         )
@@ -62,7 +62,7 @@ export class CreateComments1617642774806 implements MigrationInterface {
                 columnNames: ['post_id'],
                 referencedTableName: 'posts',
                 referencedColumnNames: ['id'],
-                onDelete: 'SET NULL',
+                onDelete: 'CASCADE',
                 onUpdate: 'CASCADE'
             })
         )

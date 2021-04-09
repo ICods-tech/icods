@@ -15,8 +15,8 @@ import PostRepository from '@modules/Posts/infra/typeorm/repositories/postsRepos
 import ILikesRepository from '@modules/Posts/IRepositories/ILikesRepository'
 import LikesRepository from '@modules/Posts/infra/typeorm/repositories/likesRepository'
 
-// import ICommentsRepository from '@modules/Posts/IRepositories/ICommentsRepository'
-// import CommentsRepository from '@modules/Posts/infra/typeorm/repositories/commentsRepository'
+import ICommentsRepository from '@modules/Posts/IRepositories/ICommentsRepository'
+import CommentsRepository from '@modules/Posts/infra/typeorm/repositories/commentsRepository'
 
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
@@ -33,10 +33,10 @@ container.registerSingleton<ILikesRepository>(
   LikesRepository
 )
 
-// container.registerSingleton<ICommentsRepository>(
-//   'CommentsRepository',
-//   CommentsRepository
-// )
+container.registerSingleton<ICommentsRepository>(
+  'CommentsRepository',
+  CommentsRepository
+)
 
 container.registerSingleton<IFollowRepository>(
   'FollowersRepository',

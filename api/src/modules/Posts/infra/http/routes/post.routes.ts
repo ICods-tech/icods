@@ -17,17 +17,10 @@ postRouter.get(
   postController.show
 )
 
-// followRouter.delete(
-//   '/unfollow/:followingId',
-//   verifyJwtToken,
-//   followController.destroy
-// )
-
-
-// followRouter.get(
-//   '/followers',
-//   verifyJwtToken,
-//   followerController.index
-// )
+postRouter.delete(
+  '/post/:post_id',
+  verifyJwtToken,
+  postController.destroy
+)
 
 export default postRouter

@@ -7,10 +7,18 @@ export default class Like {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('uuid')
-  user_id: string;
+  @ManyToOne(type => User, user => user.likes, {
+    onDelete: 'CASCADE'
+  })
+  @JoinColumn()
+  user?: User;
 
-  @ManyToOne(type => Post, post => post.likes)
+  @Column('uuid')
+  userId: string;
+
+  @ManyToOne(type => Post, post => post.likes, {
+    onDelete: 'CASCADE'
+  })
   post: Post;
 
   @CreateDateColumn()

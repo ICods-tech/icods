@@ -2,6 +2,7 @@ import AppError from '@shared/error/AppError';
 import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 import { Repository, getRepository } from 'typeorm'
 import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepository'
+import User from '@modules/Users/infra/typeorm/models/user';
 
 export default class QRCodesRepository implements IQRCodesRepository {
 
@@ -22,15 +23,26 @@ export default class QRCodesRepository implements IQRCodesRepository {
   }
 
   public async get(id: string): Promise<QRCode | undefined> {
-    const qrcode = await this.ormRepostory.findOne(id)
-    return qrcode
+    const qrcode = await this.ormRepostory.findOne(id, { relations: ['user'] })
+    if (qrcode) {
+      delete qrcode.user?.created_at
+      delete qrcode.user?.updated_at
+      delete qrcode.user?.password
+      delete qrcode.user?.qrcodes
+
+      return qrcode
+    }
+    return undefined
   }
 
   public async save(qrcode: QRCode): Promise<void> {
     await this.ormRepostory.save(qrcode)
   }
 
-  public async activate(id: string, user_id: string): Promise<QRCode> {
+  public async activate(
+    id: string,
+    user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode> {
+
     let existingQRCode = await this.ormRepostory.findOne(id)
 
     if (!existingQRCode) {
@@ -42,16 +54,11 @@ export default class QRCodesRepository implements IQRCodesRepository {
       enabled: true,
       link: `generate_qrcode/${id}`,
       content: '',
-      userIdId: user_id
+      user
     }
 
     await this.ormRepostory.save(existingQRCode)
     return existingQRCode
-  }
-
-  public async findAllUserQRCodes(user_id: string): Promise<QRCode[]> {
-    const userQrcodes = await this.ormRepostory.find({ where: { userIdId: user_id } })
-    return userQrcodes
   }
 
   public async delete(id: string): Promise<void> {

@@ -10,16 +10,16 @@ export default class LikesRepository implements ILikesRepository {
     this.ormRepository = getRepository(Like)
   }
 
-  public async like({ user_id, post }: ILikeDTO): Promise<Like> {
-    const like = this.ormRepository.create({ user_id, post })
+  public async like({ userId, post }: ILikeDTO): Promise<Like> {
+    const like = this.ormRepository.create({ userId, post })
 
     await this.ormRepository.save(like)
 
     return like
   }
 
-  public async get(user_id: string, post_id: string): Promise<Like | undefined> {
-    const like = await this.ormRepository.findOne({ user_id: user_id, post: { id: post_id } }, { relations: ['post'] })
+  public async get(userId: string, post_id: string): Promise<Like | undefined> {
+    const like = await this.ormRepository.findOne({ userId, post: { id: post_id } }, { relations: ['post'] })
     return like || undefined
   }
 

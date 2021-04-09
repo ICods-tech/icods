@@ -1,23 +1,39 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne } from 'typeorm'
 import Comment from './comment'
 import Like from './like'
+import User from '@modules/Users/infra/typeorm/models/user'
+import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 
 @Entity('posts')
 export default class Post {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('uuid')
-  user_id: string;
+  @ManyToOne(type => User, {
+    onDelete: 'CASCADE'
+  })
+  @JoinColumn()
+  user?: User;
 
   @Column('uuid')
-  qrcode_id: string;
+  userId: string;
 
-  @OneToMany(type => Comment, comment => comment.post)
-  comments?: Comment[] | [];
+  @OneToOne(type => QRCode)
+  @JoinColumn()
+  qrcode?: QRCode;
 
-  @OneToMany(type => Like, like => like.post)
-  likes?: Like[] | [];
+  @Column()
+  qrcodeId: string;
+
+  @OneToMany(type => Comment, comment => comment.post, {
+    cascade: true
+  })
+  comments: Comment[] | [];
+
+  @OneToMany(type => Like, like => like.post, {
+    cascade: true
+  })
+  likes: Like[] | [];
 
   @CreateDateColumn()
   created_at: Date;

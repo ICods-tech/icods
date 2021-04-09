@@ -12,7 +12,7 @@ export default class AddQRCodeToUserService {
   constructor(
     @inject('QRCodeRepository')
     private qrCodesRepository: IQRCodesRepository
-  ) {}
+  ) { }
 
   public async run(qrcode_id: string, contentFilename: string): Promise<QRCode> {
     try {
@@ -33,7 +33,7 @@ export default class AddQRCodeToUserService {
       await this.qrCodesRepository.save(qrcode)
 
       return qrcode
-    } catch(err) {
+    } catch (err) {
       console.log(err.message)
       throw new AppError(err.message)
     }

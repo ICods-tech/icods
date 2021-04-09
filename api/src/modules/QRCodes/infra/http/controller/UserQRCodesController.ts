@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import GetUserQRCodesService from '@modules/QRCodes/services/GetUserQRCodesService'
+import GetUserQRCodesService from '@modules/Users/services/user/GetUserQRCodesService'
 import GetUserQRCodeService from '@modules/QRCodes/services/GetUserQRCodeService'
 import AddQRCodeContentService from '@modules/QRCodes/services/AddQRCodeContentService'
 import { container } from 'tsyringe'
@@ -14,7 +14,7 @@ export default class UserQRCodesController {
       )
 
       return response.json(qrcodes)
-    } catch(err) {
+    } catch (err) {
       return response.status(400).json(err.message)
     }
   }
@@ -28,7 +28,7 @@ export default class UserQRCodesController {
       )
 
       return response.json(qrcode)
-    } catch(err) {
+    } catch (err) {
       return response.status(400).json(err.message)
     }
   }
@@ -46,7 +46,7 @@ export default class UserQRCodesController {
       )
 
       return response.json(qrcode)
-    } catch(err) {
+    } catch (err) {
       return response.status(400).json(err.message)
     }
   }

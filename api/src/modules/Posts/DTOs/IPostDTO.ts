@@ -1,4 +1,4 @@
 export default interface IFollowDTO {
-  user_id: string;
-  qrcode_id: string;
+  userId: string;
+  qrcodeId: string;
 }

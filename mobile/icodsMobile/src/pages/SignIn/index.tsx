@@ -13,11 +13,10 @@ import { useAuth } from '../../hooks/auth'
 import api from '../../services/api'
 
 const SignIn = () => {
-  const { signIn, user, signOut } = useAuth()
+  const { signIn, user } = useAuth()
   const navigation = useNavigation()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  console.log(user)
 
   const handleLogin = useCallback(async () => {
     try {
@@ -39,16 +38,14 @@ const SignIn = () => {
           radius={'top'}
           change={(email: string) => setEmail(email)}
           value={email}
-        >
-        </Input>
+        />
         <Input
           placeholder={'Senha'}
           radius={'bottom'}
           isPassword
           change={(password: string) => setPassword(password)}
           value={password}
-        >
-        </Input>
+        />
       </View>
       <View style={styles.textUnderneathInputsContainer}>
         <TouchableWithoutFeedback onPress={() => { navigation.navigate('Register') }} >

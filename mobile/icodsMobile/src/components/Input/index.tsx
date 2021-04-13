@@ -5,20 +5,19 @@ import EyeClosed from '../../assets/images/eye_closed.svg'
 import styles from './styles'
 
 interface Props {
-  radius: 'top'|'bottom';
+  radius: 'top' | 'bottom' | 'middle';
   placeholder: string;
   change: (event: string) => void;
   value: string;
   isPassword?: boolean;
 };
 
-const Input = (props: Props) => {;
-
+const Input = (props: Props) => {
   let divStyle = styles.divStylePlain
   let [eyeState, setEyeState] = useState(true)
 
   if (props.radius === 'top') {
-    divStyle = styles.divStyleTopRadius
+    divStyle = styles.divStyleTopRadius as any
   } else if (props.radius === 'bottom') {
     divStyle = styles.divStyleBottomRadius
   }
@@ -26,19 +25,19 @@ const Input = (props: Props) => {;
   return (
     <View style={divStyle} >
       <TextInput
-          autoCapitalize='none'
-          secureTextEntry={props.isPassword && eyeState}
-          style={props.isPassword ? styles.inputStylePassword : styles.inputStyle}
-          placeholder={props.placeholder}
-          onChangeText={props.change}
-          defaultValue={props.value}
+        autoCapitalize='none'
+        secureTextEntry={props.isPassword && eyeState}
+        style={props.isPassword ? styles.inputStylePassword : styles.inputStyle}
+        placeholder={props.placeholder}
+        onChangeText={props.change}
+        defaultValue={props.value}
       />
       {props.isPassword && (
-        <TouchableOpacity style={styles.eyes} onPress={() => setEyeState(!eyeState)}> 
-        { eyeState
-          ? <EyeOpen/>
-          : <EyeClosed/>
-        }
+        <TouchableOpacity style={styles.eyes} onPress={() => setEyeState(!eyeState)}>
+          {eyeState
+            ? <EyeOpen />
+            : <EyeClosed />
+          }
         </TouchableOpacity>
       )}
     </View>)

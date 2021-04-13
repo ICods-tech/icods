@@ -13,6 +13,7 @@ const EditProfile = ({ route }) => {
 
   const handleProfileVisibility = useCallback(async () => {
     try {
+      console.log(token)
       await alterProfileVisibility(user.id, token)
       console.log(user)
     } catch (err) {
@@ -37,7 +38,7 @@ const EditProfile = ({ route }) => {
       <View style={styles.userInformationContainer}>
         <View style={styles.userLabelAndInfoContainer}>
           <Text style={styles.userInformationLabel}>Username</Text>
-          <Text style={styles.userInformationText}>{user.name}</Text>
+          <Text style={styles.userInformationText}>{user.username}</Text>
         </View>
         <View style={styles.userLabelAndInfoContainer}>
           <Text style={styles.userInformationLabel}>Email</Text>

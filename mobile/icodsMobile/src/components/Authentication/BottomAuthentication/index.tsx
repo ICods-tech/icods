@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react';
-import {View, Text, Image, StatusBar, Button} from 'react-native';
+import { View, Text, Image, StatusBar, Button } from 'react-native';
 import styles from './styles';
-import BottomImage from '../../assets/images/bottom.svg';
+import BottomImage from '../../../assets/images/bottom.svg';
 
 const BottomAuthentication = () => {
   return (

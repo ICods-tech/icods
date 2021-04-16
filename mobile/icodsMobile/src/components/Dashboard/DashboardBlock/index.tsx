@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react';
 import { View, Text, Image, StatusBar, Button, TouchableOpacity } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler'
-import SocialIcon from '../../assets/images/Icons/social.svg'
-import HistoryIcon from '../../assets/images/Icons/history.svg'
-import ScanIcon from '../../assets/images/Icons/qrcode_scan.svg'
+import SocialIcon from '../../../assets/images/Icons/social.svg'
+import HistoryIcon from '../../../assets/images/Icons/history.svg'
+import ScanIcon from '../../../assets/images/Icons/qrcode_scan.svg'
 import styles from './styles';
 
 interface BlockProps {
@@ -21,7 +21,7 @@ const DashboardBlock = ({ pressed, text, image }: BlockProps) => {
   }
   return (
     <RectButton style={styles.blockStyle} onPress={pressed}>
-      { imageSelected[image]}
+      {imageSelected[image]}
       <Text style={styles.textStyle}>{text}</Text>
     </RectButton>
   )

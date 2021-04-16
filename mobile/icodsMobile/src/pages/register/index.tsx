@@ -6,9 +6,9 @@ import Asteroid from '../../assets/images/asteroid_image.svg';
 import IcodsIcon from '../../assets/images/icods_icon.svg';
 import Back from '../../assets/images/back.svg';
 import Input from '../../components/Input'
-import HeaderAuthentication from '../../components/HeaderAuthentication'
-import BottomAuthentication from '../../components/BottomAuthentication'
-import ButtonAuthentication from '../../components/ButtonAuthentication'
+import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
+import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
+import ButtonAuthentication from '../../components/Authentication/ButtonAuthentication'
 import { useAuth } from '../../hooks/auth';
 
 const Register = () => {

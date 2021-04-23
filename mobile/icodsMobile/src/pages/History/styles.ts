@@ -41,7 +41,11 @@ const styles = StyleSheet.create({
     marginLeft: '4%',
     lineHeight: 22,
   },
-
+  iconsCardContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 });
 
 export default styles;

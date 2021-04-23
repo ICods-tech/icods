@@ -1,5 +1,7 @@
-import React from 'react';
+'use strict';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 import RedFlag from '../../../assets/images/red_flag.svg';
 import GreenFlag from '../../../assets/images/green_flag.svg';
 import ArrowIcon from '../../../assets/images/Icons/arrow_icon.svg';
@@ -28,6 +30,7 @@ const HistoryCards = ({ code, content, createdAt, date, statusFlag, favorite }: 
     }
   }
 
+
   function statusFlagRender() {
     if (statusFlag === "green") {
       return <GreenFlag style={styles.redStatus} />
@@ -44,8 +47,7 @@ const HistoryCards = ({ code, content, createdAt, date, statusFlag, favorite }: 
 
   return (
     <>
-      {dateSorting()}
-      <TouchableOpacity style={styles.qrCodeCard}>
+      <View style={styles.qrCodeCard}>
         {statusFlagRender()}
         <View style={styles.qrCodeManneger}>
           <QrCodeImg />
@@ -62,7 +64,7 @@ const HistoryCards = ({ code, content, createdAt, date, statusFlag, favorite }: 
             <ArrowIcon />
           </View>
         </View>
-      </TouchableOpacity>
+      </View>
     </>
   )
 }

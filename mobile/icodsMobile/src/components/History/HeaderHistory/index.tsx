@@ -3,9 +3,9 @@ import { TextInput, TouchableOpacity, View, Text } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 
 import SearchIcon from '../../../assets/images/Icons/search.svg';
-import FavoriteIcon from '../../../assets/images/Icons/favorite_button.svg';
+import FavoriteIcon from '../../../assets/images/Icons/favorite_search.svg';
 import BackButton from '../../../assets/images/back.svg';
-import MenuButton from '../../../assets/images/Icons/filter_button.svg';
+import MenuButton from '../../../assets/images/Icons/filter_search.svg';
 
 import styles from './styles';
 

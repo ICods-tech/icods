@@ -64,13 +64,12 @@ const styles = StyleSheet.create({
   optionsButtonsContainer: {
     // backgroundColor: '#F22',
     flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // height: 64,
-    // width: 64,
-    // marginBottom: 20,
-    // alignItems: 'flex-start',
+    shadowOffset: { width: 1, height: 2, },
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOpacity: 1.0
   },
   iconButton: {
+    marginLeft: 8
   }
   // testHeart: {
   // marginRight: Platform.OS === 'ios' ? '10%' : -30,

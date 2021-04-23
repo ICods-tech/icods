@@ -13,6 +13,7 @@ const App = createStackNavigator()
 
 const Routes: React.FC = () => {
   const { user, token, isLoading } = useAuth()
+
   return (
     <App.Navigator screenOptions={{
       headerShown: false,

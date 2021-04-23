@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import CloudRightSmall from '../../assets/images/cloud-right-stripe-sm.svg';
 import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg';
 import DeleteButton from '../../assets/images/Icons/delete_button.svg';
-import FavoriteButton from '../../assets/images/Icons/favorite_button.svg';
+import FavoriteCardButton from '../../assets/images/Icons/favorite_qrcode_card.svg'
+import NotFavoritedCardButton from '../../assets/images/Icons/notFavorited_qrcode_card.svg'
+import TrashQRCodeIcon from '../../assets/images/Icons/trash_qrcode_card.svg'
 import HeaderHistory from '../../components/History/HeaderHistory';
 import HistoryFooter from '../../components/History/HistoryFooter';
 import HistoryCards from '../../components/History/HistoryCards';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 
 const History = () => {
+  // Placeholder, afterwards favorites will be a part of a qr code
+  const [favoriteCard, setFavoriteCard] = useState<boolean>(false)
   const searchData = [
     {
       id: 1,
@@ -41,6 +46,50 @@ const History = () => {
     }
   ]
 
+  const RightActions = (progress: any, dragX: any) => {
+    const scale = dragX.interpolate({
+      inputRange: [-120, 0],
+      outputRange: [0.75, 0]
+    })
+    return (
+      <View style={styles.iconsCardContainer}>
+        <View style={{ justifyContent: 'center' }}>
+          <TouchableOpacity>
+            <Animated.Text
+              style={{
+                transform: [{ scale }]
+              }}>
+              <TrashQRCodeIcon />
+            </Animated.Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ justifyContent: 'center' }}>
+          <Animated.Text
+            style={{
+              transform: [{ scale }]
+            }}>
+            <TouchableOpacity onPress={() => setFavoriteCard(!favoriteCard)}>
+              {
+                favoriteCard
+                  ? (<FavoriteCardButton style={{
+                    shadowOffset: { width: 1, height: 2, },
+                    shadowColor: 'rgba(0, 0, 0, 0.25)',
+                    shadowOpacity: 1.0,
+                  }} />)
+                  : (<NotFavoritedCardButton style={{
+                    shadowOffset: { width: 1, height: 2, },
+                    shadowColor: 'rgba(0, 0, 0, 0.25)',
+                    shadowOpacity: 1.0,
+                  }} />)
+              }
+
+            </TouchableOpacity>
+          </Animated.Text>
+        </View>
+      </View>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.background}>
       <HeaderHistory />
@@ -56,14 +105,24 @@ const History = () => {
       <ScrollView>
 
         {searchData.map(
-          data => <HistoryCards key={data.id}
-            code={data.code}
-            content={data.content}
-            createdAt={data.createdAt}
-            date={data.date}
-            statusFlag={data.statusFlag}
-            favorite={data.favorite}
-          />)
+          data => (
+            <>
+              <Swipeable
+                key={data.id}
+                renderRightActions={RightActions}
+              >
+                <HistoryCards
+                  key={data.id}
+                  code={data.code}
+                  content={data.content}
+                  createdAt={data.createdAt}
+                  date={data.date}
+                  statusFlag={data.statusFlag}
+                  favorite={data.favorite}
+                />
+              </Swipeable>
+            </>
+          ))
         }
       </ScrollView>
       <HistoryFooter />

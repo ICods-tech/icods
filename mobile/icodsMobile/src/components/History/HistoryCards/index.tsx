@@ -15,7 +15,7 @@ interface HistoryCardsProps {
   content: string;
   createdAt: string;
   date: string;
-  statusFlag: string; // "green" | "red"
+  statusFlag: "green" | "red";
   favorite: boolean;
 }
 
@@ -24,14 +24,13 @@ const HistoryCards = ({ code, content, createdAt, date, statusFlag, favorite }: 
 
   const [, month,] = date.split('/')
 
-  function dateSorting() {
+  const dateSorting = () => {
     if (previousDate != date) {
       return <Text style={styles.date}>2 de Dezembro {month}</Text>
     }
   }
 
-
-  function statusFlagRender() {
+  const statusFlagRender = () => {
     if (statusFlag === "green") {
       return <GreenFlag style={styles.redStatus} />
     } else {
@@ -39,7 +38,7 @@ const HistoryCards = ({ code, content, createdAt, date, statusFlag, favorite }: 
     }
   }
 
-  function favoriteQrCode() {
+  const favoriteQrCode = () => {
     if (favorite) {
       return <HeartIcon />
     }

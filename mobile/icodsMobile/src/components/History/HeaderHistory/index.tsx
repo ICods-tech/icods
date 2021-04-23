@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View, Text } from "react-native"
 import { useNavigation } from '@react-navigation/native';
-
+import CalendarModal from '../CalendarModal'
 import SearchIcon from '../../../assets/images/Icons/search.svg';
 import FavoriteIcon from '../../../assets/images/Icons/favorite_search.svg';
 import BackButton from '../../../assets/images/back.svg';
 import MenuButton from '../../../assets/images/Icons/filter_search.svg';
-
 import styles from './styles';
+import { useAuth } from '../../../hooks/auth';
 
 const HeaderHistory = () => {
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false)
+  const { user, signOut } = useAuth()
 
   return (
     <>
@@ -39,8 +41,22 @@ const HeaderHistory = () => {
             <TouchableOpacity style={styles.optionsButton}>
               <FavoriteIcon style={styles.iconButton} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionsButton}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(!modalVisible)}
+              style={styles.optionsButton}>
               <MenuButton style={styles.iconButton} />
+              <CalendarModal
+                visible={modalVisible}
+                pressedOut={() => setModalVisible(!modalVisible)}
+                profilePage={() => {
+                  setModalVisible(false)
+                  navigation.navigate('Profile')
+                }}
+                signOut={async () => {
+                  setModalVisible(false)
+                  await signOut()
+                }}
+              />
             </TouchableOpacity>
           </View>
         </View >

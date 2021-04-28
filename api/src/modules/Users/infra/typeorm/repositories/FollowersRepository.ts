@@ -51,7 +51,6 @@ export default class FollowerRepository implements IFollowRepository {
   }
 
   public async follow(data: IFollowDTO): Promise<Follow> {
-    console.log(data)
     const follow = this.ormRepository.create(data)
     await this.ormRepository.save(follow)
 

@@ -17,7 +17,6 @@ export default class RequestFollowerService {
     if (!follow) {
       throw new AppError("Trying to accept a follow that doesn't exist")
     }
-    console.log(follow?.requestFollower === false)
     if (follow?.requestFollower === false) {
       return { message: "Follower already Accepted" }
     }

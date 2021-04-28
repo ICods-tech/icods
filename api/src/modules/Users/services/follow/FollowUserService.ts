@@ -52,7 +52,6 @@ export default class FollowUserService {
       // no mobile o cliente aceita ou nega
       return { message: 'You send request for follow!' }
     } {
-      console.log("User ")
       const follow = await this.followersRepository.follow({ userId: id, followingId, requestFollower: REQUEST_FOLLOWER_FALSE })
       return follow
     }

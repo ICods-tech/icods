@@ -11,7 +11,6 @@ export default class FollowController {
     try {
       const { id } = request.user
       const { followingId } = request.params
-      console.log(id,followingId)
       const followUserService = container.resolve(FollowUserService)
 
       const follow = await followUserService.run(

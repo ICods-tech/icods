@@ -46,7 +46,12 @@ export default class FollowerRepository implements IFollowRepository {
     await this.ormRepository.delete({ userId: id, followingId: followingId })
   }
 
+  public async rejectFollower(id: string){
+    await this.ormRepository.delete({ id: id })
+  }
+
   public async follow(data: IFollowDTO): Promise<Follow> {
+    console.log(data)
     const follow = this.ormRepository.create(data)
     await this.ormRepository.save(follow)
 

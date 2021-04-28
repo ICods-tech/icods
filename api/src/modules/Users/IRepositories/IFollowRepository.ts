@@ -4,6 +4,7 @@ import IFollowDTO from '@modules/Users/DTOs/IFollowDTO';
 export default interface IFollowRepository {
   follow(data: IFollowDTO): Promise<Follow>
   unfollow(id: string, followingId: string): Promise<void>
+  rejectFollower(id: string): Promise<void>
   checkFollowing(id: string, followingId: string): Promise<boolean>;
   save(followEntry: Follow): Promise<Omit<Follow, 'id' | 'created_at'>>;
   findById(id: string): Promise<Follow | undefined>;

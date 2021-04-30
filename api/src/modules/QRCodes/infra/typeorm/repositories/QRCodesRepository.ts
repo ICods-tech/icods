@@ -39,26 +39,33 @@ export default class QRCodesRepository implements IQRCodesRepository {
     await this.ormRepostory.save(qrcode)
   }
 
+  public async receiveQRCode(
+    qrcode: QRCode,
+    user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode> {
+    Object.assign(qrcode, { receivedUser: user })
+
+    await this.ormRepostory.save(qrcode)
+    return qrcode
+  }
+
   public async activate(
     id: string,
     user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode> {
 
-    let existingQRCode = await this.ormRepostory.findOne(id)
+    let qrcode = await this.ormRepostory.findOne(id)
 
-    if (!existingQRCode) {
-      throw new AppError('This QRCode does not exist')
-    }
+    if (!qrcode) throw new AppError('This QRCode does not exist')
 
-    existingQRCode = {
-      ...existingQRCode,
+    qrcode = {
+      ...qrcode,
       enabled: true,
       link: `generate_qrcode/${id}`,
       content: '',
       user
     }
 
-    await this.ormRepostory.save(existingQRCode)
-    return existingQRCode
+    await this.ormRepostory.save(qrcode)
+    return qrcode
   }
 
   public async delete(id: string): Promise<void> {

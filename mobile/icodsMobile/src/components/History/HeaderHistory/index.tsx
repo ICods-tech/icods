@@ -48,13 +48,9 @@ const HeaderHistory = () => {
               <CalendarModal
                 visible={modalVisible}
                 pressedOut={() => setModalVisible(!modalVisible)}
-                profilePage={() => {
+                confirmedFilter={async ({ date, color }) => {
+                  console.log({ date, color });
                   setModalVisible(false)
-                  navigation.navigate('Profile')
-                }}
-                signOut={async () => {
-                  setModalVisible(false)
-                  await signOut()
                 }}
               />
             </TouchableOpacity>

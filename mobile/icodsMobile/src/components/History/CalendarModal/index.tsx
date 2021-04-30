@@ -1,20 +1,48 @@
 import React, { useState } from 'react';
 import Modal from 'react-native-modal'
 import { View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
-import NotificationsIcon from '../../../assets/images/Icons/notifications_icon.svg'
-import UserIcon from '../../../assets/images/Icons/user_icon.svg'
-import ReportProblemIcon from '../../../assets/images/Icons/report_problem_icon.svg'
-import SignOutIcon from '../../../assets/images/Icons/sign_out_icon.svg'
+import Red from '../../../assets/images/Icons/colors/red.svg'
+import Blue from '../../../assets/images/Icons/colors/blue.svg'
+import Cyan from '../../../assets/images/Icons/colors/cyan.svg'
+import Green from '../../../assets/images/Icons/colors/green.svg'
+import Black from '../../../assets/images/Icons/colors/black.svg'
+import Pink from '../../../assets/images/Icons/colors/pink.svg'
+import Yellow from '../../../assets/images/Icons/colors/yellow.svg'
+import NoColor from '../../../assets/images/Icons/colors/none.svg'
+import ConfirmButton from '../ButtonCalendar'
+import DatePicker from 'react-native-date-picker'
 import styles from './styles'
 
 interface ModalInterface {
   visible: boolean,
   pressedOut: () => void,
-  profilePage: () => void,
-  signOut: () => Promise<void>
+  confirmedFilter: (data: FilterData) => Promise<void>
 }
 
-const CalendarModal = ({ visible, pressedOut, profilePage, signOut }: ModalInterface) => {
+interface FilterData {
+  color: string,
+  date: Date
+}
+
+const colorsIconsList = [
+  <Red key={'red'} />,
+  <Green key={'green'} />,
+  <Blue key={'blue'} />,
+  <Yellow key={'yellow'} />,
+  <Cyan key={'cyan'} />,
+  <Pink key={'pink'} />,
+  <Black key={'black'} />,
+  <NoColor key={'noColor'} />
+]
+
+type Colors = 'red' | 'green' | 'blue' | 'yellow' | 'cyan' | 'pink' | 'black' | 'noColor'
+
+const CalendarModal = ({ visible, pressedOut, confirmedFilter }: ModalInterface) => {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [selectedColor, setSelectedColor] = useState<Colors>('noColor')
+
+  // useEffect(() => {}, [])
+
   return (
     <Modal
       style={visible ? styles.dropdownStyle : { display: 'none' }}
@@ -23,18 +51,46 @@ const CalendarModal = ({ visible, pressedOut, profilePage, signOut }: ModalInter
       isVisible={visible}
       onBackdropPress={pressedOut}
     >
-      <TouchableOpacity
-        activeOpacity={1}
-        onPressOut={() => { console.log('oe') }}
-      >
-        <TouchableWithoutFeedback>
-          <View>
-            <TouchableOpacity style={styles.dropdownOptions}>
-              <Text style={styles.dropdownOptionsText}>Ordenar por cor</Text>
-            </TouchableOpacity>
+      <TouchableWithoutFeedback>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPressOut={() => { }}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.colorContainer}>
+              <TouchableOpacity style={styles.dropdownOptions}>
+                <Text style={styles.headerText}>Ordenar por cor</Text>
+              </TouchableOpacity>
+              <View style={styles.colorIconsContainer}>
+                {colorsIconsList.map(color => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => setSelectedColor(color.key as Colors)}
+                      style={selectedColor === color.key && styles.selectedColor}
+                    >
+                      {color}
+                    </TouchableOpacity>
+                  )
+                })}
+              </View>
+            </View>
+            <View style={styles.dateContainer}>
+              <Text style={styles.headerText}>Ordenar por data</Text>
+              <DatePicker
+                date={selectedDate}
+                onDateChange={setSelectedDate}
+                androidVariant="iosClone"
+                mode="date"
+              />
+            </View>
+            <ConfirmButton pressed={() => confirmedFilter({
+              date: selectedDate,
+              color: selectedColor
+            })} text={'Confirmar'} />
           </View>
-        </TouchableWithoutFeedback>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </TouchableWithoutFeedback>
+
     </Modal>
   )
 }

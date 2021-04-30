@@ -53,17 +53,7 @@ const History = () => {
     })
     return (
       <View style={styles.iconsCardContainer}>
-        <View style={{ justifyContent: 'center' }}>
-          <TouchableOpacity>
-            <Animated.Text
-              style={{
-                transform: [{ scale }]
-              }}>
-              <TrashQRCodeIcon />
-            </Animated.Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{ justifyContent: 'center' }}>
+        <View>
           <Animated.Text
             style={{
               transform: [{ scale }]
@@ -82,9 +72,18 @@ const History = () => {
                     shadowOpacity: 1.0,
                   }} />)
               }
-
             </TouchableOpacity>
           </Animated.Text>
+        </View>
+        <View>
+          <TouchableOpacity>
+            <Animated.Text
+              style={{
+                transform: [{ scale }]
+              }}>
+              <TrashQRCodeIcon />
+            </Animated.Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
@@ -93,10 +92,8 @@ const History = () => {
   return (
     <SafeAreaView style={styles.background}>
       <HeaderHistory />
-
       <View style={styles.dateContainer}>
         <CloudRightSmall style={styles.cloudRightSmallHistory} />
-
         <View style={styles.dateCloudContainer}>
           <Text style={styles.date}>2 de Dezembro</Text>
           <CloudLeftLarge style={styles.cloudLeftLargeHistory} />

@@ -62,7 +62,12 @@ const styles = StyleSheet.create({
   option: {
   },
   optionsButtonsContainer: {
-    // backgroundColor: '#F22',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: 120,
+    height: 40,
+    marginBottom: 36,
     flexDirection: 'row',
     shadowOffset: { width: 1, height: 2, },
     shadowColor: 'rgba(0, 0, 0, 0.25)',
@@ -71,17 +76,5 @@ const styles = StyleSheet.create({
   iconButton: {
     marginLeft: 8
   }
-  // testHeart: {
-  // marginRight: Platform.OS === 'ios' ? '10%' : -30,
-  // },
-
-  // button: {
-  //     width: Dimensions.get('window').width*0.15,
-  //     display: 'flex',
-  //     alignItems: 'center',
-  //     justifyContent: 'center',
-  // },
-
-
 });
 export default styles;

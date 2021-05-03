@@ -19,7 +19,7 @@ export default class AddQRCodeToUserService {
     try {
       const user = await this.usersRepository.findById(id)
       if (!user) throw new Error('User with this ID does not exist')
-      const { created_at, updated_at, password, qrcodes, ...filteredUser } = user
+      const { created_at, updated_at, password, ...filteredUser } = user
       const qrcode = await this.qrCodesRepository.activate(qrcode_id, filteredUser)
 
       return qrcode

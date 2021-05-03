@@ -1,4 +1,5 @@
 import Post from '@modules/Posts/infra/typeorm/models/post';
+import { Colors } from '@modules/QRCodes/interfaces/Colors';
 import { Column, Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, IsNull } from 'typeorm'
 import User from '../../../../Users/infra/typeorm/models/user'
 
@@ -15,6 +16,19 @@ export default class QRCode {
 
   @Column()
   content: string;
+
+  @Column({
+    nullable: true,
+    default: false
+  })
+  favorited?: boolean;
+
+  @Column({
+    type: 'enum',
+    enum: ['blue', 'green', 'yellow', 'black', 'noColor', 'cyan', 'pink'],
+    default: 'noColor'
+  })
+  color?: Colors;
 
   @ManyToOne(type => User, user => user.qrcodes, {
     onDelete: 'CASCADE'

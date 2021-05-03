@@ -3,6 +3,7 @@ import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepositor
 import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
 import AppError from '@shared/error/AppError'
 import { inject, injectable } from 'tsyringe'
+import { Colors } from '../interfaces/Colors';
 
 @injectable()
 export default class ReceiveQRCodeService {
@@ -22,7 +23,7 @@ export default class ReceiveQRCodeService {
 
       let qrcode = await this.qrCodesRepository.get(qrcode_id)
       if (!qrcode) throw new Error('This QR Code does not exist!')
-
+      if (!qrcode.user) throw new Error('QR Code was not activated yet!')
       if (qrcode.user.id === id) throw new Error('You cannot send a QR Code to yourself!')
 
       const { created_at, updated_at, password, qrcodes, ...filteredReceivingUser } = receivingUser

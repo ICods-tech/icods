@@ -9,10 +9,13 @@ export default class GetUserQRCodeService {
     private qrCodesRepository: IQRCodesRepository
   ) { }
 
-  public async run(qrcode_id: string): Promise<QRCode> {
+  public async run(qrcode_id: string): Promise<Omit<QRCode, 'color' | 'favorited'>> {
+    console.log('ESTOU AQUI')
     const qrcode = await this.qrCodesRepository.get(qrcode_id)
+    console.log('ACA', qrcode)
     if (!qrcode) throw new Error('This QRCode does not exist!')
-
-    return qrcode
+    const { color, favorited, ...filteredQrCode } = qrcode
+    console.log(filteredQrCode)
+    return filteredQrCode
   }
 }

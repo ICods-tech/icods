@@ -12,6 +12,11 @@ export default class QRCodesRepository implements IQRCodesRepository {
     this.ormRepostory = getRepository(QRCode)
   }
 
+  private filterUser(user: User) {
+    const { created_at, updated_at, password, ...filteredUser } = user
+    return filteredUser
+  }
+
   public async create(): Promise<QRCode> {
     const qrcode = this.ormRepostory.create({
       link: '',
@@ -23,20 +28,26 @@ export default class QRCodesRepository implements IQRCodesRepository {
   }
 
   public async get(id: string): Promise<QRCode | undefined> {
-    const qrcode = await this.ormRepostory.findOne(id, { relations: ['user'] })
+    let qrcode = await this.ormRepostory.findOne(id, { relations: ['user', 'receivedUser'] })
+    console.log(qrcode)
     if (qrcode) {
-      delete qrcode.user?.created_at
-      delete qrcode.user?.updated_at
-      delete qrcode.user?.password
-      delete qrcode.user?.qrcodes
-
-      return qrcode
+      if (qrcode.user) qrcode.user = this.filterUser(qrcode.user as User)
+      if (qrcode.receivedUser) qrcode.receivedUser = this.filterUser(qrcode.receivedUser as User)
     }
-    return undefined
+    return qrcode || undefined
   }
 
   public async save(qrcode: QRCode): Promise<void> {
     await this.ormRepostory.save(qrcode)
+  }
+
+  public async changeFavoriteStatus(qrCode: QRCode): Promise<QRCode> {
+    const { favorited } = qrCode
+    Object.assign(qrCode, { favorited: !favorited })
+
+    this.ormRepostory.save(qrCode)
+
+    return qrCode
   }
 
   public async receiveQRCode(

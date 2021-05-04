@@ -3,6 +3,7 @@ import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 import { Repository, getRepository } from 'typeorm'
 import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepository'
 import User from '@modules/Users/infra/typeorm/models/user';
+import { Colors } from '@modules/QRCodes/interfaces/Colors';
 
 export default class QRCodesRepository implements IQRCodesRepository {
 
@@ -46,6 +47,13 @@ export default class QRCodesRepository implements IQRCodesRepository {
     Object.assign(qrCode, { favorited: !favorited })
 
     this.ormRepostory.save(qrCode)
+
+    return qrCode
+  }
+
+  public async changeQRCodeColor(qrCode: QRCode, color: Colors): Promise<QRCode> {
+    Object.assign(qrCode, { color })
+    await this.ormRepostory.save(qrCode)
 
     return qrCode
   }

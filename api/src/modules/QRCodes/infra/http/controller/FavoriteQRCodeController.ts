@@ -6,10 +6,10 @@ export default class FavoriteQRCodeController {
   public async update(request: Request, response: Response): Promise<Response> {
     try {
       const { id } = request.user
-      const { qrcodeId } = request.params
+      const { qrcode_id } = request.params
 
       const changeFavoriteStatusService = container.resolve(ChangeFavoriteStatusService)
-      const qrCode = await changeFavoriteStatusService.run(id, qrcodeId)
+      const qrCode = await changeFavoriteStatusService.run(id, qrcode_id)
 
       return response.json(qrCode)
     } catch (err) {

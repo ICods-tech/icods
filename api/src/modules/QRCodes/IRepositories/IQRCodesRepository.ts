@@ -9,8 +9,6 @@ export default interface IQRCodesRepository {
   delete(id: string): Promise<void>;
   changeFavoriteStatus(qrCode: QRCode): Promise<QRCode>;
   changeQRCodeColor(qrCode: QRCode, color: Colors): Promise<QRCode>;
-  getAllUserFavoritedQRCodes(): Promise<QRCode[] | []>;
-  getUserColoredQRCodes(color: Colors): Promise<QRCode[] | []>
   receiveQRCode(qrCode: QRCode, user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode>;
   save(qrCode: QRCode): Promise<void>;
 }

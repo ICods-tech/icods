@@ -24,9 +24,9 @@ export default class ReceiveQRCodeService {
       if (!qrcode) throw new Error('This QR Code does not exist!')
       if (!qrcode.user) throw new Error('QR Code was not activated yet!')
       if (qrcode.user.id === id) throw new Error('You cannot send a QR Code to yourself!')
-      if (qrcode.received_at) throw new Error('QR Code was already received by someone else!')
+      if (qrcode.received_at) throw new Error('QR Code was already received by someone!')
 
-      const { created_at, updated_at, password, qrcodes, ...filteredReceivingUser } = receivingUser
+      const { created_at, updated_at, password, qrcodes, receivedQRCodes, ...filteredReceivingUser } = receivingUser
 
       qrcode = await this.qrCodesRepository.receiveQRCode(qrcode, filteredReceivingUser)
 

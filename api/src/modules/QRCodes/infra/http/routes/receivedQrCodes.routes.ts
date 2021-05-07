@@ -28,6 +28,12 @@ receivedQrCodesRouter.patch(
   colorQRCodesController.update
 )
 
+receivedQrCodesRouter.get(
+  '/received_qrcode',
+  verifyJwtToken,
+  receivedQRCodesController.index
+)
+
 export default receivedQrCodesRouter
 
 

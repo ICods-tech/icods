@@ -22,6 +22,9 @@ export default class ChangeFavoriteStatusService {
   public async run(userId: string, qrcodeId: string, color: Colors): Promise<QRCode> {
     if (!this.checkColorValidity(color)) throw new Error('Color is not valid!')
 
+    console.log('Inside SERVICE')
+    console.log({ userId, qrcodeId, color })
+
     const user = await this.usersRepository.findById(userId)
     if (!user) throw new Error('User with this ID does not exist')
 

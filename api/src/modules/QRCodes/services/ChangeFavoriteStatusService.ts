@@ -21,6 +21,8 @@ export default class ChangeFavoriteStatusService {
     let qrCode = await this.qrcodeRepository.get(qrcodeId)
     if (!qrCode) throw new Error('QR Code with this ID does not exist')
 
+    console.log(qrCode)
+
     checkReceivedQRCodeProperties(qrCode, userId)
 
     qrCode = await this.qrcodeRepository.changeFavoriteStatus(qrCode)

@@ -31,14 +31,14 @@ export default class QRCode {
   color?: Colors;
 
   @ManyToOne(type => User, user => user.qrcodes, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
   })
   user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>;
 
   @ManyToOne(type => User, user => user.receivedQRCodes, {
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
   })
   receivedUser: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'> | null;
 

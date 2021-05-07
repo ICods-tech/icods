@@ -38,7 +38,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
 
   public async get(id: string): Promise<QRCode | undefined> {
     let qrcode = await this.ormRepostory.findOne(id, { relations: ['user', 'receivedUser'] })
-    console.log(qrcode)
+    console.log("HERER", qrcode)
     if (qrcode) {
       if (qrcode.user) qrcode.user = this.filterUser(qrcode.user as User)
       if (qrcode.receivedUser) qrcode.receivedUser = this.filterUser(qrcode.receivedUser as User)
@@ -66,24 +66,12 @@ export default class QRCodesRepository implements IQRCodesRepository {
     return qrCode
   }
 
-  public async getAllUserFavoritedQRCodes(): Promise<QRCode[] | []> {
-    const qrCodes = await this.ormRepostory.find({ where: { favorited: true } })
-
-    return qrCodes
-  }
-
-  public async getUserColoredQRCodes(color: Colors): Promise<QRCode[] | []> {
-    const qrCodes = await this.ormRepostory.find({ where: { color: color } })
-
-    return qrCodes
-  }
-
   public async receiveQRCode(
     qrcode: QRCode,
     user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode> {
     Object.assign(qrcode, {
       receivedUser: user,
-      received_at: new Date(2021, 3, 20)
+      received_at: new Date()
     })
 
     await this.ormRepostory.save(qrcode)

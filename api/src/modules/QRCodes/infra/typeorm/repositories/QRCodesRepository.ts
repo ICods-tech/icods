@@ -13,6 +13,12 @@ export default class QRCodesRepository implements IQRCodesRepository {
     this.ormRepostory = getRepository(QRCode)
   }
 
+
+  private filterMadeQRCode(qrcode: QRCode) {
+    const { color, favorited, received_at, ...filteredQrCode } = qrcode;
+    return filteredQrCode
+  }
+
   private filterUser(user: User) {
     const { created_at, updated_at, password, ...filteredUser } = user
     return filteredUser
@@ -24,8 +30,10 @@ export default class QRCodesRepository implements IQRCodesRepository {
       content: '',
       enabled: false,
     })
+
     await this.ormRepostory.save(qrcode)
-    return qrcode
+
+    return this.filterMadeQRCode(qrcode)
   }
 
   public async get(id: string): Promise<QRCode | undefined> {
@@ -58,10 +66,25 @@ export default class QRCodesRepository implements IQRCodesRepository {
     return qrCode
   }
 
+  public async getAllUserFavoritedQRCodes(): Promise<QRCode[] | []> {
+    const qrCodes = await this.ormRepostory.find({ where: { favorited: true } })
+
+    return qrCodes
+  }
+
+  public async getUserColoredQRCodes(color: Colors): Promise<QRCode[] | []> {
+    const qrCodes = await this.ormRepostory.find({ where: { color: color } })
+
+    return qrCodes
+  }
+
   public async receiveQRCode(
     qrcode: QRCode,
     user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode> {
-    Object.assign(qrcode, { receivedUser: user })
+    Object.assign(qrcode, {
+      receivedUser: user,
+      received_at: new Date(2021, 3, 20)
+    })
 
     await this.ormRepostory.save(qrcode)
     return qrcode

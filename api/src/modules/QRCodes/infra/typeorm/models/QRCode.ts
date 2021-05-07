@@ -31,12 +31,14 @@ export default class QRCode {
   color?: Colors;
 
   @ManyToOne(type => User, user => user.qrcodes, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   })
   user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>;
 
   @ManyToOne(type => User, user => user.receivedQRCodes, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   })
   receivedUser: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'> | null;
 
@@ -46,4 +48,10 @@ export default class QRCode {
 
   @Column({ nullable: true })
   postId?: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  received_at?: Date
 }

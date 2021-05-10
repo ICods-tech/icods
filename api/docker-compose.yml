@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: docker
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5436:5432'
+
+  # app:
+  #   depends_on:
+  #     - db
+  #   build: .
+  #   ports:
+  #     - '5000:5000'
+  #   command: node dist/server.js

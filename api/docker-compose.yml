@@ -4,9 +4,10 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: docker
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: icods_password
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - /:/var/lib/postgresql/data
     ports:
       - '5436:5432'
 

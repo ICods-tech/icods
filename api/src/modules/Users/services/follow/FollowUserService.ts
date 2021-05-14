@@ -4,7 +4,6 @@ import { inject, injectable } from 'tsyringe'
 import Follow from '@modules/Users/infra/typeorm/models/follow'
 import IFollowRepository from '../../IRepositories/IFollowRepository'
 import RabbitmqServer from '@shared/middlewares/RabbitmqServer'
-// var amqp = require('amqplib/callback_api');
 
 @injectable()
 export default class FollowUserService {
@@ -34,7 +33,7 @@ export default class FollowUserService {
       return { message: 'User already followed!' }
     }
 
-    const isPrivate = user?.visibility ? false : true;
+    const isPrivate = user?.visibility ? true : false;
     if (isPrivate) {
       try {
         const rabbit = new RabbitmqServer(process.env.URL_RABBIT as string)
@@ -42,11 +41,11 @@ export default class FollowUserService {
         const follow = await this.followersRepository.follow({ userId: id, followingId, requestFollower: REQUEST_FOLLOWER_TRUE })
         Object.assign(follow, { phoneId: "id-phone-notify" })
         await rabbit.publishInQueue(process.env.QUEUE_NAME as string, JSON.stringify(follow))
+        return { message: 'You send request for follow 🤗!' }
       } catch (error) {
         console.error(error);
-        return { message: 'You send request notification failed 😞'}
+        return { message: 'You send request notification failed 😞' }
       }
-      return { message: 'You send request for follow 🤗!' }
     } {
       const follow = await this.followersRepository.follow({ userId: id, followingId, requestFollower: REQUEST_FOLLOWER_FALSE })
       return follow

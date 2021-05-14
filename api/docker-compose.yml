@@ -6,12 +6,11 @@ services:
     environment:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: icods_password
-    volumes:
-      - /:/var/lib/postgresql/data
+    # volumes:
+      # - ./home/pgdata:/var/lib/postgresql/data
     ports:
       - '5436:5432'
-
-  # app:
+      # app:
   #   depends_on:
   #     - db
   #   build: .

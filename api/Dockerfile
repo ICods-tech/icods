@@ -1,4 +1,4 @@
-FROM node:15.8.0-alpine3.13
+FROM node:15
 
 EXPOSE 5000
 
@@ -10,4 +10,4 @@ RUN yarn install
 
 COPY . .
 
-RUN yarn build
+CMD [ "npm","dev:server" ]

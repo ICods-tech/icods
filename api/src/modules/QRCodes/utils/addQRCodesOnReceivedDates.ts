@@ -24,7 +24,8 @@ export function addQRCodesToReceivedDates(sortedQRCodes: QRCodeComparisonDate[] 
       previousMonth = formattedMonth
     }
 
-    delete qrcode.comparisonDate
+    delete qrcode.received_at
+    delete qrcode.created_at
   }
 
   if (Object.keys(temporaryMonths)) {

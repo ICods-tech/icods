@@ -1,6 +1,5 @@
 import QRCode from "../infra/typeorm/models/QRCode";
 import { Colors } from "../interfaces/Colors";
-import { QRCodeComparisonDate } from "../interfaces/OrderedQRCodes";
 import { sortQRCodeListByDate } from "./sortQRCodeList";
 
 export function filterQrCodeColorAndFavorites(qrCodes: QRCode[] | [], receivedQRCodes: boolean, color: Colors | 'noFilter', favorite: boolean) {
@@ -18,7 +17,10 @@ export function filterQrCodeColorAndFavorites(qrCodes: QRCode[] | [], receivedQR
     let filteredQRCode = { ...qrcode, qrCodeCreatorName: receivedQRCodes ? qrcode.user?.name : "Você" }
     delete filteredQRCode.user
     delete filteredQRCode.receivedUser
-    receivedQRCodes ? delete filteredQRCode.madeColor : delete filteredQRCode.receivedColor
-    return filteredQRCode
+    let color = receivedQRCodes ? qrcode.receivedColor : qrcode.madeColor
+    delete filteredQRCode.madeColor
+    delete filteredQRCode.receivedColor
+
+    return Object.assign(filteredQRCode, { color })
   })
 }

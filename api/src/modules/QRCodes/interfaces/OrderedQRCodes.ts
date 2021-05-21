@@ -8,7 +8,7 @@ export interface QRCodeByDate {
   [date: string]: QRCodeComparisonDate[]
 }
 
-export interface QRCodeComparisonDate extends QRCode {
+export interface QRCodeComparisonDate extends Partial<QRCode> {
   qrCodeCreatorName?: string;
   comparisonDate?: Date
 }

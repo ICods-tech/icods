@@ -8,4 +8,5 @@ export const colorsObject = {
   'noColor': '',
   'cyan': '',
   'pink': '',
+  'noFilter': ''
 }

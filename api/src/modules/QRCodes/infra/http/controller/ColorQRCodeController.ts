@@ -9,8 +9,6 @@ export default class ColorQRCodeController {
       const { qrcode_id } = request.params
       const { color } = request.body
 
-      console.log("OIEEE", qrcode_id)
-
       const changeQRCodeColorService = container.resolve(ChangeQRCodeColorService)
       const qrCode = await changeQRCodeColorService.run(id, qrcode_id, color)
 

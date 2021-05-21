@@ -5,5 +5,10 @@ export interface OrderedQRCodes {
 }
 
 export interface QRCodeByDate {
-  [date: string]: QRCode[]
+  [date: string]: QRCodeComparisonDate[]
+}
+
+export interface QRCodeComparisonDate extends QRCode {
+  qrCodeCreatorName?: string;
+  comparisonDate?: Date
 }

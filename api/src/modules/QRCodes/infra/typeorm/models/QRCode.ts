@@ -42,15 +42,16 @@ export default class QRCode {
 
   @ManyToOne(type => User, user => user.qrcodes, {
     onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
+    eager: true
   })
-  user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>;
+  user?: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>;
 
   @ManyToOne(type => User, user => user.receivedQRCodes, {
     onUpdate: 'CASCADE',
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
   })
-  receivedUser: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'> | null;
+  receivedUser?: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'> | null;
 
   @OneToOne(type => Post)
   @JoinColumn()

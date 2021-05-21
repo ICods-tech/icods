@@ -1,17 +1,17 @@
 import QRCode from "../infra/typeorm/models/QRCode"
-import { OrderedQRCodes, QRCodeByDate } from "../interfaces/OrderedQRCodes"
+import { OrderedQRCodes, QRCodeByDate, QRCodeComparisonDate } from "../interfaces/OrderedQRCodes"
 import { formatDateFiltering } from "./formatDateFiltering"
 
-export function addQRCodesToReceivedDates(sortedQRCodes: QRCode[] | [], orderedReceivedQRCodes: OrderedQRCodes) {
+export function addQRCodesToReceivedDates(sortedQRCodes: QRCodeComparisonDate[] | [], orderedReceivedQRCodes: OrderedQRCodes) {
   let temporaryMonths: QRCodeByDate = {}
 
-  let previousMonth = sortedQRCodes.length && formatDateFiltering(sortedQRCodes[0].received_at as Date)
+  let previousMonth = sortedQRCodes.length && formatDateFiltering(sortedQRCodes[0].comparisonDate as Date)
   temporaryMonths[previousMonth] = []
 
   for (let qrcode of sortedQRCodes) {
-    let { received_at } = qrcode
-    console.log(received_at)
-    let formattedMonth = formatDateFiltering(received_at as Date)
+    let { comparisonDate } = qrcode
+
+    let formattedMonth = formatDateFiltering(comparisonDate as Date)
 
     if (formattedMonth in temporaryMonths) {
       temporaryMonths[formattedMonth].push(qrcode)
@@ -23,6 +23,8 @@ export function addQRCodesToReceivedDates(sortedQRCodes: QRCode[] | [], orderedR
       delete temporaryMonths[previousMonth]
       previousMonth = formattedMonth
     }
+
+    delete qrcode.comparisonDate
   }
 
   if (Object.keys(temporaryMonths)) {

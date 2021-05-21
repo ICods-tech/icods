@@ -41,7 +41,7 @@ export default class UserRepository implements IUserRepository {
 
   public async findAllUserQRCodes(user_id: string): Promise<QRCode[] | [] | undefined> {
     const userQrcodes = await this.ormRepository.findOne(user_id, {
-      relations: ['qrcodes'],
+      relations: ['qrcodes', 'qrcodes.receivedUser'],
     })
 
     return userQrcodes?.qrcodes || undefined

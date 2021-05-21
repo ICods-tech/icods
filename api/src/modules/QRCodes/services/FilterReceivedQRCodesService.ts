@@ -4,9 +4,11 @@ import IUserRepository from '@modules/Users/IRepositories/IUserRepository';
 import { inject, injectable } from 'tsyringe'
 import { Colors, colorsObject } from '../interfaces/Colors';
 import { FilterQRCodes } from '../interfaces/FilterQRCodes';
-import { OrderedQRCodes, QRCodeByDate } from '../interfaces/OrderedQRCodes';
+import { OrderedQRCodes, QRCodeByDate, QRCodeComparisonDate } from '../interfaces/OrderedQRCodes';
 import { addQRCodesToReceivedDates } from '../utils/addQRCodesOnReceivedDates';
 import { filterQrCodeColorAndFavorites } from '../utils/filterQRCodeColorAndFavorites';
+import { getUserById } from '../utils/getUserById';
+import { sortQRCodeListByDate } from '../utils/sortQRCodeList';
 
 @injectable()
 export default class FilterReceivedQRCodesService {
@@ -22,21 +24,22 @@ export default class FilterReceivedQRCodesService {
     return colorsObject.hasOwnProperty(color)
   }
 
-  public async run({ id, color, favorited }: FilterQRCodes): Promise<OrderedQRCodes> {
-    const user = await this.usersRepository.findById(id)
-    if (!user) throw new Error('User with this ID does not exist!')
+  public async run({ id: userId, color, favorited }: FilterQRCodes): Promise<OrderedQRCodes | any> {
+    if (!this.checkColorValidity(color)) throw new Error("Color is not valid!")
+    const user = await getUserById(userId, this.usersRepository)
 
-    console.log(user)
-    const receivedQRCodes = filterQrCodeColorAndFavorites(user.receivedQRCodes as QRCode[], color, favorited)
-    const orderedReceivedQRCodes = { data: [] } as OrderedQRCodes
+    let madeQRCodes = await this.usersRepository.findAllUserQRCodes(userId)
+    let receivedQRCodes = user.receivedQRCodes
 
+    const sortedMadeQRCodes = filterQrCodeColorAndFavorites(madeQRCodes as QRCode[] | [], false, color, favorited)
+    const sortedReceivedQRCodes = filterQrCodeColorAndFavorites(receivedQRCodes as QRCode[] | [], true, color, favorited)
 
-    const sortedQRCodes = receivedQRCodes?.length
-      ? receivedQRCodes.sort((a: any, b: any) => b.received_at - a.received_at)
-      : []
+    const orderedUserQRCodes = { data: [] } as OrderedQRCodes
 
-    addQRCodesToReceivedDates(sortedQRCodes, orderedReceivedQRCodes)
+    const sortedQRCodes = sortQRCodeListByDate([...sortedMadeQRCodes, ...sortedReceivedQRCodes], 'comparisonDate') as QRCodeComparisonDate[]
 
-    return orderedReceivedQRCodes
+    addQRCodesToReceivedDates(sortedQRCodes, orderedUserQRCodes)
+
+    return orderedUserQRCodes
   }
 }

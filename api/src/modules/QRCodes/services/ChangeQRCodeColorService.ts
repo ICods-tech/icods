@@ -4,6 +4,8 @@ import { injectable, inject } from 'tsyringe'
 import { Colors, colorsObject } from '../interfaces/Colors';
 import IQRCodesRepository from '../IRepositories/IQRCodesRepository'
 import checkReceivedQRCodeProperties from '../utils/checkReceivedQRCodeProperties';
+import { getQRCodeById } from '../utils/getQRCodeById';
+import { getUserById } from '../utils/getUserById';
 
 @injectable()
 export default class ChangeFavoriteStatusService {
@@ -22,18 +24,21 @@ export default class ChangeFavoriteStatusService {
   public async run(userId: string, qrcodeId: string, color: Colors): Promise<QRCode> {
     if (!this.checkColorValidity(color)) throw new Error('Color is not valid!')
 
-    console.log('Inside SERVICE')
-    console.log({ userId, qrcodeId, color })
+    await getUserById(userId, this.usersRepository)
+    let qrCode = await getQRCodeById(qrcodeId, this.qrcodeRepository)
 
-    const user = await this.usersRepository.findById(userId)
-    if (!user) throw new Error('User with this ID does not exist')
+    checkReceivedQRCodeProperties(qrCode, userId, false)
 
-    let qrCode = await this.qrcodeRepository.get(qrcodeId)
-    if (!qrCode) throw new Error('QR Code with this ID does not exist')
+    const type = qrCode.user.id === userId
+      ? 'madeColor'
+      : 'receivedColor'
 
-    checkReceivedQRCodeProperties(qrCode, userId)
+    if (type === 'receivedColor') {
+      if (!('receivedUser' in qrCode)) throw new Error('QR Code does not contain an user on the receiving end')
+      if (userId !== qrCode.receivedUser?.id) throw new Error("You cannot alter the status of this QR Code due to the fact that it wasn't you who received it")
+    }
 
-    qrCode = await this.qrcodeRepository.changeQRCodeColor(qrCode, color)
+    qrCode = await this.qrcodeRepository.changeQRCodeColor(qrCode, color, type)
     return qrCode
   }
 }

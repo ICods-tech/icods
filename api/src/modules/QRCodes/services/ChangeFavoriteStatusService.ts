@@ -3,6 +3,8 @@ import IUserRepository from '@modules/Users/IRepositories/IUserRepository';
 import { injectable, inject } from 'tsyringe'
 import IQRCodesRepository from '../IRepositories/IQRCodesRepository'
 import checkReceivedQRCodeProperties from '../utils/checkReceivedQRCodeProperties';
+import { getQRCodeById } from '../utils/getQRCodeById';
+import { getUserById } from '../utils/getUserById';
 
 @injectable()
 export default class ChangeFavoriteStatusService {
@@ -15,15 +17,10 @@ export default class ChangeFavoriteStatusService {
   ) { }
 
   public async run(userId: string, qrcodeId: string): Promise<QRCode> {
-    const user = await this.usersRepository.findById(userId)
-    if (!user) throw new Error('User with this ID does not exist')
+    await getUserById(userId, this.usersRepository);
+    let qrCode = await getQRCodeById(qrcodeId, this.qrcodeRepository)
 
-    let qrCode = await this.qrcodeRepository.get(qrcodeId)
-    if (!qrCode) throw new Error('QR Code with this ID does not exist')
-
-    console.log(qrCode)
-
-    checkReceivedQRCodeProperties(qrCode, userId)
+    checkReceivedQRCodeProperties(qrCode, userId, true)
 
     qrCode = await this.qrcodeRepository.changeFavoriteStatus(qrCode)
     return qrCode

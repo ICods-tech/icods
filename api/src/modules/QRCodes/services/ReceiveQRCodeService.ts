@@ -3,6 +3,9 @@ import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepositor
 import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
 import AppError from '@shared/error/AppError'
 import { inject, injectable } from 'tsyringe'
+import checkReceivedQRCodeProperties from '../utils/checkReceivedQRCodeProperties';
+import { getQRCodeById } from '../utils/getQRCodeById';
+import { getUserById } from '../utils/getUserById';
 
 @injectable()
 export default class ReceiveQRCodeService {
@@ -15,16 +18,13 @@ export default class ReceiveQRCodeService {
     private usersRepository: IUserRepository
   ) { }
 
-  public async run(qrcode_id: string, id: string): Promise<QRCode> {
+  public async run(qrcode_id: string, userId: string): Promise<QRCode> {
     try {
-      const receivingUser = await this.usersRepository.findById(id)
-      if (!receivingUser) throw new Error('User with this ID does not exist')
+      const receivingUser = await getUserById(userId, this.usersRepository)
+      let qrcode = await getQRCodeById(qrcode_id, this.qrCodesRepository)
 
-      let qrcode = await this.qrCodesRepository.get(qrcode_id)
-      if (!qrcode) throw new Error('This QR Code does not exist!')
-      if (!qrcode.user) throw new Error('QR Code was not activated yet!')
-      if (qrcode.user.id === id) throw new Error('You cannot send a QR Code to yourself!')
-      if (qrcode.received_at) throw new Error('QR Code was already received by someone!')
+      checkReceivedQRCodeProperties(qrcode, userId, false)
+      if (qrcode.user.id === userId) throw new Error("You cannot send a QR Code to yourself")
 
       const { created_at, updated_at, password, qrcodes, receivedQRCodes, ...filteredReceivingUser } = receivingUser
 

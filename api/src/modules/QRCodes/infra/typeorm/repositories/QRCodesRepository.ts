@@ -15,7 +15,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
 
 
   private filterMadeQRCode(qrcode: QRCode) {
-    const { color, favorited, received_at, ...filteredQrCode } = qrcode;
+    const { receivedColor, favorited, received_at, ...filteredQrCode } = qrcode;
     return filteredQrCode
   }
 
@@ -38,11 +38,12 @@ export default class QRCodesRepository implements IQRCodesRepository {
 
   public async get(id: string): Promise<QRCode | undefined> {
     let qrcode = await this.ormRepostory.findOne(id, { relations: ['user', 'receivedUser'] })
-    console.log("HERER", qrcode)
+
     if (qrcode) {
       if (qrcode.user) qrcode.user = this.filterUser(qrcode.user as User)
       if (qrcode.receivedUser) qrcode.receivedUser = this.filterUser(qrcode.receivedUser as User)
     }
+
     return qrcode || undefined
   }
 
@@ -59,8 +60,8 @@ export default class QRCodesRepository implements IQRCodesRepository {
     return qrCode
   }
 
-  public async changeQRCodeColor(qrCode: QRCode, color: Colors): Promise<QRCode> {
-    Object.assign(qrCode, { color })
+  public async changeQRCodeColor(qrCode: QRCode, color: Colors, type: 'madeColor' | 'receivedColor'): Promise<QRCode> {
+    Object.assign(qrCode, { [type]: color })
     await this.ormRepostory.save(qrCode)
 
     return qrCode

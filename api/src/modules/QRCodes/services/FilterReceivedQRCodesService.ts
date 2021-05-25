@@ -6,7 +6,7 @@ import { Colors, colorsObject } from '../interfaces/Colors';
 import { FilterQRCodes } from '../interfaces/FilterQRCodes';
 import { OrderedQRCodes, QRCodeByDate, QRCodeComparisonDate } from '../interfaces/OrderedQRCodes';
 import { addQRCodesToReceivedDates } from '../utils/addQRCodesOnReceivedDates';
-import { filterQrCodeColorAndFavorites } from '../utils/filterQRCodeColorAndFavorites';
+import { filterQrCodes } from '../utils/filterQRCodes';
 import { getUserById } from '../utils/getUserById';
 import { sortQRCodeListByDate } from '../utils/sortQRCodeList';
 
@@ -24,15 +24,15 @@ export default class FilterReceivedQRCodesService {
     return colorsObject.hasOwnProperty(color)
   }
 
-  public async run({ id: userId, color, favorited }: FilterQRCodes): Promise<OrderedQRCodes | any> {
+  public async run({ id: userId, color, favorited, month, year }: FilterQRCodes): Promise<OrderedQRCodes | any> {
     if (!this.checkColorValidity(color)) throw new Error("Color is not valid!")
     const user = await getUserById(userId, this.usersRepository)
 
     let madeQRCodes = await this.usersRepository.findAllUserQRCodes(userId)
     let receivedQRCodes = user.receivedQRCodes
 
-    const sortedMadeQRCodes = filterQrCodeColorAndFavorites(madeQRCodes as QRCode[] | [], false, color, favorited)
-    const sortedReceivedQRCodes = filterQrCodeColorAndFavorites(receivedQRCodes as QRCode[] | [], true, color, favorited)
+    const sortedMadeQRCodes = filterQrCodes(madeQRCodes as QRCode[] | [], false, color, favorited, month, year)
+    const sortedReceivedQRCodes = filterQrCodes(receivedQRCodes as QRCode[] | [], true, color, favorited, month, year)
 
     const orderedUserQRCodes = { data: [] } as OrderedQRCodes
 

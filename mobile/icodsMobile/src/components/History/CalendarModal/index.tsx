@@ -24,23 +24,20 @@ interface FilterData {
   date: Date
 }
 
-const colorsIconsList = [
-  <Red key={'red'} />,
-  <Green key={'green'} />,
-  <Blue key={'blue'} />,
-  <Yellow key={'yellow'} />,
-  <Cyan key={'cyan'} />,
-  <Pink key={'pink'} />,
-  <Black key={'black'} />,
-  <NoColor key={'noColor'} />
-]
-
-type Colors = 'red' | 'green' | 'blue' | 'yellow' | 'cyan' | 'pink' | 'black' | 'noColor'
-
 const CalendarModal = ({ visible, pressedOut, confirmedFilter }: ModalInterface) => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [selectedColor, setSelectedColor] = useState<Colors>('noColor')
 
+  const colorsIconsList = [
+    <Red key={'red'} />,
+    <Green key={'green'} />,
+    <Blue key={'blue'} />,
+    <Yellow key={'yellow'} />,
+    <Cyan key={'cyan'} />,
+    <Pink key={'pink'} />,
+    <Black key={'black'} />,
+    <NoColor key={'noColor'} />
+  ]
   // useEffect(() => {}, [])
 
   return (

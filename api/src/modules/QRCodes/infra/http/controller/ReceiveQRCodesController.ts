@@ -24,10 +24,12 @@ export default class ReceiveQRCodeController {
       const { id } = request.user
       const favorited = request.body.favorite || false
       const color = request.body.color || 'noFilter'
+      const month = request.body.month || null
+      const year = request.body.year || null
 
       const filterReceivedQRCodesService = container.resolve(FilterReceivedQRCodesService)
 
-      const filteredQRCodes = await filterReceivedQRCodesService.run({ id, color, favorited })
+      const filteredQRCodes = await filterReceivedQRCodesService.run({ id, color, favorited, month, year })
 
       return response.json(filteredQRCodes)
     } catch (err) {

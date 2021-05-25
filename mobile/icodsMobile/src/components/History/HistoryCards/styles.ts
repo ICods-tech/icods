@@ -76,9 +76,13 @@ const styles = StyleSheet.create({
 
   textQRCodeInfo: {
     // fontFamily: 'Manrope',
+    display: 'flex',
+    flexDirection: 'row',
     fontWeight: '700',
     fontStyle: 'normal',
     fontSize: 12,
+    width: 180,
+    flexWrap: 'wrap-reverse',
     letterSpacing: Dimensions.get('window').width * 0.002,
   },
 

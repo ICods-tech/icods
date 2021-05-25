@@ -13,13 +13,13 @@ import styles from './styles';
 interface HistoryCardsProps {
   code: string;
   content: string;
-  createdAt: string;
+  creator: string;
   date: string;
   statusFlag: "green" | "red";
   favorite: boolean;
 }
 
-const HistoryCards = ({ code, content, createdAt, date, statusFlag, favorite }: HistoryCardsProps) => {
+const HistoryCards = ({ code, content, creator, date, statusFlag, favorite }: HistoryCardsProps) => {
   let previousDate = '';
 
   const [, month,] = date.split('/')
@@ -53,8 +53,8 @@ const HistoryCards = ({ code, content, createdAt, date, statusFlag, favorite }: 
 
           <View style={styles.qrCodeInfo}>
             <Text style={styles.textQRCodeInfo}>Código: {code}</Text>
-            <Text style={styles.textQRCodeInfo}>Conteúdo: <Text style={styles.privacyInfo}>{content}</Text></Text>
-            <Text style={styles.textQRCodeInfo}>Feito por: {createdAt}</Text>
+            <Text style={styles.textQRCodeInfo}>Conteúdo: <Text style={styles.privacyInfo}>Público</Text></Text>
+            <Text style={styles.textQRCodeInfo}>Feito por: {creator}</Text>
             <Text style={styles.textQRCodeInfo}>Data: {date}</Text>
           </View>
 

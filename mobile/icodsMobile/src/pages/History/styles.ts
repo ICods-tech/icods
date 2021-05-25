@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   },
 
   dateContainer: {
-    marginTop: 40,
+    marginTop: 8,
   },
   cloudRightSmallHistory: {
     marginLeft: '41.6%',
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   dateCloudContainer: {
     display: 'flex',
     flexDirection: 'row',
+    marginBottom: 12
   },
   date: {
     marginLeft: Platform.OS === 'ios' ? '4%' : '4%',
@@ -26,7 +27,8 @@ const styles = StyleSheet.create({
     lineHeight: 21.86,
   },
   cloudLeftLargeHistory: {
-    marginLeft: 135,
+    alignSelf: 'center',
+    marginLeft: 256
   },
 
   historyDate: {
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 });
 

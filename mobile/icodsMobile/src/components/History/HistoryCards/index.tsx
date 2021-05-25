@@ -5,38 +5,45 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 import RedFlag from '../../../assets/images/red_flag.svg';
 import GreenFlag from '../../../assets/images/green_flag.svg';
 import ArrowIcon from '../../../assets/images/Icons/arrow_icon.svg';
+import GreenMarker from '../../../assets/images/Icons/cardMarker/Green.svg'
+import RedMarker from '../../../assets/images/Icons/cardMarker/Red.svg'
+import CyanMarker from '../../../assets/images/Icons/cardMarker/Cyan.svg'
+import BlackMarker from '../../../assets/images/Icons/cardMarker/Black.svg'
+import YellowMarker from '../../../assets/images/Icons/cardMarker/Yellow.svg'
+import PinkMarker from '../../../assets/images/Icons/cardMarker/Pink.svg'
+import BlueMarker from '../../../assets/images/Icons/cardMarker/Blue.svg'
+import NoColorMarker from '../../../assets/images/Icons/cardMarker/NoColor.svg'
 import HeartIcon from '../../../assets/images/Icons/heart_icon.svg';
 import QrCodeImg from '../../../assets/images/qr_code.svg';
 
 import styles from './styles';
+
 
 interface HistoryCardsProps {
   code: string;
   content: string;
   creator: string;
   date: string;
-  statusFlag: "green" | "red";
+  color: Colors;
   favorite: boolean;
 }
 
-const HistoryCards = ({ code, content, creator, date, statusFlag, favorite }: HistoryCardsProps) => {
+const CardMarker = {
+  'red': <RedMarker />,
+  'green': <GreenMarker />,
+  'blue': <BlueMarker />,
+  'yellow': <YellowMarker />,
+  'cyan': <CyanMarker />,
+  'pink': <PinkMarker />,
+  'black': <BlackMarker />,
+  'noColor': <NoColorMarker />
+}
+
+
+const HistoryCards = ({ code, content, creator, date, color, favorite }: HistoryCardsProps) => {
   let previousDate = '';
 
   const [, month,] = date.split('/')
-
-  const dateSorting = () => {
-    if (previousDate != date) {
-      return <Text style={styles.date}>2 de Dezembro {month}</Text>
-    }
-  }
-
-  const statusFlagRender = () => {
-    if (statusFlag === "green") {
-      return <GreenFlag style={styles.redStatus} />
-    } else {
-      return <RedFlag style={styles.redStatus} />
-    }
-  }
 
   const favoriteQrCode = () => {
     if (favorite) {
@@ -47,7 +54,7 @@ const HistoryCards = ({ code, content, creator, date, statusFlag, favorite }: Hi
   return (
     <>
       <View style={styles.qrCodeCard}>
-        {statusFlagRender()}
+        {CardMarker[color]}
         <View style={styles.qrCodeManneger}>
           <QrCodeImg />
 

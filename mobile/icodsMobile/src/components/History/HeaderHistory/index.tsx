@@ -9,10 +9,18 @@ import MenuButton from '../../../assets/images/Icons/filter_search.svg';
 import styles from './styles';
 import { useAuth } from '../../../hooks/auth';
 
-const HeaderHistory = () => {
+interface HeaderHistoryProps {
+  setColorAndDate: ({ date, color }: ColorAndDateProps) => void
+}
+
+interface ColorAndDateProps {
+  date: Date | undefined,
+  color: string
+}
+
+const HeaderHistory = ({ setColorAndDate }: HeaderHistoryProps) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false)
-  const { user, signOut } = useAuth()
 
   return (
     <>
@@ -44,13 +52,15 @@ const HeaderHistory = () => {
             <TouchableOpacity
               onPress={() => setModalVisible(!modalVisible)}
               style={styles.optionsButton}>
-              <MenuButton style={styles.iconButton} />
+              <MenuButton
+                style={styles.iconButton}
+              />
               <CalendarModal
                 visible={modalVisible}
                 pressedOut={() => setModalVisible(!modalVisible)}
                 confirmedFilter={async ({ date, color }) => {
-                  console.log({ date, color });
                   setModalVisible(false)
+                  setColorAndDate({ date, color })
                 }}
               />
             </TouchableOpacity>

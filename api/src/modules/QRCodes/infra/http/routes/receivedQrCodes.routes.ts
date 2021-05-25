@@ -29,7 +29,7 @@ receivedQrCodesRouter.patch(
 )
 
 receivedQrCodesRouter.get(
-  '/filtered_qrcodes',
+  '/filtered_qrcodes/data?:color?:favorite?:month?:year',
   verifyJwtToken,
   receivedQRCodesController.index
 )

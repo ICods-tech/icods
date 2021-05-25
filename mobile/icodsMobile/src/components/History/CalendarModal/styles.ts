@@ -28,7 +28,10 @@ const styles = StyleSheet.create({
     borderColor: 'black'
   },
   dateContainer: {
-    marginTop: 12
+    marginTop: 12,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   colorContainer: {
     display: 'flex',

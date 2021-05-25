@@ -11,6 +11,8 @@ import Yellow from '../../../assets/images/Icons/colors/yellow.svg'
 import NoColor from '../../../assets/images/Icons/colors/none.svg'
 import ConfirmButton from '../ButtonCalendar'
 import DatePicker from 'react-native-date-picker'
+import MonthPicker from 'react-native-month-year-picker';
+import MonthYearPicker from 'react-native-simple-month-year-picker';
 import styles from './styles'
 
 interface ModalInterface {
@@ -21,11 +23,11 @@ interface ModalInterface {
 
 interface FilterData {
   color: string,
-  date: Date
+  date: Date | undefined
 }
 
 const CalendarModal = ({ visible, pressedOut, confirmedFilter }: ModalInterface) => {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedColor, setSelectedColor] = useState<Colors>('noColor')
 
   const colorsIconsList = [
@@ -78,7 +80,19 @@ const CalendarModal = ({ visible, pressedOut, confirmedFilter }: ModalInterface)
                 onDateChange={setSelectedDate}
                 androidVariant="iosClone"
                 mode="date"
+                maximumDate={new Date()}
               />
+              {/* <MonthPicker
+                okButton=""
+                cancelButton=""
+                style={{ backgroundColor: 'white', maxWidth: 10 }}
+                onChange={(event: any, newDate: any) => {
+                  setSelectedDate(newDate)
+                }}
+                value={selectedDate ? selectedDate : new Date()}
+                maximumDate={new Date()}
+                locale="pt-BR"
+              /> */}
             </View>
             <ConfirmButton pressed={() => confirmedFilter({
               date: selectedDate,

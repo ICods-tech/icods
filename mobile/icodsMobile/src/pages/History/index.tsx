@@ -36,41 +36,16 @@ const History = () => {
   // Placeholder, afterwards favorites will be a part of a qr code
   const [favoriteCard, setFavoriteCard] = useState<boolean>(false)
   const [qrCodes, setQRCodes] = useState<FilteredQRCodesByDate[]>(filteredQRCodesByDatePlaceholder)
-  const searchData = [
-    {
-      id: 1,
-      code: "iCOD 12332442",
-      content: "Público",
-      createdAt: "Marcelo Alves",
-      date: "02/12/2020",
-      statusFlag: "green",
-      favorite: true,
-    },
-    {
-      id: 2,
-      code: "iCOD 12332442",
-      content: "Público",
-      createdAt: "Julhêta",
-      date: "09/04/2021",
-      statusFlag: "red",
-      favorite: false,
-    },
-    {
-      id: 3,
-      code: "iCOD 12332442",
-      content: "Público",
-      createdAt: "Lucacete",
-      date: "09/04/2021",
-      statusFlag: "green",
-      favorite: true
-    }
-  ]
-
+  const [color, setColor] = useState<string>('noFilter')
 
   const loadQRCodes = useCallback(async () => {
-    const response = (await api.get('/filtered_qrcodes')).data
-    setQRCodes(response.data)
+    const response = await api.get('filtered_qrcodes/data', {
+      params: {
+        color
+      }
+    })
     console.log(response.data)
+    setQRCodes(response.data.data)
   }, [qrCodes])
 
   useEffect(() => {
@@ -129,41 +104,45 @@ const History = () => {
 
   return (
     <SafeAreaView style={styles.background}>
-      <HeaderHistory />
+      <HeaderHistory
+        setColorAndDate={({ date, color: filteredColor }) => {
+          setColor(filteredColor)
+        }}
+      />
       <View style={styles.dateContainer}>
         <CloudRightSmall style={styles.cloudRightSmallHistory} />
         <CloudLeftLarge style={styles.cloudLeftLargeHistory} />
         <ScrollView>
           {qrCodes?.map((qrcode: FilteredQRCodesByDate) => {
             const [date] = Object.keys(qrcode)
-
-            return (<>
-              <View style={styles.dateCloudContainer}>
-                <Text style={styles.date}>{date}</Text>
-              </View>
-              <ScrollView style={{ height: 240, marginBottom: 12 }}>
-                {qrcode[date].map(
-                  ({ id, color, comparisonDate, favorited, qrCodeCreatorName, content }) => (
-                    <>
-                      <Swipeable
-                        key={id}
-                        renderRightActions={RightActions}
-                      >
-                        <HistoryCards
+            if (date !== '0')
+              return (<>
+                <View style={styles.dateCloudContainer}>
+                  <Text style={styles.date}>{date}</Text>
+                </View>
+                <ScrollView style={{ height: 286, marginBottom: 12 }}>
+                  {qrcode[date].map(
+                    ({ id, color, comparisonDate, favorited, qrCodeCreatorName, content }) => (
+                      <>
+                        <Swipeable
                           key={id}
-                          code={id.substr(id.length - 8)}
-                          content={content}
-                          creator={qrCodeCreatorName}
-                          date={new Date(comparisonDate).toLocaleDateString("pt-BR")}
-                          statusFlag={"green"}
-                          favorite={favorited}
-                        />
-                      </Swipeable>
-                    </>
-                  ))
-                }
-              </ScrollView>
-            </>)
+                          renderRightActions={RightActions}
+                        >
+                          <HistoryCards
+                            key={id}
+                            code={id.substr(id.length - 8)}
+                            content={content}
+                            creator={qrCodeCreatorName}
+                            date={new Date(comparisonDate).toLocaleDateString("pt-BR")}
+                            color={color}
+                            favorite={favorited}
+                          />
+                        </Swipeable>
+                      </>
+                    ))
+                  }
+                </ScrollView>
+              </>)
           })}
         </ScrollView>
       </View>

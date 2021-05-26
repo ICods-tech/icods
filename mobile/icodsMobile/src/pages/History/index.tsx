@@ -13,6 +13,7 @@ import HistoryCards from '../../components/History/HistoryCards';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Colors } from '../../interfaces/colors';
 import api from '../../services/api';
+import MonthPicker from 'react-native-month-year-picker';
 import { filteredQRCodesByDatePlaceholder } from '../../utils/filteredQRCodesByDatePlaceholder';
 
 export interface FilteredQRCodes {
@@ -28,20 +29,22 @@ export interface FilteredQRCodes {
 }
 
 interface FilteredQRCodesByDate {
-  [date: string]: FilteredQRCodes[]
+  [date: string]: FilteredQRCodes[] | []
 }
 
 
 const History = () => {
-  // Placeholder, afterwards favorites will be a part of a qr code
   const [favoriteCard, setFavoriteCard] = useState<boolean>(false)
   const [qrCodes, setQRCodes] = useState<FilteredQRCodesByDate[]>(filteredQRCodesByDatePlaceholder)
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [color, setColor] = useState<string>('noFilter')
 
   const loadQRCodes = useCallback(async () => {
     const response = await api.get('filtered_qrcodes/data', {
       params: {
-        color
+        color,
+        month: selectedDate ? selectedDate.getMonth() : null,
+        year: selectedDate ? selectedDate.getFullYear() : null
       }
     })
     console.log(response.data)
@@ -107,6 +110,7 @@ const History = () => {
       <HeaderHistory
         setColorAndDate={({ date, color: filteredColor }) => {
           setColor(filteredColor)
+          setSelectedDate(date)
         }}
       />
       <View style={styles.dateContainer}>

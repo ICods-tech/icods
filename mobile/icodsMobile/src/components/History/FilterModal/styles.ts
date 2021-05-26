@@ -8,6 +8,12 @@ const styles = StyleSheet.create({
     left: 10,
     zIndex: 2,
   },
+  outerModalContainer: {
+    left: -30,
+    alignItems: 'center',
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height / 1.18
+  },
   modalContainer: {
     width: 360,
     height: 448,

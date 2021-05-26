@@ -1,18 +1,19 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
   buttonStyling: {
     backgroundColor: '#2B90D9',
-    width: '60%',
+    width: 248,
     height: 36,
-    borderRadius: 18,
+    borderRadius: 4,
     alignItems: 'center',
     justifyContent: 'center'
   },
   textStyling: {
     color: '#fff',
-    fontSize: 16
+    fontSize: 16,
+    fontWeight: 'bold'
   }
 })
 

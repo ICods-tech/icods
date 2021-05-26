@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, TouchableOpacity, View, Text } from "react-native"
 import { useNavigation } from '@react-navigation/native';
-import CalendarModal from '../CalendarModal'
+import FilterModal from '../FilterModal'
 import SearchIcon from '../../../assets/images/Icons/search.svg';
 import FavoriteIcon from '../../../assets/images/Icons/favorite_search.svg';
 import BackButton from '../../../assets/images/back.svg';
@@ -21,6 +21,7 @@ interface ColorAndDateProps {
 const HeaderHistory = ({ setColorAndDate }: HeaderHistoryProps) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false)
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
 
   return (
     <>
@@ -55,9 +56,10 @@ const HeaderHistory = ({ setColorAndDate }: HeaderHistoryProps) => {
               <MenuButton
                 style={styles.iconButton}
               />
-              <CalendarModal
+              <FilterModal
                 visible={modalVisible}
                 pressedOut={() => setModalVisible(!modalVisible)}
+                selectDate={() => { }}
                 confirmedFilter={async ({ date, color }) => {
                   setModalVisible(false)
                   setColorAndDate({ date, color })

@@ -65,7 +65,6 @@ const HeaderHistory = ({ setColorAndDate, setFavorite, favorite, qrCodeDetails }
               <FilterModal
                 visible={modalVisible}
                 pressedOut={() => setModalVisible(!modalVisible)}
-                selectDate={() => { }}
                 confirmedFilter={async ({ date, color }) => {
                   setModalVisible(false)
                   setColorAndDate({ date, color })

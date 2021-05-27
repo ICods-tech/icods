@@ -117,6 +117,7 @@ const History = () => {
     <SafeAreaView style={styles.background}>
       <HeaderHistory
         setColorAndDate={({ date, color: filteredColor }) => {
+          console.log({ color, date })
           setColor(filteredColor)
           setSelectedDate(date)
         }}

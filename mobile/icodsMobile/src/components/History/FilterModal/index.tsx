@@ -20,7 +20,7 @@ interface ModalInterface {
   visible: boolean,
   pressedOut: () => void,
   confirmedFilter: (data: FilterData) => Promise<void>,
-  selectDate: () => void
+  initialDateValue: undefined
 }
 
 interface FilterData {
@@ -40,7 +40,7 @@ export const colorsIconsList = [
 ]
 
 
-const FilterModal = ({ visible, pressedOut, confirmedFilter, selectDate }: ModalInterface) => {
+const FilterModal = ({ visible, pressedOut, confirmedFilter }: ModalInterface) => {
   const [selectedColor, setSelectedColor] = useState<Colors>('noFilter')
   const [calendarVisible, setCalendarVisible] = useState(false)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
@@ -81,7 +81,9 @@ const FilterModal = ({ visible, pressedOut, confirmedFilter, selectDate }: Modal
                 <View style={styles.dateContainer}>
                   <Text style={[styles.headerText, styles.orderDataText]}>Ordenar por data</Text>
                   <Button
-                    pressed={() => setCalendarVisible(!calendarVisible)}
+                    pressed={() => {
+                      setCalendarVisible(!calendarVisible)
+                    }}
                     text={"Escolher Data"}
                   />
                 </View>
@@ -98,6 +100,7 @@ const FilterModal = ({ visible, pressedOut, confirmedFilter, selectDate }: Modal
                       date: selectedDate,
                       color: selectedColor
                     })
+                    setSelectedDate(undefined)
                   }}>
                     <Text style={styles.bottomText}>CONFIRMAR</Text>
                   </TouchableOpacity>

@@ -17,10 +17,10 @@ import HeartIcon from '../../../assets/images/Icons/heart_icon.svg';
 import QrCodeImg from '../../../assets/images/qr_code.svg';
 
 import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 interface HistoryCardsProps {
-  code: string;
-  content: string;
+  id: string;
   creator: string;
   date: string;
   color: Colors;
@@ -35,32 +35,45 @@ const CardMarker = {
   'cyan': <CyanMarker />,
   'pink': <PinkMarker />,
   'black': <BlackMarker />,
-  'noColor': <NoColorMarker />,
-  'noFilter': <NoColorMarker />
+}
+
+export const CardColors = {
+  'red': '#ff6d6d',
+  'green': '#6dff73',
+  'blue': '#2b90d9',
+  'yellow': '#ffb600',
+  'cyan': '#68f6ff',
+  'pink': '#ff68c3',
+  'black': '#000'
 }
 
 
-const HistoryCards = ({ code, content, creator, date, color, favorite }: HistoryCardsProps) => {
+const HistoryCards = ({ id, creator, date, color, favorite }: HistoryCardsProps) => {
+  const navigation = useNavigation()
   return (
     <>
-      <View style={styles.qrCodeCard}>
-        {CardMarker[color]}
-        <View style={styles.qrCodeManneger}>
-          <QrCodeImg />
+      <TouchableOpacity onPress={() => navigation.navigate('QRCodeHistoryDetails', { id, color, creator, favorite })}>
+        <View style={styles.qrCodeCard}>
+          {(color in CardColors &&
+            (color !== 'noFilter' && color !== 'noColor'))
+            && CardMarker[color]}
+          <View style={styles.qrCodeManneger}>
+            <QrCodeImg />
 
-          <View style={styles.qrCodeInfo}>
-            <Text style={styles.textQRCodeInfo}>Código: {code}</Text>
-            <Text style={styles.textQRCodeInfo}>Conteúdo: <Text style={styles.privacyInfo}>Público</Text></Text>
-            <Text style={styles.textQRCodeInfo}>Feito por: {creator}</Text>
-            <Text style={styles.textQRCodeInfo}>Data: {date}</Text>
-          </View>
+            <View style={styles.qrCodeInfo}>
+              <Text style={styles.textQRCodeInfo}>Código: {id.substr(id.length - 8)}</Text>
+              <Text style={styles.textQRCodeInfo}>Conteúdo: <Text style={styles.privacyInfo}>Público</Text></Text>
+              <Text style={styles.textQRCodeInfo}>Feito por: {creator}</Text>
+              <Text style={styles.textQRCodeInfo}>Data: {date}</Text>
+            </View>
 
-          <View style={styles.rightQRCodeInfoButtons}>
-            {favorite && (<HeartIcon />)}
-            <ArrowIcon />
+            <View style={styles.rightQRCodeInfoButtons}>
+              {favorite && (<HeartIcon />)}
+              <ArrowIcon />
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   )
 }

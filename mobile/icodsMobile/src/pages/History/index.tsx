@@ -7,6 +7,7 @@ import DeleteButton from '../../assets/images/Icons/delete_button.svg';
 import FavoriteCardButton from '../../assets/images/Icons/favorite_qrcode_card.svg'
 import NotFavoritedCardButton from '../../assets/images/Icons/notFavorited_qrcode_card.svg'
 import TrashQRCodeIcon from '../../assets/images/Icons/trash_qrcode_card.svg'
+import LargeSearchIcon from '../../assets/images/Icons/large-search.svg'
 import HeaderHistory from '../../components/History/HeaderHistory';
 import HistoryFooter from '../../components/History/HistoryFooter';
 import HistoryCards from '../../components/History/HistoryCards';
@@ -52,7 +53,7 @@ const History = () => {
     setQRCodes(response.data.data)
   }, [qrCodes])
 
-  const handleFavoriteQRCode = useCallback(async (id: string) => {
+  const handleFavoriteQRCodes = useCallback(async (id: string) => {
     await api.patch(`received_qrcode/favorite/${id}`)
   }, [])
 
@@ -76,7 +77,7 @@ const History = () => {
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-              <TouchableOpacity onPress={() => handleFavoriteQRCode(id)}>
+              <TouchableOpacity onPress={() => handleFavoriteQRCodes(id)}>
                 {
                   favorited
                     ? (<FavoriteCardButton style={{
@@ -149,8 +150,7 @@ const History = () => {
                         >
                           <HistoryCards
                             key={id}
-                            code={id.substr(id.length - 8)}
-                            content={content}
+                            id={id}
                             creator={qrCodeCreatorName}
                             date={new Date(comparisonDate).toLocaleDateString("pt-BR")}
                             color={color}
@@ -162,6 +162,14 @@ const History = () => {
                   }
                 </ScrollView>
               </>)
+            else if (date === '0')
+              return (<View style={styles.notFoundContainer}>
+                <LargeSearchIcon />
+                <Text style={styles.noResultsFoundText}>Nenhum resultado obtido</Text>
+                <Text style={styles.noResultsFoundDescriptionText}>Tente realizar uma filtragem mais
+                  específica dos iCods
+                </Text>
+              </View>)
           })}
         </ScrollView>
       </View>

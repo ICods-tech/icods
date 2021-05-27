@@ -8,6 +8,7 @@ import EditProfile from '../pages/EditProfile'
 import Splash from '../pages/Splash'
 import { useAuth } from '../hooks/auth'
 import History from '../pages/History';
+import QRCodeHistoryDetails from '../pages/QRCodeHistoryDetails';
 
 const App = createStackNavigator()
 
@@ -29,6 +30,7 @@ const Routes: React.FC = () => {
               <App.Screen name='Profile' component={Profile} />
               <App.Screen name='EditProfile' component={EditProfile} />
               <App.Screen name='History' component={History} />
+              <App.Screen name='QRCodeHistoryDetails' component={QRCodeHistoryDetails} />
             </>
           ) : (
             <>

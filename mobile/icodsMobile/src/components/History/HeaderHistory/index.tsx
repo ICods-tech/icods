@@ -14,6 +14,7 @@ interface HeaderHistoryProps {
   setColorAndDate: ({ date, color }: ColorAndDateProps) => void;
   setFavorite: () => void;
   favorite: boolean;
+  qrCodeDetails?: boolean;
 }
 
 interface ColorAndDateProps {
@@ -21,7 +22,7 @@ interface ColorAndDateProps {
   color: string
 }
 
-const HeaderHistory = ({ setColorAndDate, setFavorite, favorite }: HeaderHistoryProps) => {
+const HeaderHistory = ({ setColorAndDate, setFavorite, favorite, qrCodeDetails }: HeaderHistoryProps) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -29,13 +30,13 @@ const HeaderHistory = ({ setColorAndDate, setFavorite, favorite }: HeaderHistory
     <>
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => { navigation.navigate('Dashboard') }}>
+          <TouchableOpacity onPress={() => { navigation.goBack() }}>
             <BackButton />
           </TouchableOpacity>
           <Text style={styles.title}>Histórico</Text>
         </View>
 
-        <View style={styles.searchContainer}>
+        {!qrCodeDetails && (<View style={styles.searchContainer}>
           <View style={styles.searchBar}>
             <TouchableOpacity style={styles.searchIcon}>
               <SearchIcon />
@@ -72,7 +73,7 @@ const HeaderHistory = ({ setColorAndDate, setFavorite, favorite }: HeaderHistory
               />
             </TouchableOpacity>
           </View>
-        </View >
+        </View >)}
       </View>
     </>
   );

@@ -8,7 +8,7 @@ import Back from '../../../assets/images/back.svg';
 import Input from '../../components/Input'
 import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
 import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
-import ButtonAuthentication from '../../components/Authentication/ButtonAuthentication'
+import ButtonAuthentication from '../../components/Button'
 import { useAuth } from '../../hooks/auth'
 import api from '../../services/api'
 

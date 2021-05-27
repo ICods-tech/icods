@@ -48,6 +48,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  notFoundContainer: {
+    marginTop: 48,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  noResultsFoundText: {
+    // fontfamily: Manrope;
+    marginTop: 16,
+    fontWeight: 'bold',
+    fontSize: 24,
+    lineHeight: 24,
+    textAlign: 'center',
+    letterSpacing: 0.18,
+    color: 'rgba(0, 0, 0, 0.87)'
+  },
+  noResultsFoundDescriptionText: {
+    // fontfamily: Manrope;
+    marginTop: 8,
+    maxWidth: 272,
+    fontSize: 16,
+    fontWeight: '600',
+    textAlign: 'center',
+    letterSpacing: 0.5,
+    color: 'rgba(0, 0, 0, 0.4)',
+    opacity: 0.57
   }
 });
 

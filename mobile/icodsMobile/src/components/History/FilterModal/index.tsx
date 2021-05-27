@@ -11,7 +11,7 @@ import Yellow from '../../../assets/images/Icons/colors/yellow.svg'
 import NoColor from '../../../assets/images/Icons/colors/none.svg'
 import ConfirmButton from '../ButtonCalendar'
 import DatePicker from 'react-native-date-picker'
-import Button from '../../Authentication/ButtonAuthentication'
+import Button from '../../Button'
 import styles from './styles'
 import MonthPicker from 'react-native-month-year-picker';
 import CalendarModal from '../CalendarModal';
@@ -28,21 +28,22 @@ interface FilterData {
   date: Date | undefined
 }
 
+export const colorsIconsList = [
+  <Red key={'red'} />,
+  <Green key={'green'} />,
+  <Blue key={'blue'} />,
+  <Yellow key={'yellow'} />,
+  <Cyan key={'cyan'} />,
+  <Pink key={'pink'} />,
+  <Black key={'black'} />,
+  <NoColor key={'noFilter'} />,
+]
+
+
 const FilterModal = ({ visible, pressedOut, confirmedFilter, selectDate }: ModalInterface) => {
   const [selectedColor, setSelectedColor] = useState<Colors>('noFilter')
   const [calendarVisible, setCalendarVisible] = useState(false)
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
-
-  const colorsIconsList = [
-    <Red key={'red'} />,
-    <Green key={'green'} />,
-    <Blue key={'blue'} />,
-    <Yellow key={'yellow'} />,
-    <Cyan key={'cyan'} />,
-    <Pink key={'pink'} />,
-    <Black key={'black'} />,
-    <NoColor key={'noFilter'} />
-  ]
 
   return (
     <>

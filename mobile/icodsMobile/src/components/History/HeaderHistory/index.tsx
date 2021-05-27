@@ -3,14 +3,17 @@ import { TextInput, TouchableOpacity, View, Text } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import FilterModal from '../FilterModal'
 import SearchIcon from '../../../assets/images/Icons/search.svg';
-import FavoriteIcon from '../../../assets/images/Icons/favorite_search.svg';
+import NotFavoritedIcon from '../../../assets/images/Icons/favorite_search.svg';
+import FavoritedIcon from '../../../assets/images/Icons/favorited_search.svg';
 import BackButton from '../../../assets/images/back.svg';
 import MenuButton from '../../../assets/images/Icons/filter_search.svg';
 import styles from './styles';
 import { useAuth } from '../../../hooks/auth';
 
 interface HeaderHistoryProps {
-  setColorAndDate: ({ date, color }: ColorAndDateProps) => void
+  setColorAndDate: ({ date, color }: ColorAndDateProps) => void;
+  setFavorite: () => void;
+  favorite: boolean;
 }
 
 interface ColorAndDateProps {
@@ -18,10 +21,9 @@ interface ColorAndDateProps {
   color: string
 }
 
-const HeaderHistory = ({ setColorAndDate }: HeaderHistoryProps) => {
+const HeaderHistory = ({ setColorAndDate, setFavorite, favorite }: HeaderHistoryProps) => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
 
   return (
     <>
@@ -47,8 +49,11 @@ const HeaderHistory = ({ setColorAndDate }: HeaderHistoryProps) => {
             </TextInput>
           </View>
           <View style={styles.optionsButtonsContainer}>
-            <TouchableOpacity style={styles.optionsButton}>
-              <FavoriteIcon style={styles.iconButton} />
+            <TouchableOpacity
+              onPress={() => setFavorite()}
+              style={styles.optionsButton}
+            >
+              {favorite ? <FavoritedIcon style={styles.iconButton} /> : <NotFavoritedIcon style={styles.iconButton} />}
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setModalVisible(!modalVisible)}

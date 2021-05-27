@@ -5,6 +5,10 @@ import FilterReceivedQRCodesService from '@modules/QRCodes/services/FilterReceiv
 import { Colors } from '@modules/QRCodes/interfaces/Colors';
 
 export default class ReceiveQRCodeController {
+  public booleanFavoriteConversion(query: string) {
+    return query === "true" ? true : false;
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { qrcode_id } = request.params
@@ -23,7 +27,7 @@ export default class ReceiveQRCodeController {
   public async index(request: Request, response: Response): Promise<Response> {
     try {
       const { id } = request.user
-      const favorited = (!!(request.query.favorite)) || false
+      const favorited = request.query.favorite === "true" ? true : false
       const color = (request.query.color || 'noFilter') as Colors | 'noFilter'
       const month = request.query.month ? parseInt(request.query.month as string) : null
       const year = request.query.year ? parseInt(request.query.year as string) : null

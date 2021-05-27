@@ -10,7 +10,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
   ormRepostory: Repository<QRCode>;
 
   constructor() {
-    this.ormRepostory = getRepository(QRCode)
+    this.ormRepostory = getRepository('qrcodes')
   }
 
 

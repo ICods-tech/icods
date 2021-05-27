@@ -36,57 +36,64 @@ interface FilteredQRCodesByDate {
 const History = () => {
   const [favoriteCard, setFavoriteCard] = useState<boolean>(false)
   const [qrCodes, setQRCodes] = useState<FilteredQRCodesByDate[]>(filteredQRCodesByDatePlaceholder)
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [color, setColor] = useState<string>('noFilter')
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [favoriteFilter, setFavoriteFilter] = useState<boolean>(false)
 
   const loadQRCodes = useCallback(async () => {
     const response = await api.get('filtered_qrcodes/data', {
       params: {
         color,
+        favorite: favoriteFilter.toString(),
         month: selectedDate ? selectedDate.getMonth() : null,
         year: selectedDate ? selectedDate.getFullYear() : null
       }
     })
-    console.log(response.data)
     setQRCodes(response.data.data)
   }, [qrCodes])
+
+  const handleFavoriteQRCode = useCallback(async (id: string) => {
+    await api.patch(`received_qrcode/favorite/${id}`)
+  }, [])
 
   useEffect(() => {
     loadQRCodes()
   }, [loadQRCodes])
 
-  const RightActions = (progress: any, dragX: any) => {
+  const RightActions = (progress: any, dragX: any, id: string, qrCodeBelongsToUser: boolean, favorited: boolean) => {
     const scale = dragX.interpolate({
-      inputRange: [-120, 0],
-      outputRange: [0.75, 0]
+      inputRange: qrCodeBelongsToUser ? [-120, 0] : [-90, 0],
+      outputRange: qrCodeBelongsToUser ? [2, 0] : [0.8, 0]
     })
     return (
       <View style={styles.iconsCardContainer}>
-        <View>
-          <Animated.Text
-            style={{
-              transform: [{ scale }],
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-            <TouchableOpacity onPress={() => setFavoriteCard(!favoriteCard)}>
-              {
-                favoriteCard
-                  ? (<FavoriteCardButton style={{
-                    shadowOffset: { width: 1, height: 2, },
-                    shadowColor: 'rgba(0, 0, 0, 0.25)',
-                    shadowOpacity: 1.0,
-                  }} />)
-                  : (<NotFavoritedCardButton style={{
-                    shadowOffset: { width: 1, height: 2, },
-                    shadowColor: 'rgba(0, 0, 0, 0.25)',
-                    shadowOpacity: 1.0,
-                  }} />)
-              }
-            </TouchableOpacity>
-          </Animated.Text>
-        </View>
+        {!qrCodeBelongsToUser && (
+          <View>
+            <Animated.Text
+              style={{
+                transform: [{ scale }],
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+              <TouchableOpacity onPress={() => handleFavoriteQRCode(id)}>
+                {
+                  favorited
+                    ? (<FavoriteCardButton style={{
+                      shadowOffset: { width: 1, height: 2, },
+                      shadowColor: 'rgba(0, 0, 0, 0.25)',
+                      shadowOpacity: 1.0,
+                    }} />)
+                    : (<NotFavoritedCardButton style={{
+                      shadowOffset: { width: 1, height: 2, },
+                      shadowColor: 'rgba(0, 0, 0, 0.25)',
+                      shadowOpacity: 1.0,
+                    }} />)
+                }
+              </TouchableOpacity>
+            </Animated.Text>
+          </View>
+        )}
         <View>
           <TouchableOpacity>
             <Animated.Text
@@ -112,6 +119,8 @@ const History = () => {
           setColor(filteredColor)
           setSelectedDate(date)
         }}
+        favorite={favoriteFilter}
+        setFavorite={() => setFavoriteFilter(!favoriteFilter)}
       />
       <View style={styles.dateContainer}>
         <CloudRightSmall style={styles.cloudRightSmallHistory} />
@@ -130,7 +139,13 @@ const History = () => {
                       <>
                         <Swipeable
                           key={id}
-                          renderRightActions={RightActions}
+                          renderRightActions={(progress: any, dragX: any) => RightActions(
+                            progress,
+                            dragX,
+                            id,
+                            qrCodeCreatorName === 'Você',
+                            favorited
+                          )}
                         >
                           <HistoryCards
                             key={id}

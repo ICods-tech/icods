@@ -18,7 +18,6 @@ import QrCodeImg from '../../../assets/images/qr_code.svg';
 
 import styles from './styles';
 
-
 interface HistoryCardsProps {
   code: string;
   content: string;
@@ -36,21 +35,12 @@ const CardMarker = {
   'cyan': <CyanMarker />,
   'pink': <PinkMarker />,
   'black': <BlackMarker />,
-  'noColor': <NoColorMarker />
+  'noColor': <NoColorMarker />,
+  'noFilter': <NoColorMarker />
 }
 
 
 const HistoryCards = ({ code, content, creator, date, color, favorite }: HistoryCardsProps) => {
-  let previousDate = '';
-
-  const [, month,] = date.split('/')
-
-  const favoriteQrCode = () => {
-    if (favorite) {
-      return <HeartIcon />
-    }
-  }
-
   return (
     <>
       <View style={styles.qrCodeCard}>
@@ -66,7 +56,7 @@ const HistoryCards = ({ code, content, creator, date, color, favorite }: History
           </View>
 
           <View style={styles.rightQRCodeInfoButtons}>
-            {favoriteQrCode()}
+            {favorite && (<HeartIcon />)}
             <ArrowIcon />
           </View>
         </View>

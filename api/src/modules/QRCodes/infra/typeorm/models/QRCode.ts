@@ -26,7 +26,7 @@ export default class QRCode {
 
   @Column({
     type: 'enum',
-    enum: ['blue', 'green', 'yellow', 'black', 'noColor', 'cyan', 'pink'],
+    enum: ['red', 'blue', 'green', 'yellow', 'black', 'noColor', 'cyan', 'pink'],
     default: 'noColor',
     nullable: true
   })
@@ -34,7 +34,7 @@ export default class QRCode {
 
   @Column({
     type: 'enum',
-    enum: ['blue', 'green', 'yellow', 'black', 'noColor', 'cyan', 'pink'],
+    enum: ['red', 'blue', 'green', 'yellow', 'black', 'noColor', 'cyan', 'pink'],
     default: 'noColor',
     nullable: true
   })

@@ -1,3 +1,4 @@
+var QRCodeHandler = require('qrcode')
 import { injectable, inject } from 'tsyringe'
 var pdfGenerator = require('../utils/generateQRCodesPdf')
 import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
@@ -10,19 +11,30 @@ export default class CreateDeactivatedQRCodesService {
     private qrcodeRepository: IQRCodesRepository
   ) { }
 
-  public async run(numberOfQrCodes: number | null): Promise<QRCode[]> {
+  public async run(numberOfQrCodes: number | null): Promise<
+    { qrcodes: QRCode[], generatedPdf: object }> {
     numberOfQrCodes = numberOfQrCodes || 1
 
     if (numberOfQrCodes > 100 || numberOfQrCodes < 1)
       throw new Error("You can only generate 100 deactivated QR Codes at once")
 
     const newDeactivatedQRCodes = []
+    const qrcodesImagesList = []
+
     for (let i = 0; i < numberOfQrCodes; i++) {
-      newDeactivatedQRCodes.push(await this.qrcodeRepository.create())
+      let newQrCode = await this.qrcodeRepository.create()
+      newDeactivatedQRCodes.push(newQrCode)
+      qrcodesImagesList.push({
+        id: newQrCode.id,
+        qrcodeDataUrl: await QRCodeHandler.toDataURL(newQrCode.id)
+      })
     }
 
-    await pdfGenerator.generateQrcodesPdf()
+    const generatedPdf = await pdfGenerator.generateQrcodesPdf(qrcodesImagesList)
 
-    return newDeactivatedQRCodes
+    return {
+      qrcodes: newDeactivatedQRCodes,
+      generatedPdf
+    }
   }
 }

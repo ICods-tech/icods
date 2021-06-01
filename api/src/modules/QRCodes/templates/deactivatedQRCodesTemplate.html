@@ -7,12 +7,10 @@
 </head>
 
 <body>
-  <h1 style="color:#2b90d9">iCods QR Codes</h1>
+  <h1 style="color:#2b90d9;font-weight:bold;">iCods QR Codes</h1>
   <div style="display:flex;flex-direction:row;flex-wrap:wrap">
     {{#each qrcodesData}}
-    <!-- <div style="width:100px;height:100px"> -->
     <img src="{{ this.qrcodeDataUrl }}">
-    <!-- </div> -->
     {{/each}}
   </div>
 </body>

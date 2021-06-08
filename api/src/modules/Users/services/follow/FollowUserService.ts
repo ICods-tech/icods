@@ -3,6 +3,7 @@ import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
 import { inject, injectable } from 'tsyringe'
 import Follow from '@modules/Users/infra/typeorm/models/follow'
 import IFollowRepository from '../../IRepositories/IFollowRepository'
+import RabbitmqServer from '@shared/middlewares/RabbitmqServer'
 
 @injectable()
 export default class FollowUserService {
@@ -16,6 +17,8 @@ export default class FollowUserService {
   ) { }
 
   public async run(id: string, followingId: string): Promise<Follow | { message: String }> {
+    const REQUEST_FOLLOWER_FALSE = false;
+    const REQUEST_FOLLOWER_TRUE = true;
     const user = await this.usersRepository.findById(followingId)
 
     if (!user) {
@@ -30,8 +33,22 @@ export default class FollowUserService {
       return { message: 'User already followed!' }
     }
 
-    const follow = await this.followersRepository.follow({ userId: id, followingId })
-
-    return follow
+    const isPrivate = user?.visibility ? true : false;
+    if (isPrivate) {
+      try {
+        const rabbit = new RabbitmqServer(process.env.URL_RABBIT as string)
+        await rabbit.start();
+        const follow = await this.followersRepository.follow({ userId: id, followingId, requestFollower: REQUEST_FOLLOWER_TRUE })
+        Object.assign(follow, { phoneId: "id-phone-notify" })
+        await rabbit.publishInQueue(process.env.QUEUE_NAME as string, JSON.stringify(follow))
+        return { message: 'You send request for follow 🤗!' }
+      } catch (error) {
+        console.error(error);
+        return { message: 'You send request notification failed 😞' }
+      }
+    } {
+      const follow = await this.followersRepository.follow({ userId: id, followingId, requestFollower: REQUEST_FOLLOWER_FALSE })
+      return follow
+    }
   }
 }

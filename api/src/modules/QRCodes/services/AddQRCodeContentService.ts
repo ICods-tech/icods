@@ -14,21 +14,17 @@ export default class AddQRCodeToUserService {
     private qrCodesRepository: IQRCodesRepository
   ) { }
 
-  public async run(qrcode_id: string, contentFilename: string): Promise<QRCode> {
+  public async run( qrcode_id: string,
+    name: string,
+    size: number,
+    key: string,
+    url: string): Promise<QRCode> {
     try {
       const qrcode = await this.qrCodesRepository.get(qrcode_id) as QRCode
 
-      if (qrcode.content) {
-        const qrcodeFilePath = path.join(uploadConfig.directory, qrcode.content)
-        const contentExists = await fs.promises.stat(qrcodeFilePath)
-
-        if (contentExists) {
-          await fs.promises.unlink(qrcodeFilePath)
-        }
-      }
-
-      qrcode.content = contentFilename
-
+      qrcode.link = url;
+      qrcode.enabled = true;
+      qrcode.content = name;
       await this.qrCodesRepository.save(qrcode)
 
       return qrcode

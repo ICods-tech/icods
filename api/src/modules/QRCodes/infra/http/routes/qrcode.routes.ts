@@ -7,7 +7,6 @@ import multer from 'multer'
 import uploadConfig from '@config/uploadConfig'
 
 const qrcodeRouter = Router()
-const upload = multer(uploadConfig)
 
 const createQRCodeController = new CreateQRCodeController()
 const addQRCodeToUserController = new AddQRCodeToUserController()
@@ -39,7 +38,7 @@ qrcodeRouter.get(
 qrcodeRouter.post(
   '/qrcodes/:qrcode_id',
   verifyJwtToken,
-  upload.single('content'),
+  multer(uploadConfig).single('file'),
   userQRCodesController.create
 )
 

@@ -31,4 +31,16 @@ followRouter.get(
   followerController.index
 )
 
+followRouter.get(
+  '/followers/accept/:id',
+  verifyJwtToken,
+  followController.acceptFollower
+)
+
+followRouter.get(
+  '/followers/reject/:id',
+  verifyJwtToken,
+  followController.rejectFollower
+)
+
 export default followRouter

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <mate charest="utf-8" />
+  <title>ICods</title>
+</head>
+
+<body>
+  <h1 style="color:#2b90d9;font-weight:bold;">iCods QR Codes</h1>
+  <div style="display:flex;flex-direction:row;flex-wrap:wrap">
+    {{#each qrcodesData}}
+    <img src="{{ this.qrcodeDataUrl }}">
+    {{/each}}
+  </div>
+</body>
+
+</html>

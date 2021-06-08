@@ -47,6 +47,12 @@ export default class QRCodesRepository implements IQRCodesRepository {
     return qrcode || undefined
   }
 
+  public async getMultipleDeactivatedQRCodes(numberOfQrCodes: number): Promise<QRCode[] | []> {
+    let qrcodes = await this.ormRepostory.find({ where: { enabled: false }, take: numberOfQrCodes })
+
+    return qrcodes
+  }
+
   public async save(qrcode: QRCode): Promise<void> {
     await this.ormRepostory.save(qrcode)
   }

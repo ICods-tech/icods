@@ -38,6 +38,11 @@ export default class User {
   })
   qrcodes?: QRCode[] | [];
 
+  @OneToMany(type => QRCode, qrcode => qrcode.receivedUser, {
+    cascade: true
+  })
+  receivedQRCodes?: QRCode[] | [];
+
   @OneToMany(type => Post, post => post.user, {
     cascade: true
   })

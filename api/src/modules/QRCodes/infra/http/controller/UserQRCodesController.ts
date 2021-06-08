@@ -26,6 +26,7 @@ export default class UserQRCodesController {
   public async show(request: Request, response: Response): Promise<Response> {
     try {
       const { qrcode_id } = request.params
+      console.log(qrcode_id)
       const getUserQRCodeService = container.resolve(GetUserQRCodeService)
       const qrcode = await getUserQRCodeService.run(
         qrcode_id

@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { View, Text, Image, StatusBar, Button, SafeAreaView, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import HeaderDashboard from '../../components/HeaderDashboard'
-import BottomAuthentication from '../../components/BottomAuthentication'
+import HeaderDashboard from '../../components/Dashboard/HeaderDashboard'
+import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
 import styles from './styles';
 import { useAuth } from '../../hooks/auth'
 import extracNameAndSurname from '../../utils/extractNameAndSurname'
 import CloudRightSmall from '../../assets/images/cloud-right-stripe-sm.svg'
 import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg'
-import DashboardBlock from '../../components/DashboardBlock'
-import ModalMoreDashboard from '../../components/ModalMoreDashboard'
+import DashboardBlock from '../../components/Dashboard/DashboardBlock'
+import ModalMoreDashboard from '../../components/Dashboard/ModalMoreDashboard'
 
 const Dashboard = () => {
   const navigation = useNavigation()
@@ -60,7 +60,7 @@ const Dashboard = () => {
         <Text style={styles.selectOneOptionText}>Selecione uma das opções abaixo</Text>
         <ScrollView style={styles.blockScrolling} horizontal>
           <DashboardBlock text={'Escanear'} image={'scan'} />
-          <DashboardBlock text={'Histórico'} image={'history'} />
+          <DashboardBlock pressed={() => navigation.navigate('History')} text={'Histórico'} image={'history'} />
           <DashboardBlock text={'Social'} image={'social'} />
         </ScrollView>
         <View style={styles.activitiesContainer}>

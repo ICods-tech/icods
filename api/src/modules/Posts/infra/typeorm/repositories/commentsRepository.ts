@@ -7,7 +7,7 @@ export default class CommentsRepository implements ICommentsRepository {
   private ormRepository: Repository<Comment>
 
   constructor() {
-    this.ormRepository = getRepository(Comment)
+    this.ormRepository = getRepository('comments')
   }
 
   public async comment({ userId, post, content }: ICommentDTO): Promise<Comment> {

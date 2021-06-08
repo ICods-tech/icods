@@ -7,11 +7,15 @@ import multer from 'multer'
 import uploadConfig from '@config/uploadConfig'
 
 const qrcodeRouter = Router()
+
 const createQRCodeController = new CreateQRCodeController()
 const addQRCodeToUserController = new AddQRCodeToUserController()
 const userQRCodesController = new UserQRCodesController()
 
-qrcodeRouter.post('/generate_deactivated_qrcode', createQRCodeController.create)
+qrcodeRouter.post(
+  '/generate_deactivated_qrcode',
+  createQRCodeController.create
+)
 
 qrcodeRouter.patch(
   '/add_qrcode',

@@ -3,13 +3,25 @@ import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 import { Repository, getRepository } from 'typeorm'
 import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepository'
 import User from '@modules/Users/infra/typeorm/models/user';
+import { Colors } from '@modules/QRCodes/interfaces/Colors';
 
 export default class QRCodesRepository implements IQRCodesRepository {
 
   ormRepostory: Repository<QRCode>;
 
   constructor() {
-    this.ormRepostory = getRepository(QRCode)
+    this.ormRepostory = getRepository('qrcodes')
+  }
+
+
+  private filterMadeQRCode(qrcode: QRCode) {
+    const { receivedColor, favorited, received_at, ...filteredQrCode } = qrcode;
+    return filteredQrCode
+  }
+
+  private filterUser(user: User) {
+    const { created_at, updated_at, password, ...filteredUser } = user
+    return filteredUser
   }
 
   public async create(): Promise<QRCode> {
@@ -18,47 +30,73 @@ export default class QRCodesRepository implements IQRCodesRepository {
       content: '',
       enabled: false,
     })
+
     await this.ormRepostory.save(qrcode)
-    return qrcode
+
+    return this.filterMadeQRCode(qrcode)
   }
 
   public async get(id: string): Promise<QRCode | undefined> {
-    const qrcode = await this.ormRepostory.findOne(id, { relations: ['user'] })
-    if (qrcode) {
-      delete qrcode.user?.created_at
-      delete qrcode.user?.updated_at
-      delete qrcode.user?.password
-      delete qrcode.user?.qrcodes
+    let qrcode = await this.ormRepostory.findOne(id, { relations: ['user', 'receivedUser'] })
 
-      return qrcode
+    if (qrcode) {
+      if (qrcode.user) qrcode.user = this.filterUser(qrcode.user as User)
+      if (qrcode.receivedUser) qrcode.receivedUser = this.filterUser(qrcode.receivedUser as User)
     }
-    return undefined
+
+    return qrcode || undefined
   }
 
   public async save(qrcode: QRCode): Promise<void> {
     await this.ormRepostory.save(qrcode)
   }
 
+  public async changeFavoriteStatus(qrCode: QRCode): Promise<QRCode> {
+    const { favorited } = qrCode
+    Object.assign(qrCode, { favorited: !favorited })
+
+    this.ormRepostory.save(qrCode)
+
+    return qrCode
+  }
+
+  public async changeQRCodeColor(qrCode: QRCode, color: Colors, type: 'madeColor' | 'receivedColor'): Promise<QRCode> {
+    Object.assign(qrCode, { [type]: color })
+    await this.ormRepostory.save(qrCode)
+
+    return qrCode
+  }
+
+  public async receiveQRCode(
+    qrcode: QRCode,
+    user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode> {
+    Object.assign(qrcode, {
+      receivedUser: user,
+      received_at: new Date()
+    })
+
+    await this.ormRepostory.save(qrcode)
+    return qrcode
+  }
+
   public async activate(
     id: string,
     user: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>): Promise<QRCode> {
 
-    let existingQRCode = await this.ormRepostory.findOne(id)
+    let qrcode = await this.ormRepostory.findOne(id)
 
-    if (!existingQRCode) {
-      throw new AppError('This QRCode does not exist')
-    }
+    if (!qrcode) throw new AppError('This QRCode does not exist')
 
-    existingQRCode = {
-      ...existingQRCode,
+    qrcode = {
+      ...qrcode,
       enabled: true,
       link: `generate_qrcode/${id}`,
       content: '',
       user
     }
 
-    await this.ormRepostory.save(existingQRCode)
-    return existingQRCode
+    await this.ormRepostory.save(qrcode)
+    return qrcode
   }
 
   public async delete(id: string): Promise<void> {

@@ -1,15 +1,14 @@
 version: '3'
 
 services:
+  name: api-icods
   db:
     image: postgres
     environment:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: icods_password
-    networks:
-      - default
     volumes:
-     - /home/pgdata:/var/lib/postgresql/data
+      - /home/pgdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
   app:
@@ -21,7 +20,7 @@ services:
     ports:
       - '5000:5000'
     command: npm run dev:server
-networks:
-  default:
+    links:
+      - db
 volumes:
   postgres:

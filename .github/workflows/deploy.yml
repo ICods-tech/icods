@@ -17,11 +17,8 @@ jobs:
         with:
           node-version: 15.x
 
-      - name: Change to api directory
-      - run: cd ./api
-
       - name: Install dependencies
-      - run: yarn
+      - run: cd ./api && yarn
 
       - name: Test
       - run: yarn test

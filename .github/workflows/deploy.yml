@@ -58,7 +58,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/386
-          tags: ${{ secrets.DOCKER_USERNAME }}/icods-teste:2021-06-15
+          tags: ${{ secrets.DOCKER_USERNAME }}/icods-teste:2021.06.15
 
     defaults:
       run:

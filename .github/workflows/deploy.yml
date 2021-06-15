@@ -15,11 +15,5 @@ jobs:
       with:
         node-version: 15.x
 
-    - name: Install dependencies
-      run: cd ./api && yarn
-
-    - name: Build
-      run: ls
-
-    - name: Build
-      run: make build
+    - name: Build API
+      run: cd ./api && ls && yarn build

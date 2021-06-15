@@ -7,7 +7,7 @@ export default class FollowerRepository implements IFollowRepository {
   private ormRepository: Repository<Follow>
 
   constructor() {
-    this.ormRepository = getRepository(Follow)
+    this.ormRepository = getRepository('followers')
   }
 
   public async getAllFollowers(id: string): Promise<{ followers: Follow[], followersCount: Number }> {

@@ -6,12 +6,15 @@ import Dashboard from '../pages/Dashboard'
 import Profile from '../pages/Profile'
 import EditProfile from '../pages/EditProfile'
 import Splash from '../pages/Splash'
-import { useAuth, Follow, Followers } from '../hooks/auth'
+import { useAuth } from '../hooks/auth'
+import History from '../pages/History';
+import QRCodeHistoryDetails from '../pages/QRCodeHistoryDetails';
 
 const App = createStackNavigator()
 
 const Routes: React.FC = () => {
   const { user, token, isLoading } = useAuth()
+
   return (
     <App.Navigator screenOptions={{
       headerShown: false,
@@ -26,6 +29,8 @@ const Routes: React.FC = () => {
               <App.Screen name='Dashboard' component={Dashboard} />
               <App.Screen name='Profile' component={Profile} />
               <App.Screen name='EditProfile' component={EditProfile} />
+              <App.Screen name='History' component={History} />
+              <App.Screen name='QRCodeHistoryDetails' component={QRCodeHistoryDetails} />
             </>
           ) : (
             <>

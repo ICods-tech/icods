@@ -3,6 +3,7 @@ import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepositor
 import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
 import AppError from '@shared/error/AppError'
 import { inject, injectable } from 'tsyringe'
+import { getUserById } from '../utils/getUserById';
 
 @injectable()
 export default class AddQRCodeToUserService {
@@ -15,11 +16,10 @@ export default class AddQRCodeToUserService {
     private usersRepository: IUserRepository
   ) { }
 
-  public async run(qrcode_id: string, id: string): Promise<QRCode> {
+  public async run(qrcode_id: string, userId: string): Promise<QRCode> {
     try {
-      const user = await this.usersRepository.findById(id)
-      if (!user) throw new Error('User with this ID does not exist')
-      const { created_at, updated_at, password, qrcodes, ...filteredUser } = user
+      const user = await getUserById(userId, this.usersRepository)
+      const { created_at, updated_at, password, receivedQRCodes, ...filteredUser } = user
       const qrcode = await this.qrCodesRepository.activate(qrcode_id, filteredUser)
 
       return qrcode

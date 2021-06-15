@@ -9,11 +9,11 @@ export default class UserRepository implements IUserRepository {
   private ormRepository: Repository<User>
 
   constructor() {
-    this.ormRepository = getRepository(User)
+    this.ormRepository = getRepository('users')
   }
 
   public async findById(id: string): Promise<User | undefined> {
-    const user = await this.ormRepository.findOne(id)
+    const user = await this.ormRepository.findOne(id, { relations: ['receivedQRCodes'] })
 
     return user || undefined
   }
@@ -41,7 +41,7 @@ export default class UserRepository implements IUserRepository {
 
   public async findAllUserQRCodes(user_id: string): Promise<QRCode[] | [] | undefined> {
     const userQrcodes = await this.ormRepository.findOne(user_id, {
-      relations: ['qrcodes'],
+      relations: ['qrcodes', 'qrcodes.receivedUser'],
     })
 
     return userQrcodes?.qrcodes || undefined

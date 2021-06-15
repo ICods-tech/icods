@@ -15,7 +15,7 @@ export default class SignInController {
         password
       )
 
-      return response.json({ user: classToClass(user), token, auth: true, });
+      return response.json({ user: classToClass(user), token });
     } catch (err) {
       console.log(err.message)
       return response.status(400).json(err.message)

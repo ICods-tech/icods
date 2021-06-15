@@ -18,5 +18,8 @@ jobs:
     - name: Install dependencies
       run: cd ./api && yarn
 
-    - name: Test
-      run: yarn test
+    - name: Build
+      run: ls
+
+    - name: Build
+      run: make build

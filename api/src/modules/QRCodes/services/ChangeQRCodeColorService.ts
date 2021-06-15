@@ -29,7 +29,7 @@ export default class ChangeFavoriteStatusService {
 
     checkReceivedQRCodeProperties(qrCode, userId, false)
 
-    const type = qrCode.user.id === userId
+    const type = qrCode.user?.id === userId
       ? 'madeColor'
       : 'receivedColor'
 

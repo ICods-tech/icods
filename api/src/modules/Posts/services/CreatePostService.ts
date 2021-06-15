@@ -36,7 +36,7 @@ export default class CreatePostService {
 
     if (!qrcode || !qrcode.enabled) {
       throw new Error("Trying to post a QR code that doesn't exist, or isn't activated!")
-    } else if (qrcode.user.id !== userId) {
+    } else if (qrcode.user?.id !== userId) {
       throw new Error("This QR Code does not belong to that user!")
     }
 

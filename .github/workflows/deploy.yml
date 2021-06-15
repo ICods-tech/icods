@@ -17,9 +17,15 @@ jobs:
 
     - name: Build API
       run: yarn install && yarn build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
     - name: Build API
       run: ls
+
     defaults:
       run:
         shell: bash

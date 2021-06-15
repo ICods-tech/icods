@@ -9,14 +9,14 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      
+
     - name: Set-up Node.js
       uses: actions/setup-node@v1
       with:
         node-version: 15.x
 
     - name: Install dependencies
-      run: yarn
+      run: cd ./api && yarn
 
     - name: Test
       run: yarn test

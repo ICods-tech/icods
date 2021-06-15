@@ -3,30 +3,24 @@ name: CI
 on:
   push:
     branches:
-      - feature/deploy-image-api
+      - develop
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Set-up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 15.x
+    - name: Set-up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 15.x
 
-      - name: Install dependencies
-      - run: cd ./api && yarn
+    - name: Install dependencies
+    - run: yarn
 
-      - name: Test
-      - run: yarn test
-        env:
-          CI: true
-
-      - name: Build Image
-      - run: make build
-
-      - name: Push Image
-      - run: make push
+    - name: Test
+    - run: yarn test
+      env:
+        CI: true

@@ -37,6 +37,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/icods-teste
+          tag-sha: true
 
       - name: QEMU
         uses: docker/setup-qemu-action@v1

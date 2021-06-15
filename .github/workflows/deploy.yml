@@ -20,3 +20,7 @@ jobs:
 
     - name: Build API
       run: ls
+    defaults:
+      run:
+        shell: bash
+        working-directory: api

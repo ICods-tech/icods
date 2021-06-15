@@ -1,7 +1,7 @@
 name: CI
 on:
   push:
-    branches: [feature/deploy-image-api]
+    branches: [ feature/deploy-image-api ]
 jobs:
   build:
     runs-on: ubuntu-latest

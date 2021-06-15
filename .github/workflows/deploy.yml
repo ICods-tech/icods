@@ -37,6 +37,7 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/icods-teste
+          tag-sha: true
 
       - name: QEMU
         uses: docker/setup-qemu-action@v1
@@ -49,6 +50,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME}}
           password: ${{ secrets.DOCKER_PASSWORD}}
+      - name: Bump version and push tag
+        id: tagging
+        uses: mathieudutour/github-tag-action@v4.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push image
         id: docker_build
@@ -58,7 +64,7 @@ jobs:
           context: .
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/386
-          tags: ${{ secrets.DOCKER_USERNAME }}/icods-teste:2021.06.15
+          tags: ${{ secrets.DOCKER_USERNAME }}/icods-teste:${{ steps.tagging.outputs.new_version }}
 
     defaults:
       run:

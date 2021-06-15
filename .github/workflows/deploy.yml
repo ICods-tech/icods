@@ -16,4 +16,4 @@ jobs:
         node-version: 15.x
 
     - name: Build API
-      run: cd ./api && ls && yarn build
+      run: cd ./api && yarn install && yarn build

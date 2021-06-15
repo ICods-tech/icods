@@ -17,3 +17,6 @@ jobs:
 
     - name: Build API
       run: cd ./api && yarn install && yarn build
+
+    - name: Build API
+      run: ls

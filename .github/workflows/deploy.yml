@@ -9,27 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set-up Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: 15.x
+      - name: Set-up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
 
-    - name: Change to api directory
-    - run: cd ./api
+      - name: Change to api directory
+      - run: cd ./api
 
-    - name: Install dependencies
-    - run: yarn
+      - name: Install dependencies
+      - run: yarn
 
-    - name: Test
-    - run: yarn test
-      env:
-        CI: true
+      - name: Test
+      - run: yarn test
+        env:
+          CI: true
 
-    - name: Build Image
-    - run: make build
+      - name: Build Image
+      - run: make build
 
-    - name: Push Image
-    - run: make push
+      - name: Push Image
+      - run: make push

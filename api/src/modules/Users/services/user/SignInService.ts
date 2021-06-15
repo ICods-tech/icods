@@ -1,11 +1,9 @@
 import AppError from '@shared/error/AppError'
 import User from '@modules/Users/infra/typeorm/models/user'
-import IUserDTO from '@modules/Users/DTOs/IUserDTO'
 import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
 import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
 import { inject, injectable } from 'tsyringe'
 import jwt from 'jsonwebtoken'
-import { request } from 'express'
 
 @injectable()
 export default class SignInService {
@@ -18,15 +16,13 @@ export default class SignInService {
     private hashProvider: IHashProvider
   ) {}
 
-  public async run(email: string, password: string): Promise<{ user: User, token: string }> {
+  public async run(emailOrUserName: string, password: string): Promise<{ user: User, token: string }> {
 
-    if (!email || !password ) {
-      throw new AppError('All fields must be filled')
-    }
-    const user = await this.usersRepository.findByEmail(email)
+    let user = await this.usersRepository.findByEmail(emailOrUserName)
 
-    if(!user) {
-      throw new AppError('User with this email does not exist')
+    if (!user) {
+      user = await this.usersRepository.findByUsername(emailOrUserName)
+      if (!user) throw new AppError('Usuário com esse Email/Username não existe')
     }
 
     const passwordValidation  = await this.hashProvider.compareHash(password, user.password)

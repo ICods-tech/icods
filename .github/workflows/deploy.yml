@@ -1,26 +1,22 @@
 name: CI
-
 on:
   push:
     branches:
-      - develop
+      - deploy-image-api
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-
+      
     - name: Set-up Node.js
       uses: actions/setup-node@v1
       with:
         node-version: 15.x
 
     - name: Install dependencies
-    - run: yarn
+      run: yarn
 
     - name: Test
-    - run: yarn test
-      env:
-        CI: true
+      run: yarn test

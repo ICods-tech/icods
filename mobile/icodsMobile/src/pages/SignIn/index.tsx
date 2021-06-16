@@ -1,16 +1,14 @@
-import { useNavigation } from '@react-navigation/native'
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, StatusBar, Button, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
-import Asteroid from '../../../assets/images/asteroid_image.svg';
-import IcodsIcon from '../../../assets/images/icods_icon.svg';
-import Back from '../../../assets/images/back.svg';
 import Input from '../../components/Input'
-import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
-import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
-import ButtonAuthentication from '../../components/Button'
 import { useAuth } from '../../hooks/auth'
-import api from '../../services/api'
+import Toast, { BaseToast } from 'react-native-toast-message';
+import React, { useState, useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native'
+import ButtonAuthentication from '../../components/Button'
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
+import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
+import { capitalizeWords } from '../../utils/capitalizeWords';
 
 const SignIn = () => {
   const { signIn, user } = useAuth()
@@ -20,14 +18,20 @@ const SignIn = () => {
 
   const handleLogin = useCallback(async () => {
     try {
-      console.log("Estou aqui")
+      console.log({email, password})
       await signIn({ email, password })
-      console.log(user)
-    } catch (err) {
+    } catch (error: any) {
       console.log('Error catched! 🧤')
-      console.error(err.message)
+      Toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Email/Username ou senha incorretos',
+        text2: '',
+        visibilityTime: 1000,
+        bottomOffset: 60,
+      })
     }
-  }, [email, password, signIn, user])
+  }, [])
 
   return (
     <View style={styles.background}>
@@ -36,6 +40,7 @@ const SignIn = () => {
         <Input
           placeholder={'Email/Username'}
           radius={'top'}
+          isLoginUsername
           change={(email: string) => setEmail(email)}
           value={email}
         />
@@ -43,6 +48,7 @@ const SignIn = () => {
           placeholder={'Senha'}
           radius={'bottom'}
           isPassword
+          isLoginPassword
           change={(password: string) => setPassword(password)}
           value={password}
         />
@@ -58,7 +64,7 @@ const SignIn = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonAuthentication text={'Login'} pressed={() => { handleLogin() }} />
+        <ButtonAuthentication text={'Login'} pressed={() => handleLogin()} />
       </View>
       <BottomAuthentication />
     </View>

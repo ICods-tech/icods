@@ -6,7 +6,41 @@ import Routes from './routes'
 import { View, Text, StatusBar } from 'react-native'
 import Register from './pages/Register';
 import AppProvider from './hooks'
+import Toast, { BaseToast } from 'react-native-toast-message';
 
+const toastConfig = {
+  success: ({ text1, text2, ...rest }: {text1: string, text2: string}) => (
+    <BaseToast
+      {...rest}
+      style={{ borderLeftColor: 'pink' }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 12,
+        fontWeight: 'bold'
+      }}
+      text1={text1}
+      text1NumberOfLines={1}
+      text2NumberOfLines={ 0}
+      // text2={null}
+    />
+  ),
+  error: ({ text1, text2, ...rest }: {text1: string, text2: string}) => (
+    <BaseToast
+      {...rest}
+      style={{ borderLeftColor: 'red' }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 12,
+        fontWeight: 'bold'
+      }}
+      text1={text1}
+      
+      text1NumberOfLines={1}
+      text2NumberOfLines={ 0}
+      // text2={null}
+    />
+  )
+};
 
 const App = () => {
   return (
@@ -17,6 +51,7 @@ const App = () => {
         <Routes/>
         </AppProvider>
       </View>
+      <Toast config={toastConfig} ref={(ref) => Toast.setRef(ref)} />
     </NavigationContainer>
   )
 }

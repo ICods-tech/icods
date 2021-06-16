@@ -1,7 +1,9 @@
 name: CI
 on:
+  pull_request:
+    branches: [feature/deploy-image-api]
   push:
-    branches: [ feature/deploy-image-api ]
+    branches: [feature/deploy-image-api]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,12 +35,12 @@ jobs:
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      
+
       - name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -47,7 +49,7 @@ jobs:
         id: tagging
         uses: mathieudutour/github-tag-action@v4.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}      
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push image
         id: docker_build
@@ -56,4 +58,4 @@ jobs:
           push: true
           context: .
           file: Dockerfile
-          tags: thomasr002/icods-teste:${{ steps.tagging.outputs.new_version }}
+          tags: ${{ secrets.DOCKER_USERNAME }}/icods-teste:${{ steps.tagging.outputs.new_version }}

@@ -53,7 +53,7 @@ jobs:
           push: true
           context: ./api/Dockerfile
           file: Dockerfile
-          tags: thomasr002/icods-teste:${{ steps.tagging.outputs.new_version }}
+          tags: thomasr002/icods-teste:latest
     defaults:
       run:
         shell: bash

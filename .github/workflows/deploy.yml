@@ -50,8 +50,8 @@ jobs:
           push: true
           context: .
           file: ./Dockerfile
-          tags: ***/***
-
+          tags: 0.0.0
+          
     defaults:
       run:
         shell: bash

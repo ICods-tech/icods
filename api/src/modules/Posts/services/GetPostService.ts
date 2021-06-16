@@ -1,3 +1,4 @@
+import AppError from '@shared/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import Post from '../infra/typeorm/models/post'
 import IPostsRepository from '../IRepositories/IPostsRepository'
@@ -14,7 +15,7 @@ export default class GetPostService {
     const post = await this.postsRepository.get(post_id)
 
     if (!post) {
-      throw new Error('Post with this ID does not exist!')
+      throw new AppError('Post with this ID does not exist!')
     }
 
     return post

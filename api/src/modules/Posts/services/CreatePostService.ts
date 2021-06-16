@@ -22,22 +22,22 @@ export default class CreatePostService {
   public async run(userId: string, qrcodeId: string): Promise<Post> {
     console.log(userId, qrcodeId)
     if (!userId || !qrcodeId) {
-      throw new Error("All fields must be filled!")
+      throw new AppError("All fields must be filled!")
     }
 
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {
-      throw new Error("Trying to post with an user that doesn't exist")
+      throw new AppError("Trying to post with an user that doesn't exist")
     }
 
     const qrcode = await this.qrcodesRepository.get(qrcodeId)
     console.log(qrcode)
 
     if (!qrcode || !qrcode.enabled) {
-      throw new Error("Trying to post a QR code that doesn't exist, or isn't activated!")
+      throw new AppError("Trying to post a QR code that doesn't exist, or isn't activated!")
     } else if (qrcode.user.id !== userId) {
-      throw new Error("This QR Code does not belong to that user!")
+      throw new AppError("This QR Code does not belong to that user!")
     }
 
     const post = await this.postsRepository.create({

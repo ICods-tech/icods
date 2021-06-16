@@ -35,7 +35,6 @@ interface FilteredQRCodesByDate {
 
 
 const History = () => {
-  const [favoriteCard, setFavoriteCard] = useState<boolean>(false)
   const [qrCodes, setQRCodes] = useState<FilteredQRCodesByDate[]>(filteredQRCodesByDatePlaceholder)
   const [color, setColor] = useState<string>('noFilter')
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)

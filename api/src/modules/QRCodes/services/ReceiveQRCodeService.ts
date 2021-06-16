@@ -19,20 +19,16 @@ export default class ReceiveQRCodeService {
   ) { }
 
   public async run(qrcode_id: string, userId: string): Promise<QRCode> {
-    try {
-      const receivingUser = await getUserById(userId, this.usersRepository)
-      let qrcode = await getQRCodeById(qrcode_id, this.qrCodesRepository)
+    const receivingUser = await getUserById(userId, this.usersRepository)
+    let qrcode = await getQRCodeById(qrcode_id, this.qrCodesRepository)
 
-      checkReceivedQRCodeProperties(qrcode, userId, false)
-      if (qrcode.user?.id === userId) throw new Error("You cannot send a QR Code to yourself")
+    checkReceivedQRCodeProperties(qrcode, userId, false)
+    if (qrcode.user?.id === userId) throw new AppError("You cannot send a QR Code to yourself")
 
-      const { created_at, updated_at, password, qrcodes, receivedQRCodes, ...filteredReceivingUser } = receivingUser
+    const { created_at, updated_at, password, qrcodes, receivedQRCodes, ...filteredReceivingUser } = receivingUser
 
-      qrcode = await this.qrCodesRepository.receiveQRCode(qrcode, filteredReceivingUser)
+    qrcode = await this.qrCodesRepository.receiveQRCode(qrcode, filteredReceivingUser)
 
-      return qrcode
-    } catch (err) {
-      throw new AppError(err.message)
-    }
+    return qrcode
   }
 }

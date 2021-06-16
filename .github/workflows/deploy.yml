@@ -42,13 +42,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      
+          - name: path atual
+        run: ls
 
       - name: Build and push image
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
-          context: ./api/
+          context: /api/Dockerfile
           file: Dockerfile
           tags: thomasr002/icods-teste:latest
     defaults:

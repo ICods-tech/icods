@@ -50,7 +50,7 @@ jobs:
           push: true
           context: .
           file: ./Dockerfile
-          tags: ${{ secrets.DOCKER_USERNAME }}/icods-teste:${{ steps.tagging.outputs.new_version }}
+          tags: thomasr002/icods-teste:${{ steps.tagging.outputs.new_version }}
           
     defaults:
       run:

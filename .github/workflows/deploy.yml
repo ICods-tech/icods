@@ -49,8 +49,8 @@ jobs:
         with:
           push: true
           context: .
-          file: ./Dockerfile
-          tags: thomasr002/icods-teste:latest
+          file: Dockerfile
+          tags: thomasr002/icods-teste:${{ steps.tagging.outputs.new_version }}
           
     defaults:
       run:

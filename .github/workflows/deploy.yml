@@ -54,7 +54,3 @@ jobs:
           context: ./api/Dockerfile
           file: Dockerfile
           tags: thomasr002/icods-teste:latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: api

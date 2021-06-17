@@ -3,18 +3,16 @@ import { View, Text, SafeAreaView, ScrollView, Animated, TouchableOpacity } from
 import styles from './styles';
 import CloudRightSmall from '../../assets/images/cloud-right-stripe-sm.svg';
 import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg';
-import DeleteButton from '../../assets/images/Icons/delete_button.svg';
 import FavoriteCardButton from '../../assets/images/Icons/favorite_qrcode_card.svg'
 import NotFavoritedCardButton from '../../assets/images/Icons/notFavorited_qrcode_card.svg'
 import TrashQRCodeIcon from '../../assets/images/Icons/trash_qrcode_card.svg'
 import LargeSearchIcon from '../../assets/images/Icons/large-search.svg'
 import HeaderHistory from '../../components/History/HeaderHistory';
-import HistoryFooter from '../../components/History/HistoryFooter';
+import HistoryFooter from '../../components/LoggedFooter';
 import HistoryCards from '../../components/History/HistoryCards';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { Colors } from '../../interfaces/colors';
 import api from '../../services/api';
-import MonthPicker from 'react-native-month-year-picker';
 import { filteredQRCodesByDatePlaceholder } from '../../utils/filteredQRCodesByDatePlaceholder';
 
 export interface FilteredQRCodes {
@@ -173,7 +171,9 @@ const History = () => {
           })}
         </ScrollView>
       </View>
-      <HistoryFooter />
+      <HistoryFooter
+        isHistory={true}
+      />
     </SafeAreaView >
   )
 }

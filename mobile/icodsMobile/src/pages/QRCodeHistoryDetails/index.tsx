@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import HeaderHistory from '../../components/History/HeaderHistory';
-import HistoryFooter from '../../components/History/HistoryFooter';
+import HistoryFooter from '../../components/LoggedFooter';
 import QRCodeTemplate from '../../assets/images/qrCodeLargeTemplate.svg'
 import { colorsIconsList } from '../../components/History/FilterModal'
 import api from '../../services/api';
@@ -111,7 +111,9 @@ const QRCodeHistoryDetails = ({ route }: RouteParams) => {
           )}
         </View>
       </View>
-      <HistoryFooter />
+      <HistoryFooter
+        isHistory
+      />
     </SafeAreaView >
   )
 }

@@ -31,7 +31,7 @@ const SignIn = () => {
         bottomOffset: 60,
       })
     }
-  }, [])
+  }, [email, password])
 
   return (
     <View style={styles.background}>

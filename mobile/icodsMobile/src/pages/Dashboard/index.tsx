@@ -6,9 +6,10 @@ import BottomAuthentication from '../../components/Authentication/BottomAuthenti
 import styles from './styles';
 import { useAuth } from '../../hooks/auth'
 import extracNameAndSurname from '../../utils/extractNameAndSurname'
-import CloudRightSmall from '../../assets/images/cloud-right-stripe-sm.svg'
-import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg'
 import DashboardBlock from '../../components/Dashboard/DashboardBlock'
+import CloudLeftLarge from '../../assets/images/cloud-left-stripe-lg.svg'
+import CloudRightSmall from '../../assets/images/cloud-right-stripe-sm.svg'
+import DashboardFooter from '../../components/LoggedFooter'
 import ModalMoreDashboard from '../../components/Dashboard/ModalMoreDashboard'
 
 const Dashboard = () => {
@@ -92,6 +93,9 @@ const Dashboard = () => {
           </View>
         </View>
       </View>
+      <DashboardFooter
+        isDashboard={true}
+      />
     </View>
   )
 }

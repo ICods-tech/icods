@@ -1,34 +1,36 @@
 import styles from './styles';
 import Input from '../../components/Input'
 import { useAuth } from '../../hooks/auth'
-import Toast, { BaseToast } from 'react-native-toast-message';
+import Toast from 'react-native-toast-message';
 import React, { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native'
 import ButtonAuthentication from '../../components/Button'
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
-import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
+import BottomAuthentication from '../../components/Authentication/AuthFooter'
 import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
-import { capitalizeWords } from '../../utils/capitalizeWords';
 
 const SignIn = () => {
   const { signIn, user } = useAuth()
   const navigation = useNavigation()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [errored, setErrored] = useState<boolean>(false)
 
   const handleLogin = useCallback(async () => {
     try {
       console.log({email, password})
       await signIn({ email, password })
+      setErrored(false)
     } catch (error: any) {
       console.log('Error catched! 🧤')
+      setErrored(true)
       Toast.show({
         type: 'error',
         position: 'bottom',
         text1: 'Email/Username ou senha incorretos',
         text2: '',
         visibilityTime: 1000,
-        bottomOffset: 60,
+        bottomOffset: 100,
       })
     }
   }, [email, password])
@@ -40,6 +42,7 @@ const SignIn = () => {
         <Input
           placeholder={'Email/Username'}
           radius={'top'}
+          isErrored={errored}
           isLoginUsername
           change={(email: string) => setEmail(email)}
           value={email}
@@ -47,6 +50,7 @@ const SignIn = () => {
         <Input
           placeholder={'Senha'}
           radius={'bottom'}
+          isErrored={errored}       
           isPassword
           isLoginPassword
           change={(password: string) => setPassword(password)}
@@ -54,7 +58,10 @@ const SignIn = () => {
         />
       </View>
       <View style={styles.textUnderneathInputsContainer}>
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate('Register') }} >
+        <TouchableWithoutFeedback onPress={() => {
+          setErrored(false)
+          navigation.navigate('Register')
+        }} >
           <View style={styles.underlineText}>
             <Text style={styles.textUnderneathInputs}>Cadastre-se</Text>
           </View>

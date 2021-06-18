@@ -14,6 +14,7 @@ interface Props {
   isPassword?: boolean;
   isLoginUsername?: boolean;
   isLoginPassword?: boolean;
+  isErrored?: boolean;
 };
 
 const Input = (props: Props) => {
@@ -27,7 +28,7 @@ const Input = (props: Props) => {
   }
 
   return (
-    <View style={divStyle} >
+    <View style={props.isErrored ? [divStyle, {borderColor: '#DF2C2C'}] : divStyle } >
       {props.isLoginUsername && (<UserIcon style={{ alignSelf: 'center', marginLeft: 9, marginRight: 2}}/>)}
       {props.isLoginPassword && (<KeyIcon style={{ alignSelf: 'center', marginLeft: 9, marginRight: 2}}/>)}
       <TextInput

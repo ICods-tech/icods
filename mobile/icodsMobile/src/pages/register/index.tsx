@@ -8,7 +8,7 @@ import React, { useState, useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import ButtonAuthentication from '../../components/Button'
 import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
-import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
+import FooterAuthentication from '../../components/Authentication/AuthFooter'
 import { delay } from '../../utils/delay'
 
 const Register = () => {
@@ -34,8 +34,11 @@ const Register = () => {
       })
       await delay(2250)
       await signIn({ email, password })
-    } catch (error: any) {
+    } catch (errorResponse: any) {
+      console.log(errorResponse)
+      const error = errorResponse.response.data
       console.log('Error catched! 🧤')
+      console.log(error)
     }
   }, [name, username, email, password, passwordConfirmation])
 
@@ -82,7 +85,7 @@ const Register = () => {
       <View style={styles.buttonContainer}>
         <ButtonAuthentication text={'Cadastrar'} pressed={() => { handleSignUp() }} />
       </View>
-      <BottomAuthentication />
+      <FooterAuthentication />
     </View>
   )
 }

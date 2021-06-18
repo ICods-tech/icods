@@ -5,8 +5,10 @@ import Toast from 'react-native-toast-message';
 import React, { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native'
 import ButtonAuthentication from '../../components/Button'
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
-import BottomAuthentication from '../../components/Authentication/AuthFooter'
+import GoogleIcon from '../../assets/images/Icons/google_icon.svg'
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import FacebookIcon from '../../assets/images/Icons/facebook_icon.svg';
+import FooterAuthentication from '../../components/Authentication/AuthFooter'
 import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
 
 const SignIn = () => {
@@ -73,7 +75,31 @@ const SignIn = () => {
       <View style={styles.buttonContainer}>
         <ButtonAuthentication text={'Login'} pressed={() => handleLogin()} />
       </View>
-      <BottomAuthentication />
+      <View style={styles.orContainer}>
+        <View style={styles.orLeftHorizontalLine} />
+        <Text style={styles.orText}>Ou</Text>
+        <View style={styles.orRightHorizontalLine} />
+      </View>
+      <View style={styles.alternativeAuthenticationContainer}>
+        <ButtonAuthentication
+            pressed={() =>{}}
+            text="Continue Com Google"
+            notActivated
+            icon={<GoogleIcon style={{ marginRight: 8}}/>}
+          />
+        <ButtonAuthentication
+            pressed={() =>{}}
+            text="Continue Com Facebook"
+            notActivated
+            icon={<FacebookIcon style={{ marginRight: 8}}/>}
+          />
+      </View>
+      <TouchableOpacity
+        style={styles.helpContainer}
+      >
+        <Text style={styles.helpText}>Algum problema no login? Contate-nos</Text>
+      </TouchableOpacity>
+      <FooterAuthentication />
     </View>
   )
 }

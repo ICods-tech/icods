@@ -12,16 +12,19 @@ const toastConfig = {
   success: ({ text1, text2, ...rest }: {text1: string, text2: string}) => (
     <BaseToast
       {...rest}
-      style={{ borderLeftColor: 'pink' }}
+      style={{ borderLeftColor: '#2c90d9' }}
       contentContainerStyle={{ paddingHorizontal: 15 }}
       text1Style={{
         fontSize: 12,
         fontWeight: 'bold'
       }}
       text1={text1}
+      text2Style={{
+        fontSize: 10,
+      }}
+      text2={text2}
       text1NumberOfLines={1}
-      text2NumberOfLines={ 0}
-      // text2={null}
+      text2NumberOfLines={1}
     />
   ),
   error: ({ text1, text2, ...rest }: {text1: string, text2: string}) => (
@@ -34,9 +37,12 @@ const toastConfig = {
         fontWeight: 'bold'
       }}
       text1={text1}
-      
+      text2Style={{
+        fontSize: 10,
+      }}
+      text2={text2}
       text1NumberOfLines={1}
-      text2NumberOfLines={ 0}
+      text2NumberOfLines={1}
       // text2={null}
     />
   )

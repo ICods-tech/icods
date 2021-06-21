@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { validationResult } from "express-validator";
+import { validationResult,  } from "express-validator";
 import AppError from "../../../shared/error/AppError";
 
 export function checkUserSignUpFieldErrors(request: Request) {

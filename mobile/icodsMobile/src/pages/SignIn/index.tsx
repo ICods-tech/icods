@@ -6,9 +6,9 @@ import React, { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native'
 import ButtonAuthentication from '../../components/Button'
 import GoogleIcon from '../../assets/images/Icons/google_icon.svg'
-import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import FacebookIcon from '../../assets/images/Icons/facebook_icon.svg';
 import FooterAuthentication from '../../components/Authentication/AuthFooter'
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
 
 const SignIn = () => {

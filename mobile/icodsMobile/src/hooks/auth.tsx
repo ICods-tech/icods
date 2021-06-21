@@ -26,6 +26,7 @@ interface SignUpCredentials {
   username: string;
   email: string;
   password: string;
+  passwordConfirmation: string;
 }
 
 interface AuthContextData {
@@ -78,19 +79,15 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const signUp = useCallback(async (credentials: SignUpCredentials) => {
-    try {
-      const { name, username, email, password } = credentials;
+      const { name, username, email, password, passwordConfirmation } = credentials;
 
       await api.post('signup', {
         name,
         username,
         email,
-        password
+        password,
+        passwordConfirmation
       })
-    } catch (err) {
-      console.log(err.message)
-      throw new Error(err)
-    }
   }, [])
 
   const signOut = useCallback(async () => {

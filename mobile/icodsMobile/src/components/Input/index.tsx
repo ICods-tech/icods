@@ -15,6 +15,7 @@ interface Props {
   isLoginUsername?: boolean;
   isLoginPassword?: boolean;
   isErrored?: boolean;
+  bottomErrored?: boolean;
 };
 
 const Input = (props: Props) => {
@@ -28,7 +29,10 @@ const Input = (props: Props) => {
   }
 
   return (
-    <View style={props.isErrored ? [divStyle, {borderColor: '#DF2C2C'}] : divStyle } >
+    <View style={
+      props.isErrored ?
+        [divStyle, { borderColor: '#DF2C2C' }] :
+        props.bottomErrored ? [divStyle, {borderBottomColor: '#DF2C2C'}] : divStyle} >
       {props.isLoginUsername && (<UserIcon style={{ alignSelf: 'center', marginLeft: 9, marginRight: 2}}/>)}
       {props.isLoginPassword && (<KeyIcon style={{ alignSelf: 'center', marginLeft: 9, marginRight: 2}}/>)}
       <TextInput
@@ -36,7 +40,7 @@ const Input = (props: Props) => {
         secureTextEntry={props.isPassword && eyeState}
         style={props.isPassword ? styles.inputStylePassword : styles.inputStyle}
         placeholder={props.placeholder}
-        placeholderTextColor={'rgba(0, 0, 0, 0.6)'}
+        placeholderTextColor={props.isErrored ? 'rgba(223, 44, 44, 0.6)' :'rgba(0, 0, 0, 0.6)'}
         onChangeText={props.change}
         defaultValue={props.value}
       />

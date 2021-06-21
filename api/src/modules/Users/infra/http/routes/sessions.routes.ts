@@ -1,6 +1,6 @@
 import verifyJwtToken from '@shared/middlewares/verifyJwtToken';
 import { Router } from 'express'
-import { body } from 'express-validator'
+import { body, check } from 'express-validator'
 import SignUpController from '../controller/SignUpController'
 import SignInController from '../controller/SignInController'
 import ResetPasswordController from '../controller/ResetPasswordController'
@@ -25,7 +25,13 @@ sessionsRouter.post('/signup',
     body('password')
     .isString()
     .isLength({ min: 6, max: 40 })
-    .withMessage('Campo deve possuir entre 6 e 40 caracteres'),
+        .withMessage('Campo deve possuir entre 6 e 40 caracteres'),
+    body('passwordConfirmation').custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Senhas devem ser iguais');
+        }
+        return true;
+      }),
     signUpController.create)
 sessionsRouter.post('/signIn', signInController.create)
 sessionsRouter.patch(

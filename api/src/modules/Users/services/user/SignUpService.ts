@@ -18,8 +18,8 @@ export default class SignUpService {
 
   public async run({ name, username, email, password, visibility }: IUserDTO): Promise<User> {
     const errors = []
-    const checkEmail = await this.usersRepository.findByEmail(email) && errors.push(new AppError('User with this email already exists'))
-    const checkUsername = await this.usersRepository.findByUsername(username) && errors.push(new AppError('User with this username already exists'))
+    const checkEmail = await this.usersRepository.findByEmail(email) && errors.push(new AppError('Usuário com esse Email já existe'))
+    const checkUsername = await this.usersRepository.findByUsername(username) && errors.push(new AppError('Usuário com esse Username já existe'))
 
     if (checkEmail || checkUsername) {
       throw errors

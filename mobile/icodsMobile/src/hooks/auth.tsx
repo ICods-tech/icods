@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useState, useContext, useEffect } from 'react';
 import api from '../services/api'
 import AsyncStorage from '@react-native-community/async-storage'
+import Toast from 'react-native-toast-message';
 
 interface User {
   id: string;
@@ -25,6 +26,7 @@ interface SignUpCredentials {
   username: string;
   email: string;
   password: string;
+  passwordConfirmation: string;
 }
 
 interface AuthContextData {
@@ -58,9 +60,8 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const signIn = useCallback(async (credentials: SignInCredentials) => {
-    try {
       const { email, password } = credentials;
-      console.log(email, password)
+
       const res = await api.post('signin', {
         email,
         password
@@ -75,26 +76,18 @@ const AuthProvider: React.FC = ({ children }) => {
       api.defaults.headers.authorization = `Bearer ${token}`
 
       setData({ token, user })
-    } catch (err) {
-      console.log("err.message")
-      throw new Error('User is not Authenticated')
-    }
   }, [])
 
   const signUp = useCallback(async (credentials: SignUpCredentials) => {
-    try {
-      const { name, username, email, password } = credentials;
+      const { name, username, email, password, passwordConfirmation } = credentials;
 
       await api.post('signup', {
         name,
         username,
         email,
-        password
+        password,
+        passwordConfirmation
       })
-    } catch (err) {
-      console.log(err.message)
-      throw new Error(err)
-    }
   }, [])
 
   const signOut = useCallback(async () => {

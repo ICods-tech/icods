@@ -11,15 +11,15 @@ import styles from './styles';
 import { useAuth } from '../../../hooks/auth';
 
 interface HeaderHistoryProps {
-  setColorAndDate: ({ date, color }: ColorAndDateProps) => void;
-  setFavorite: () => void;
   favorite: boolean;
   qrCodeDetails?: boolean;
+  setFavorite: () => void;
+  setColorAndDate: ({ date, color }: ColorAndDateProps) => void;
 }
 
 interface ColorAndDateProps {
+  color: string,
   date: Date | undefined,
-  color: string
 }
 
 const HeaderHistory = ({ setColorAndDate, setFavorite, favorite, qrCodeDetails }: HeaderHistoryProps) => {

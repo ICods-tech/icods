@@ -17,16 +17,13 @@ export default class SignUpService {
   ) { }
 
   public async run({ name, username, email, password, visibility }: IUserDTO): Promise<User> {
+    const errors = []
+    const checkEmail = await this.usersRepository.findByEmail(email) && errors.push(new AppError('Usuário com esse Email já existe'))
+    const checkUsername = await this.usersRepository.findByUsername(username) && errors.push(new AppError('Usuário com esse Username já existe'))
 
-    if (!name || !username || !email || !password) {
-      throw new AppError('All fields must be filled')
-    }
-
-    const checkEmail = await this.usersRepository.findByEmail(email)
-
-    if (checkEmail) {
-      throw new AppError('User with this email already exists')
-    }
+    if (checkEmail || checkUsername) {
+      throw errors
+    } 
 
     const hashedPassword = await this.hashProvider.encrypt(password)
     const user = await this.usersRepository.create({
@@ -36,7 +33,6 @@ export default class SignUpService {
       password: hashedPassword,
       visibility
     })
-    console.log('xau')
     return user
   }
 }

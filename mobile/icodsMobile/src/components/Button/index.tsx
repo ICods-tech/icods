@@ -13,7 +13,9 @@ interface ButtonProps {
 
 const ButtonAuthentication = ({ pressed, text, icon, notActivated }: ButtonProps) => {
   return (
-    <RectButton style={notActivated ? styles.buttonStylingNotActivated : styles.buttonStyling} onPress={pressed}>
+    <RectButton style={notActivated ? styles.buttonStylingNotActivated :
+      [styles.buttonStyling, styles.buttonShadows]}
+      onPress={pressed}>
       {icon && icon}
       <Text style={notActivated ? styles.textStylingNotActivated : styles.textStyling}>{text}</Text>
     </RectButton>

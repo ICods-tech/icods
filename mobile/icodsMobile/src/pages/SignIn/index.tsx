@@ -1,33 +1,41 @@
-import { useNavigation } from '@react-navigation/native'
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, Image, StatusBar, Button, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
-import Asteroid from '../../../assets/images/asteroid_image.svg';
-import IcodsIcon from '../../../assets/images/icods_icon.svg';
-import Back from '../../../assets/images/back.svg';
 import Input from '../../components/Input'
-import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
-import BottomAuthentication from '../../components/Authentication/BottomAuthentication'
-import ButtonAuthentication from '../../components/Button'
 import { useAuth } from '../../hooks/auth'
-import api from '../../services/api'
+import Toast from 'react-native-toast-message';
+import React, { useState, useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native'
+import ButtonAuthentication from '../../components/Button'
+import GoogleIcon from '../../assets/images/Icons/google_icon.svg'
+import FacebookIcon from '../../assets/images/Icons/facebook_icon.svg';
+import FooterAuthentication from '../../components/Authentication/AuthFooter'
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
 
 const SignIn = () => {
   const { signIn, user } = useAuth()
   const navigation = useNavigation()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [errored, setErrored] = useState<boolean>(false)
 
   const handleLogin = useCallback(async () => {
     try {
-      console.log("Estou aqui")
+      console.log({email, password})
       await signIn({ email, password })
-      console.log(user)
-    } catch (err) {
+      setErrored(false)
+    } catch (error: any) {
       console.log('Error catched! 🧤')
-      console.error(err.message)
+      setErrored(true)
+      Toast.show({
+        type: 'error',
+        position: 'bottom',
+        text1: 'Email/Username ou senha incorretos',
+        text2: '',
+        visibilityTime: 1000,
+        bottomOffset: 100,
+      })
     }
-  }, [email, password, signIn, user])
+  }, [email, password])
 
   return (
     <View style={styles.background}>
@@ -36,19 +44,26 @@ const SignIn = () => {
         <Input
           placeholder={'Email/Username'}
           radius={'top'}
+          isErrored={errored}
+          isLoginUsername
           change={(email: string) => setEmail(email)}
           value={email}
         />
         <Input
           placeholder={'Senha'}
           radius={'bottom'}
+          isErrored={errored}       
           isPassword
+          isLoginPassword
           change={(password: string) => setPassword(password)}
           value={password}
         />
       </View>
       <View style={styles.textUnderneathInputsContainer}>
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate('Register') }} >
+        <TouchableWithoutFeedback onPress={() => {
+          setErrored(false)
+          navigation.navigate('Register')
+        }} >
           <View style={styles.underlineText}>
             <Text style={styles.textUnderneathInputs}>Cadastre-se</Text>
           </View>
@@ -58,9 +73,33 @@ const SignIn = () => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <ButtonAuthentication text={'Login'} pressed={() => { handleLogin() }} />
+        <ButtonAuthentication text={'Login'} pressed={() => handleLogin()} />
       </View>
-      <BottomAuthentication />
+      <View style={styles.orContainer}>
+        <View style={styles.orLeftHorizontalLine} />
+        <Text style={styles.orText}>Ou</Text>
+        <View style={styles.orRightHorizontalLine} />
+      </View>
+      <View style={styles.alternativeAuthenticationContainer}>
+        <ButtonAuthentication
+            pressed={() =>{}}
+            text="Continue Com Google"
+            notActivated
+            icon={<GoogleIcon style={{ marginRight: 8}}/>}
+          />
+        <ButtonAuthentication
+            pressed={() =>{}}
+            text="Continue Com Facebook"
+            notActivated
+            icon={<FacebookIcon style={{ marginRight: 8}}/>}
+          />
+      </View>
+      <TouchableOpacity
+        style={styles.helpContainer}
+      >
+        <Text style={styles.helpText}>Algum problema no login? Contate-nos</Text>
+      </TouchableOpacity>
+      <FooterAuthentication />
     </View>
   )
 }

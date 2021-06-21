@@ -3,8 +3,8 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({ 
   divStyleBottomRadius: {
-    borderColor: '#9baec8',
-    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.12)',
+    borderWidth: 0.5,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
     borderTopWidth: 0,
@@ -14,8 +14,8 @@ const styles = StyleSheet.create({
     padding: '0 40%',
   },
   divStyleTopRadius: {
-    borderColor: '#9baec8',
-    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.12)',
+    borderWidth: 0.5,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     width: '60%',
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
     padding: '0 40%',
   },
   divStylePlain: {
-    borderColor: '#9baec8',
-    borderWidth: 1,
+    borderColor: 'rgba(0, 0, 0, 0.12)',
+    borderWidth: 0.5,
     borderTopWidth: 0,
     width: '60%',
     display: 'flex',
@@ -44,7 +44,13 @@ const styles = StyleSheet.create({
   eyes: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  loginEyes: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: -26
   }
 })
 

@@ -1,8 +1,13 @@
-export default class AppError {
-  public readonly message: string;
-  public readonly statusCode: number;
+import { ValidationError } from "express-validator";
 
-  constructor(message = '', statusCode = 400) {
+type IMessage = { errors: ValidationError[] } | string
+type IStatusCode = number
+
+export default class AppError {
+  public readonly message: IMessage;
+  public readonly statusCode: IStatusCode;
+
+  constructor(message: IMessage = '', statusCode: number = 400) {
     this.message = message;
     this.statusCode = statusCode
   }

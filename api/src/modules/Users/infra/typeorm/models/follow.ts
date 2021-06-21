@@ -9,6 +9,9 @@ export default class Follower {
   @Column('uuid')
   userId: string;
 
+  @Column()
+  requestFollower: boolean;
+
   @Column('uuid')
   followingId: string;
 

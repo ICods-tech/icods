@@ -4,6 +4,10 @@ import GetUserQRCodeService from '@modules/QRCodes/services/GetUserQRCodeService
 import AddQRCodeContentService from '@modules/QRCodes/services/AddQRCodeContentService'
 import { container } from 'tsyringe'
 
+interface MulterRequest extends Request {
+  file: Express.MulterS3.File;
+}
+
 export default class UserQRCodesController {
   public async index(request: Request, response: Response): Promise<Response> {
     try {
@@ -37,13 +41,16 @@ export default class UserQRCodesController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { qrcode_id } = request.params
-      const contentFilename = request.file.filename
+      const { originalname: name, size, key, location: url = "" } = (request as MulterRequest).file;
 
       const addQRCodeContentService = container.resolve(AddQRCodeContentService)
 
       const qrcode = await addQRCodeContentService.run(
         qrcode_id,
-        contentFilename
+        name,
+        size,
+        key,
+        url
       )
 
       return response.json(qrcode)

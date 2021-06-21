@@ -30,6 +30,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold'
   },
+  buttonShadows: {
+    shadowOffset: { width: 1, height: 3, },
+    shadowColor: 'black',
+    shadowOpacity: 0.1
+  },
   textStylingNotActivated: {
     color: '#2B90D9',
     fontSize: 16,

@@ -125,11 +125,11 @@ const History = () => {
         <CloudRightSmall style={styles.cloudRightSmallHistory} />
         <CloudLeftLarge style={styles.cloudLeftLargeHistory} />
         <ScrollView>
-          {qrCodes?.map((qrcode: FilteredQRCodesByDate) => {
+          {qrCodes?.map((qrcode: FilteredQRCodesByDate, idx: number) => {
             const [date] = Object.keys(qrcode)
             if (date !== '0')
               return (<>
-                <View style={styles.dateCloudContainer}>
+                <View key={idx} style={styles.dateCloudContainer}>
                   <Text style={styles.date}>{date}</Text>
                 </View>
                 <ScrollView style={{ height: qrcode[date].length > 1 ? 286 : 170, marginBottom: 12 }}>
@@ -161,7 +161,7 @@ const History = () => {
                 </ScrollView>
               </>)
             else if (date === '0')
-              return (<View style={styles.notFoundContainer}>
+              return (<View key={0} style={styles.notFoundContainer}>
                 <LargeSearchIcon />
                 <Text style={styles.noResultsFoundText}>Nenhum resultado obtido</Text>
                 <Text style={styles.noResultsFoundDescriptionText}>Tente realizar uma filtragem mais

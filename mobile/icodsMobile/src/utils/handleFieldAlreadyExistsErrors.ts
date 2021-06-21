@@ -9,7 +9,6 @@ interface FieldExistsErrors {
   statusCode: number
 }
 
-
 const fieldAlreadyExistsErrors = {
   "Usuário com esse Email já existe": 'email',
   "Usuário com esse Username já existe": 'username'

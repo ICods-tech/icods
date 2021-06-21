@@ -34,6 +34,10 @@ const Dashboard = () => {
         <ModalMoreDashboard
           visible={modalVisible}
           pressedOut={() => setModalVisible(!modalVisible)}
+          supportPage={() =>{
+            setModalVisible(false)
+            navigation.navigate('Support')
+          }}
           profilePage={() => {
             setModalVisible(false)
             navigation.navigate('Profile')

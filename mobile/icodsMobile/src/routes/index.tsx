@@ -8,6 +8,7 @@ import EditProfile from '../pages/EditProfile'
 import Splash from '../pages/Splash'
 import { useAuth } from '../hooks/auth'
 import History from '../pages/History';
+import Support from '../pages/Support'
 import QRCodeHistoryDetails from '../pages/QRCodeHistoryDetails';
 
 const App = createStackNavigator()
@@ -18,7 +19,7 @@ const Routes: React.FC = () => {
   return (
     <App.Navigator screenOptions={{
       headerShown: false,
-      cardStyle: { backgroundColor: '#312e38' }
+      cardStyle: { backgroundColor: '#fff' }
     }}>
       {
         isLoading ? (
@@ -31,6 +32,7 @@ const Routes: React.FC = () => {
               <App.Screen name='EditProfile' component={EditProfile} />
               <App.Screen name='History' component={History} />
               <App.Screen name='QRCodeHistoryDetails' component={QRCodeHistoryDetails} />
+              <App.Screen name='Support' component={Support} />
             </>
           ) : (
             <>

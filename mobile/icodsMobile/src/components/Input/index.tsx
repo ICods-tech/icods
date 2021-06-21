@@ -7,15 +7,16 @@ import KeyIcon from '../../assets/images/Icons/signIn-password.svg'
 import { TextInput, View, TouchableOpacity } from 'react-native'
 
 interface Props {
-  radius: 'top' | 'bottom' | 'middle';
-  placeholder: string;
-  change: (event: string) => void;
   value: string;
+  isErrored?: boolean;
+  placeholder: string;
   isPassword?: boolean;
+  bottomErrored?: boolean;
   isLoginUsername?: boolean;
   isLoginPassword?: boolean;
-  isErrored?: boolean;
-  bottomErrored?: boolean;
+  isSupportMessage?: boolean;
+  change: (event: string) => void;
+  radius: 'top' | 'bottom' | 'middle';
 };
 
 const Input = (props: Props) => {

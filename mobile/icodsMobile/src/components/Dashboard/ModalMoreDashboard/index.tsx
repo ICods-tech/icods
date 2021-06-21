@@ -10,10 +10,11 @@ interface ModalInterface {
   visible: boolean,
   pressedOut: () => void,
   profilePage: () => void,
+  supportPage: () => void,
   signOut: () => Promise<void>
 }
 
-const ModalMoreDashboard = ({ visible, pressedOut, profilePage, signOut }: ModalInterface) => {
+const ModalMoreDashboard = ({ visible, pressedOut, supportPage, profilePage, signOut }: ModalInterface) => {
   return (
     <Modal
       style={visible ? styles.dropdownStyle : { display: 'none' }}
@@ -34,7 +35,7 @@ const ModalMoreDashboard = ({ visible, pressedOut, profilePage, signOut }: Modal
             </TouchableOpacity>
             <TouchableOpacity style={styles.dropdownOptions}>
               <ReportProblemIcon />
-              <Text style={styles.dropdownOptionsText}>Suporte</Text>
+              <Text style={styles.dropdownOptionsText} onPress={supportPage}>Suporte</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.dropdownOptions} onPress={signOut}>
               <SignOutIcon />

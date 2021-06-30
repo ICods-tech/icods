@@ -11,7 +11,7 @@ services:
     ports:
       - '5432:5432'
   app:
-    image: thomasr002/icods-teste:latest  
+    image: icodstech/icods-api:latest  
     depends_on:
       - db
     networks:

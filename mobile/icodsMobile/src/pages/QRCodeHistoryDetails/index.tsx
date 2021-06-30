@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, SafeAreaView, ScrollView, Animated, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import HeaderHistory from '../../components/History/HeaderHistory';
-import HistoryFooter from '../../components/History/HistoryFooter';
+import HistoryFooter from '../../components/LoggedFooter';
 import QRCodeTemplate from '../../assets/images/qrCodeLargeTemplate.svg'
 import { colorsIconsList } from '../../components/History/FilterModal'
 import api from '../../services/api';
@@ -12,6 +12,7 @@ import ShareIcon from '../../assets/images/Icons/shareIcon.svg'
 import FavoritedIcon from '../../assets/images/Icons/favorited-line.svg'
 import NotFavoritedIcon from '../../assets/images/Icons/notFavorited-line.svg'
 import ButtonAuthentication from '../../components/Button';
+import Toast from 'react-native-toast-message';
 
 export interface QRCodeHistoryDetailsProps {
   id: string;
@@ -38,6 +39,13 @@ const QRCodeHistoryDetails = ({ route }: RouteParams) => {
   const handleFavoriteQRCode = useCallback(async (id: string) => {
     await api.patch(`received_qrcode/favorite/${id}`)
     setUpdatedFavorite(!updatedFavorite)
+    !updatedFavorite && Toast.show({
+      type: 'success',
+      position: 'bottom',
+      text1: 'Você curtiu o iCod',
+      visibilityTime: 1200,
+      bottomOffset: 100,
+    })
   }, [updatedFavorite])
 
   const handleChangeQRCodeColor = useCallback(async (color: Colors) => {
@@ -111,7 +119,9 @@ const QRCodeHistoryDetails = ({ route }: RouteParams) => {
           )}
         </View>
       </View>
-      <HistoryFooter />
+      <HistoryFooter
+        isHistory
+      />
     </SafeAreaView >
   )
 }

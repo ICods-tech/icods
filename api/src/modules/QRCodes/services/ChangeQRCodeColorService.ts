@@ -1,5 +1,6 @@
 import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 import IUserRepository from '@modules/Users/IRepositories/IUserRepository';
+import AppError from '@shared/error/AppError';
 import { injectable, inject } from 'tsyringe'
 import { Colors, colorsObject } from '../interfaces/Colors';
 import IQRCodesRepository from '../IRepositories/IQRCodesRepository'
@@ -22,7 +23,7 @@ export default class ChangeFavoriteStatusService {
   }
 
   public async run(userId: string, qrcodeId: string, color: Colors): Promise<QRCode> {
-    if (!this.checkColorValidity(color)) throw new Error('Color is not valid!')
+    if (!this.checkColorValidity(color)) throw new AppError('Color is not valid!')
 
     await getUserById(userId, this.usersRepository)
     let qrCode = await getQRCodeById(qrcodeId, this.qrcodeRepository)
@@ -34,8 +35,8 @@ export default class ChangeFavoriteStatusService {
       : 'receivedColor'
 
     if (type === 'receivedColor') {
-      if (!('receivedUser' in qrCode)) throw new Error('QR Code does not contain an user on the receiving end')
-      if (userId !== qrCode.receivedUser?.id) throw new Error("You cannot alter the status of this QR Code due to the fact that it wasn't you who received it")
+      if (!('receivedUser' in qrCode)) throw new AppError('QR Code does not contain an user on the receiving end')
+      if (userId !== qrCode.receivedUser?.id) throw new AppError("You cannot alter the status of this QR Code due to the fact that it wasn't you who received it")
     }
 
     qrCode = await this.qrcodeRepository.changeQRCodeColor(qrCode, color, type)

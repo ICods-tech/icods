@@ -1,4 +1,5 @@
 import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
+import AppError from '@shared/error/AppError';
 import { injectable, inject } from 'tsyringe'
 import IQRCodesRepository from '../IRepositories/IQRCodesRepository'
 
@@ -13,7 +14,7 @@ export default class GetDeactivatedQRCodesService {
     numberOfQrCodes = numberOfQrCodes || 1
 
     if (numberOfQrCodes < 1)
-      throw new Error("You cannot retrieve a negative number of QR Codes")
+      throw new AppError("You cannot retrieve a negative number of QR Codes")
 
     const deactivatedQRCodes = await this.qrcodeRepository.getMultipleDeactivatedQRCodes(numberOfQrCodes)
 

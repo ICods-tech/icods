@@ -1,3 +1,4 @@
+import AppError from '@shared/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import Like from '../infra/typeorm/models/like'
 import ICommentRepository from '../IRepositories/ICommentsRepository'
@@ -12,7 +13,7 @@ export default class EditCommentService {
 
   public async run(id: string, userId: string, content: string): Promise<Like> {
     if (!await this.commentsRepository.checkAuthor(id, userId)) {
-      throw new Error("You do not have the authority to edit that comment or the comment doesn't exist!")
+      throw new AppError("You do not have the authority to edit that comment or the comment doesn't exist!")
     }
 
     const updatedComment = await this.commentsRepository.updateCommentContent(id, content)

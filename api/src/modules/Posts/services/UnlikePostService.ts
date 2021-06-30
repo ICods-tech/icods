@@ -1,3 +1,4 @@
+import AppError from '@shared/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import ILikesRepository from '../IRepositories/ILikesRepository'
 
@@ -12,7 +13,7 @@ export default class UnlikePostService {
   public async run(user_id: string, post_id: string): Promise<{ message: string }> {
     const like = await this.likesRepository.get(user_id, post_id)
 
-    if (!like) throw new Error('This like entry could not be found')
+    if (!like) throw new AppError('This like entry could not be found')
 
     await this.likesRepository.unlike(like.id)
 

@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   dropdownOptionsText: {
     fontSize: 12,
     color: '#282C37',
-    marginLeft: 8
+    marginLeft: 18,
+    marginRight: 36
   },
   signOutContainer: {
     position: 'relative',

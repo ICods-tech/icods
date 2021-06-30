@@ -22,13 +22,13 @@ export default class CreatePostService {
   public async run(userId: string, qrcodeId: string): Promise<Post> {
     console.log(userId, qrcodeId)
     if (!userId || !qrcodeId) {
-      throw new Error("All fields must be filled!")
+      throw new AppError("All fields must be filled!")
     }
 
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {
-      throw new Error("Trying to post with an user that doesn't exist")
+      throw new AppError("Trying to post with an user that doesn't exist")
     }
 
     const qrcode = await this.qrcodesRepository.get(qrcodeId)

@@ -3,6 +3,7 @@ import { injectable, inject } from 'tsyringe'
 var pdfGenerator = require('../utils/generateQRCodesPdf')
 import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
 import IQRCodesRepository from '../IRepositories/IQRCodesRepository'
+import AppError from '@shared/error/AppError';
 
 @injectable()
 export default class CreateDeactivatedQRCodesService {
@@ -16,7 +17,7 @@ export default class CreateDeactivatedQRCodesService {
     numberOfQrCodes = numberOfQrCodes || 1
 
     if (numberOfQrCodes > 100 || numberOfQrCodes < 1)
-      throw new Error("You can only generate 100 deactivated QR Codes at once")
+      throw new AppError("You can only generate 100 deactivated QR Codes at once")
 
     const newDeactivatedQRCodes = []
     const qrcodesImagesList = []

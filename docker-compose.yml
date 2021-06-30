@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-  name: api-icods
   db:
     image: postgres
     environment:
@@ -12,9 +11,9 @@ services:
     ports:
       - '5432:5432'
   app:
+    image: thomasr002/icods-teste:latest  
     depends_on:
       - db
-    build: .
     networks:
       - default
     ports:

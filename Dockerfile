@@ -8,6 +8,6 @@ COPY ./api/package.json ./api/yarn.lock ./
 
 RUN yarn install
 
-COPY . .
+COPY ./api ./
 
 CMD [ "npm","dev:server" ]

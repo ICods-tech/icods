@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var DeactivatedQRCodeController_1 = __importDefault(require("../controller/DeactivatedQRCodeController"));
+var AddQRCodeToUserController_1 = __importDefault(require("../controller/AddQRCodeToUserController"));
+var UserQRCodesController_1 = __importDefault(require("../controller/UserQRCodesController"));
+var verifyJwtToken_1 = __importDefault(require("@shared/middlewares/verifyJwtToken"));
+var multer_1 = __importDefault(require("multer"));
+var uploadConfig_1 = __importDefault(require("@config/uploadConfig"));
+var qrcodeRouter = express_1.Router();
+var deactivatedQRCodeController = new DeactivatedQRCodeController_1.default();
+var addQRCodeToUserController = new AddQRCodeToUserController_1.default();
+var userQRCodesController = new UserQRCodesController_1.default();
+qrcodeRouter.post('/generate_deactivated_qrcode', deactivatedQRCodeController.create);
+qrcodeRouter.get('/get_deactivated_qrcode/data?:numberOfQrCodes', deactivatedQRCodeController.index);
+qrcodeRouter.patch('/add_qrcode', verifyJwtToken_1.default, addQRCodeToUserController.update);
+qrcodeRouter.get('/qrcodes', verifyJwtToken_1.default, userQRCodesController.index);
+qrcodeRouter.get('/qrcodes/:qrcode_id', verifyJwtToken_1.default, userQRCodesController.show);
+qrcodeRouter.post('/qrcodes/:qrcode_id', verifyJwtToken_1.default, multer_1.default(uploadConfig_1.default).single('file'), userQRCodesController.create);
+exports.default = qrcodeRouter;

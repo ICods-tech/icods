@@ -7,7 +7,7 @@ export default class LikesRepository implements ILikesRepository {
   private ormRepository: Repository<Like>
 
   constructor() {
-    this.ormRepository = getRepository(Like)
+    this.ormRepository = getRepository('likes')
   }
 
   public async like({ userId, post }: ILikeDTO): Promise<Like> {

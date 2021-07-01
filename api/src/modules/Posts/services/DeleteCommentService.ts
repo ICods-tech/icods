@@ -1,3 +1,4 @@
+import AppError from '@shared/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import ICommentRepository from '../IRepositories/ICommentsRepository'
 
@@ -11,7 +12,7 @@ export default class DeleteCommentService {
 
   public async run(id: string, userId: string): Promise<{ message: string }> {
     if (!(await this.commentsRepository.checkAuthor(id, userId))) {
-      throw new Error("You do not have the authority to delete that comment or the comment doesn't exist!")
+      throw new AppError("You do not have the authority to delete that comment or the comment doesn't exist!")
     }
 
     await this.commentsRepository.deleteComment(id)

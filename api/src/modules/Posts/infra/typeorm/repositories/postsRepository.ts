@@ -7,7 +7,7 @@ export default class PostRepository implements IPostRepository {
   private ormRepository: Repository<Post>
 
   constructor() {
-    this.ormRepository = getRepository(Post)
+    this.ormRepository = getRepository('posts')
   }
 
   public async create(data: IPostDTO): Promise<Post> {

@@ -7,7 +7,7 @@ export default class FollowerRepository implements IFollowRepository {
   private ormRepository: Repository<Follow>
 
   constructor() {
-    this.ormRepository = getRepository(Follow)
+    this.ormRepository = getRepository('followers')
   }
 
   public async getAllFollowers(id: string): Promise<{ followers: Follow[], followersCount: Number }> {
@@ -44,6 +44,10 @@ export default class FollowerRepository implements IFollowRepository {
 
   public async unfollow(id: string, followingId: string) {
     await this.ormRepository.delete({ userId: id, followingId: followingId })
+  }
+
+  public async rejectFollower(id: string){
+    await this.ormRepository.delete({ id: id })
   }
 
   public async follow(data: IFollowDTO): Promise<Follow> {

@@ -5,7 +5,7 @@ import aws from "aws-sdk";
 import multerS3 from "multer-s3"
 
 const TMP_FOLDER = path.resolve(__dirname, '..', '..', 'tmp')
-const MAX_SIZE_FIVE_MEGABYTES = 5 * 1024 * 1024;
+const MAX_SIZE_FIVE_MEGABYTES = 30 * 1024 * 1024;
 
 const storageTypes = {
   local:{

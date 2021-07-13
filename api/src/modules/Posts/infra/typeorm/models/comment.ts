@@ -1,5 +1,4 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne, IsNull } from 'typeorm'
-import QRCode from '../../../../QRCodes/infra/typeorm/models/QRCode'
 import User from '../../../../Users/infra/typeorm/models/user'
 import Post from './post'
 

@@ -7,10 +7,10 @@
   "synchronize": true,
 
   "entities": [
-    "./src/**/models/*.ts"
+    "./src/**/models/*"
   ],
   "migrations": [
-    "./src/**/database/migrations/*.ts"
+    "./src/**/database/migrations/*"
   ],
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/database/migrations"

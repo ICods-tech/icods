@@ -5,7 +5,7 @@ import aws from "aws-sdk";
 import multerS3 from "multer-s3"
 
 const TMP_FOLDER = path.resolve(__dirname, '..', '..', 'tmp')
-const MAX_SIZE_FIVE_MEGABYTES = 30 * 1024 * 1024;
+const MAX_SIZE_MEGABYTES = 70 * 1024 * 1024;
 
 const storageTypes = {
   local:{
@@ -38,9 +38,9 @@ const storageTypes = {
 
 export default {
   dest: TMP_FOLDER,
-  storage: storageTypes[process.env.STORAGE_TYPE],
-  limits: {
-    fileSize: MAX_SIZE_FIVE_MEGABYTES,
+  storage: storageTypes[process.env.STORAGE_TYPE].storage,
+  limits:{
+    fileSize: MAX_SIZE_MEGABYTES
   },
   fileFilter: (req, file, cb) => {
     const allowedMimes = [

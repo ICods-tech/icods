@@ -10,6 +10,7 @@ import { useAuth } from '../hooks/auth'
 import History from '../pages/History';
 import Support from '../pages/Support'
 import QRCodeHistoryDetails from '../pages/QRCodeHistoryDetails';
+import VideoPlayer from '../pages/VideoPlayer';
 
 const App = createStackNavigator()
 
@@ -36,6 +37,7 @@ const Routes: React.FC = () => {
             </>
           ) : (
             <>
+                <App.Screen name='VideoPlayer' component={ VideoPlayer } />
               <App.Screen name='SignIn' component={SignIn} />
               <App.Screen name='Register' component={Register} />
             </>

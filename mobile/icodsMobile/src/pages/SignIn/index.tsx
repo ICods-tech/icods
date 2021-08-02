@@ -8,7 +8,7 @@ import ButtonAuthentication from '../../components/Button'
 import GoogleIcon from '../../assets/images/Icons/google_icon.svg'
 import FacebookIcon from '../../assets/images/Icons/facebook_icon.svg';
 import FooterAuthentication from '../../components/Authentication/AuthFooter'
-import { View, Text, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
 
 const SignIn = () => {
@@ -40,65 +40,69 @@ const SignIn = () => {
   return (
     <View style={styles.background}>
       <HeaderAuthentication />
-      <View style={styles.inputContainer}>
-        <Input
-          placeholder={'Email/Username'}
-          radius={'top'}
-          isErrored={errored}
-          isLoginUsername
-          change={(email: string) => setEmail(email)}
-          value={email}
-        />
-        <Input
-          placeholder={'Senha'}
-          radius={'bottom'}
-          isErrored={errored}       
-          isPassword
-          isLoginPassword
-          change={(password: string) => setPassword(password)}
-          value={password}
-        />
-      </View>
-      <View style={styles.textUnderneathInputsContainer}>
-        <TouchableWithoutFeedback onPress={() => {
-          setErrored(false)
-          navigation.navigate('Register')
-        }} >
-          <View style={styles.underlineText}>
-            <Text style={styles.textUnderneathInputs}>Cadastre-se</Text>
+      <KeyboardAvoidingView behavior="height" style={styles.inputContainer}>
+        {/* <View style={styles.inputContainer}> */}
+          <Input
+            placeholder={'Email/Username'}
+            radius={'top'}
+            isErrored={errored}
+            isLoginUsername
+            change={(email: string) => setEmail(email)}
+            value={email}
+          />
+          <Input
+            placeholder={'Senha'}
+            radius={'bottom'}
+            isErrored={errored}       
+            isPassword
+            isLoginPassword
+            change={(password: string) => setPassword(password)}
+            value={password}
+          />
+        {/* </View> */}
+
+        <View style={styles.textUnderneathInputsContainer}>
+          <TouchableWithoutFeedback onPress={() => {
+            setErrored(false)
+            navigation.navigate('Register')
+          }} >
+            <View style={styles.underlineText}>
+              <Text style={styles.textUnderneathInputs}>Cadastre-se</Text>
+            </View>
+          </TouchableWithoutFeedback>
+          <View style={styles.underlineSecondText}>
+            <Text style={styles.textUnderneathInputs}>Esqueceu a senha?</Text>
           </View>
-        </TouchableWithoutFeedback>
-        <View style={styles.underlineSecondText}>
-          <Text style={styles.textUnderneathInputs}>Esqueceu a senha?</Text>
         </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        <ButtonAuthentication text={'Login'} pressed={() => handleLogin()} />
-      </View>
-      <View style={styles.orContainer}>
-        <View style={styles.orLeftHorizontalLine} />
-        <Text style={styles.orText}>Ou</Text>
-        <View style={styles.orRightHorizontalLine} />
-      </View>
-      <View style={styles.alternativeAuthenticationContainer}>
-        <ButtonAuthentication
-            pressed={() =>{}}
-            text="Continue Com Google"
-            notActivated
-            icon={<GoogleIcon style={{ marginRight: 8}}/>}
-          />
-        <ButtonAuthentication
-            pressed={() =>{}}
-            text="Continue Com Facebook"
-            notActivated
-            icon={<FacebookIcon style={{ marginRight: 8}}/>}
-          />
-      </View>
-      <TouchableOpacity
-        style={styles.helpContainer}
-      >
-        <Text style={styles.helpText}>Algum problema no login? Contate-nos</Text>
-      </TouchableOpacity>
+        <View style={styles.buttonContainer}>
+          <ButtonAuthentication text={'Login'} pressed={() => handleLogin()} />
+        </View>
+        <View style={styles.orContainer}>
+          <View style={styles.orLeftHorizontalLine} />
+          <Text style={styles.orText}>Ou</Text>
+          <View style={styles.orRightHorizontalLine} />
+        </View>
+        <View style={styles.alternativeAuthenticationContainer}>
+          <ButtonAuthentication
+              pressed={() =>{}}
+              text="Continue Com Google"
+              notActivated
+              icon={<GoogleIcon style={{ marginRight: 8}}/>}
+            />
+          <ButtonAuthentication
+              pressed={() =>{}}
+              text="Continue Com Facebook"
+              notActivated
+              icon={<FacebookIcon style={{ marginRight: 8}}/>}
+            />
+        </View>
+        <TouchableOpacity
+          style={styles.helpContainer}
+        >
+          <Text style={styles.helpText}>Algum problema no login? Contate-nos</Text>
+        </TouchableOpacity>
+      </ KeyboardAvoidingView>
+
       <FooterAuthentication />
     </View>
   )

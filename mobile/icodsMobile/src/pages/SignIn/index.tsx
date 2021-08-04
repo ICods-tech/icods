@@ -14,8 +14,8 @@ import HeaderAuthentication from '../../components/Authentication/HeaderAuthenti
 const SignIn = () => {
   const { signIn, user } = useAuth()
   const navigation = useNavigation()
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+  const [ email, setEmail ] = useState<string>( 'jraphael@email.com' )
+  const [ password, setPassword ] = useState<string>( '123456' )
   const [errored, setErrored] = useState<boolean>(false)
 
   const handleLogin = useCallback(async () => {

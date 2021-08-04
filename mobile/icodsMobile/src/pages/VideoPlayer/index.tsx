@@ -9,6 +9,8 @@ import VideoPlayerFooter from '../../components/VideoPlayer/VideoPlayerFooter';
 const VideoPlayer = () =>
 {
 
+  const uri = 'https://bucket-nodejs.s3.amazonaws.com/LOGOVETOR_1.mp4';
+
   const [ videoPlayer, setVideoPlayer ] = useState<Video | null>();
   const [ duration, setDuration ] = useState( 0 );
   const [ paused, setPaused ] = useState( true );
@@ -80,7 +82,7 @@ const VideoPlayer = () =>
         resizeMode={ 'contain' }
 
         ref={ ( ref ) => { setVideoPlayer( ref ); } }
-        source={ { uri: 'https://bucket-nodejs.s3.amazonaws.com/LOGO+VETOR_1.mkv', type: "video/mkv" } }
+        source={ { uri: "https://bucket-nodejs.s3.amazonaws.com/LOGOVETOR_1.mp4", type: "video/mp4" } }
         style={ styles.video }
       />
 
@@ -99,7 +101,7 @@ const VideoPlayer = () =>
       />
 
       <View style={ styles.iconsContainer }>
-        <VideoPlayerFooter />
+        <VideoPlayerFooter url={ uri } />
       </View>
 
 

@@ -1,7 +1,7 @@
 {
   "type": "postgres",
-  "host": "db",
-  "port": "5432",
+  "host": "localhost",
+  "port": "5436",
   "username": "postgres",
   "password": "icods_password",
   "synchronize": true,

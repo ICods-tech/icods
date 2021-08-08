@@ -3,12 +3,13 @@ import { SafeAreaView, Platform, View, Text } from 'react-native'
 import Video from 'react-native-video';
 import styles from './styles';
 import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
-import { is } from 'date-fns/locale';
 import VideoPlayerFooter from '../../components/VideoPlayer/VideoPlayerFooter';
+import { useAuth } from '../../hooks/auth';
 
-const VideoPlayer = () =>
+const VideoPlayer = ( { route, _ }: any ) =>
 {
 
+  const { qrcode } = route.params;
   const uri = 'https://bucket-nodejs.s3.amazonaws.com/LOGOVETOR_1.mp4';
 
   const [ videoPlayer, setVideoPlayer ] = useState<Video | null>();
@@ -82,11 +83,12 @@ const VideoPlayer = () =>
         resizeMode={ 'contain' }
 
         ref={ ( ref ) => { setVideoPlayer( ref ); } }
-        source={ { uri: "https://bucket-nodejs.s3.amazonaws.com/LOGOVETOR_1.mp4", type: "video/mp4" } }
+        source={ { uri: qrcode.link ? qrcode.link : "https://bucket-nodejs.s3.amazonaws.com/LOGOVETOR_1.mp4", type: "video/mp4" } }
         style={ styles.video }
       />
 
       <MediaControls
+        containerStyle={ styles.mediaControls }
         isFullScreen={ false }
         duration={ duration }
         isLoading={ isLoading }
@@ -98,10 +100,12 @@ const VideoPlayer = () =>
         mainColor={ "black" }
         playerState={ playerState }
         sliderStyle={ { containerStyle: {}, thumbStyle: {}, trackStyle: {} } }
-      />
+      >
+
+      </MediaControls>
 
       <View style={ styles.iconsContainer }>
-        <VideoPlayerFooter url={ uri } />
+        <VideoPlayerFooter url={ qrcode.link ? qrcode.link : uri } />
       </View>
 
 

@@ -24,6 +24,9 @@ const styles = StyleSheet.create( {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  mediaControls: {
+    width: width,
+  },
 } );
 
 export default styles;

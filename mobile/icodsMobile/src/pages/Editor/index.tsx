@@ -6,6 +6,8 @@ import
   TouchableWithoutFeedback,
   Dimensions,
   View,
+  Modal,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 import { RNCamera } from 'react-native-camera';
@@ -23,8 +25,7 @@ import { useNavigation } from '@react-navigation/native';
 const Editor = ( { route, _ } ) =>
 {
   const navigation = useNavigation();
-  const { user } = useAuth();
-  const { token } = useAuth();
+  const [ modalVisible, setModalVisible ] = useState( false );
 
   const { qrcode } = route.params;
 
@@ -34,9 +35,25 @@ const Editor = ( { route, _ } ) =>
   const [ focus, setFocus ] = useState( RNCamera.Constants.AutoFocus.on );
   const [ cameraZoom, setCameraZoom ] = useState( 0.0 );
   const [ isRecording, setIsRecording ] = useState( false );
+  const [ video, setVideo ] = useState( "" );
   let camera2 = React.createRef<RNCamera>();
 
   const [ recordedData, setRecordedData ] = useState( '' );
+
+  const handleCancel = () =>
+  {
+    setModalVisible( false );
+  }
+
+  const handleConfirm = () =>
+  {
+    if ( video === '' )
+      return;
+
+    setModalVisible( false );
+    console.log( "Confirmei" );
+    navigation.navigate( 'Processing', { qrcode, video } );
+  }
 
   const handleFlipCamera = () =>
   {
@@ -124,23 +141,26 @@ const Editor = ( { route, _ } ) =>
         {
           console.log( result );
           const { video } = result;
+          setModalVisible( true );
 
-          console.log( `/qrcodes/${ qrcode.id }` );
+          setVideo( video );
 
-          let formData = new FormData();
-          formData.append( 'file', {
-            uri: video,
-            type: 'video/mp4',
-            name: `${ Date.now() }_${ user.id }.mp4`
-          } );
+          // console.log( `/qrcodes/${ qrcode.id }` );
 
-          await api.post( `/qrcodes/${ qrcode.id }`, formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          } );
+          // let formData = new FormData();
+          // formData.append( 'file', {
+          //   uri: video,
+          //   type: 'video/mp4',
+          //   name: `${ Date.now() }_${ user.id }.mp4`
+          // } );
 
-          navigation.navigate( 'Dashboard' );
+          // await api.post( `/qrcodes/${ qrcode.id }`, formData, {
+          //   headers: {
+          //     "Content-Type": "multipart/form-data",
+          //   },
+          // } );
+
+          // navigation.navigate( 'Dashboard' );
 
         },
         ( error ) =>
@@ -187,11 +207,15 @@ const Editor = ( { route, _ } ) =>
         { !isRecording && (
           <>
             <Header page="" navigate="Dashboard" color="#FFFFFF" />
-            <TouchableWithoutFeedback onPress={ openEditor }>
-              <View style={ styles.buttonNext }>
-                <Text style={ { color: '#fff' } }>Próximo</Text>
-              </View>
-            </TouchableWithoutFeedback>
+
+            { recordedData !== "" && (
+              <TouchableWithoutFeedback onPress={ openEditor }>
+                <View style={ styles.buttonNext }>
+                  <Text style={ { color: '#fff' } }>Próximo</Text>
+                </View>
+              </TouchableWithoutFeedback>
+            ) }
+
           </>
         ) }
         <Menu
@@ -202,6 +226,35 @@ const Editor = ( { route, _ } ) =>
           isRecording={ isRecording }
         />
       </RNCamera>
+
+      <Modal
+        animationType='slide'
+        transparent={ true }
+        visible={ modalVisible }
+        onRequestClose={ () =>
+        {
+          Alert.alert( "Modal has been closed." );
+          setModalVisible( !modalVisible );
+        } }
+      >
+        <View style={ styles.modal }>
+          <View style={ styles.modalContainer }>
+            <View style={ styles.modalIcon }>
+              <Text>icon</Text>
+            </View>
+            <Text style={ styles.modalTitle }>Você confirma a edição do iCod?</Text>
+            <Text style={ styles.modalText }>Caso confirme, não será mais permitido a edição desse iCod</Text>
+            <View style={ styles.modalButtonsContainer }>
+              <TouchableWithoutFeedback onPress={ handleCancel }>
+                <Text style={ { color: '#DF2C2C' } }>CANCELAR</Text>
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback onPress={ handleConfirm }>
+                <Text style={ { color: '#2B90D9' } }>CONFIRMAR</Text>
+              </TouchableWithoutFeedback>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

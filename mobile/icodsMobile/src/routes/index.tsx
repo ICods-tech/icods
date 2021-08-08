@@ -13,6 +13,8 @@ import QRCodeHistoryDetails from '../pages/QRCodeHistoryDetails';
 import VideoPlayer from '../pages/VideoPlayer';
 import Scanner from '../pages/Scanner';
 import Editor from '../pages/Editor';
+import GiftOpen from '../pages/GiftOpen';
+import Processing from '../pages/Processing';
 
 const App = createStackNavigator()
 
@@ -39,13 +41,15 @@ const Routes: React.FC = () => {
               <App.Screen name='Editor' component={ Editor } />
               <App.Screen name='Scanner' component={ Scanner } />
               <App.Screen name='VideoPlayer' component={ VideoPlayer } />
+              <App.Screen name='Processing' component={ Processing } />
             </>
           ) : (
               <>
-                <App.Screen name='VideoPlayer' component={ VideoPlayer } />
-              <App.Screen name='SignIn' component={SignIn} />
-              <App.Screen name='Register' component={Register} />
+                <App.Screen name='SignIn' component={ SignIn } />
+                <App.Screen name='Register' component={ Register } />
                 <App.Screen name='Scanner' component={ Scanner } />
+                <App.Screen name='VideoPlayer' component={ VideoPlayer } />
+                <App.Screen name='GiftOpen' component={ GiftOpen } />
             </>
           )
       }

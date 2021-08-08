@@ -6,6 +6,8 @@ import RNFS from 'react-native-fs';
 import IconDownload from '../../../assets/images/icon_download.svg';
 import IconLike from '../../../assets/images/icon_like.svg';
 import IconShare from '../../../assets/images/icon_share.svg';
+import { useAuth } from '../../../hooks/auth';
+import { useNavigation } from '@react-navigation/native';
 
 interface VideoPlayerFooterProps
 {
@@ -15,7 +17,9 @@ interface VideoPlayerFooterProps
 const VideoPlayerFooter = ( { url }: VideoPlayerFooterProps ) =>
 {
 
-  const path = `${ RNFS.PicturesDirectoryPath }/teste.mp4`
+  const { user } = useAuth();
+  const navigation = useNavigation();
+  const path = `${ RNFS.PicturesDirectoryPath }/LOGOVETOR_1.mp4`
 
   const onDownloadPress = async () =>
   {
@@ -44,12 +48,24 @@ const VideoPlayerFooter = ( { url }: VideoPlayerFooterProps ) =>
     } );
   };
 
+  const onLikePress = async () =>
+  {
+    if ( user )
+    {
+
+    }
+    else
+    {
+      navigation.navigate( "GiftOpen" );
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={ onDownloadPress }>
         <IconDownload />
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={ onLikePress }>
         <IconLike />
       </TouchableOpacity>
       <TouchableOpacity onPress={ onSharePress }>

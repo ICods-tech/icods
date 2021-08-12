@@ -1,18 +1,21 @@
 import React from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
+
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({ 
   container: {
     position: 'relative',
     display: 'flex',
     backgroundColor: '#FFF',
+    top: Platform.OS === 'ios' ? 0 : -60,
   },
 
   iconPanel: {
-    position: 'relative',
-    left: 25,
-    top: -20,
-    display: 'flex',
+    // position: 'relative',
+    left: width * 0.025,
+    top: Platform.OS === 'ios' ? -20 : 0,
+    // display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },

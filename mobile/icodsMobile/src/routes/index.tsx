@@ -10,6 +10,11 @@ import { useAuth } from '../hooks/auth'
 import History from '../pages/History';
 import Support from '../pages/Support'
 import QRCodeHistoryDetails from '../pages/QRCodeHistoryDetails';
+import VideoPlayer from '../pages/VideoPlayer';
+import Scanner from '../pages/Scanner';
+import Editor from '../pages/Editor';
+import GiftOpen from '../pages/GiftOpen';
+import Processing from '../pages/Processing';
 
 const App = createStackNavigator()
 
@@ -33,11 +38,18 @@ const Routes: React.FC = () => {
               <App.Screen name='History' component={History} />
               <App.Screen name='QRCodeHistoryDetails' component={QRCodeHistoryDetails} />
               <App.Screen name='Support' component={Support} />
+              <App.Screen name='Editor' component={ Editor } />
+              <App.Screen name='Scanner' component={ Scanner } />
+              <App.Screen name='VideoPlayer' component={ VideoPlayer } />
+              <App.Screen name='Processing' component={ Processing } />
             </>
           ) : (
-            <>
-              <App.Screen name='SignIn' component={SignIn} />
-              <App.Screen name='Register' component={Register} />
+              <>
+                <App.Screen name='SignIn' component={ SignIn } />
+                <App.Screen name='Register' component={ Register } />
+                <App.Screen name='Scanner' component={ Scanner } />
+                <App.Screen name='VideoPlayer' component={ VideoPlayer } />
+                <App.Screen name='GiftOpen' component={ GiftOpen } />
             </>
           )
       }

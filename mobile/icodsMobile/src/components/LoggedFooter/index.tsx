@@ -40,7 +40,7 @@ const LoggedFooter = (props: LoggedFooterProps) => {
           {props.isHistory ? <ActivatedHistoryIcon /> : <DeactivatedHistoryIcon />}
           <Text style={props.isHistory ? styles.historyText : [styles.historyText, { color: '#000'}]}>Histórico</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.scanner} >
+        <TouchableOpacity onPress={ () => navigation.navigate( 'Scanner' ) } style={ styles.scanner } >
           <QrCodeScanIcon style={styles.scan} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttons}>

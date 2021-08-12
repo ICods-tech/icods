@@ -64,7 +64,11 @@ const Dashboard = () => {
         </View>
         <Text style={styles.selectOneOptionText}>Selecione uma das opções abaixo</Text>
         <ScrollView style={styles.blockScrolling} horizontal>
-          <DashboardBlock text={'Escanear'} image={'scan'} />
+          <DashboardBlock
+            pressed={ () => navigation.navigate( 'Scanner' ) }
+            text={ 'Escanear' }
+            image={ 'scan' }
+          />
           <DashboardBlock pressed={() => navigation.navigate('History')} text={'Histórico'} image={'history'} />
           <DashboardBlock text={'Social'} image={'social'} />
         </ScrollView>

@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react';
 import { View, Text, Image, StatusBar, Button } from 'react-native';
 import styles from './styles';
-import Asteroid from '../../../assets/images/asteroid_image_gradient.svg';
+import Asteroid from '../../../assets/images/asteroid_image_2.svg';
 import IcodsIcon from '../../../assets/images/icods_icon.svg';
 
 const HeaderAuthentication = () => {

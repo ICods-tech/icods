@@ -38,9 +38,9 @@ const storageTypes = {
 
 export default {
   dest: TMP_FOLDER,
-  storage: storageTypes[process.env.STORAGE_TYPE],
+  storage: storageTypes[process.env.STORAGE_TYPE].storage,
   limits: {
-    fileSize: MAX_SIZE_MEGABYTES
+    fileSize: MAX_SIZE_MEGABYTES,
   },
   fileFilter: (req, file, cb) => {
     const allowedMimes = [

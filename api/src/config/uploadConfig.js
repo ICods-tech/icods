@@ -8,10 +8,10 @@ const TMP_FOLDER = path.resolve(__dirname, '..', '..', 'tmp')
 const MAX_SIZE_MEGABYTES = 70 * 1024 * 1024;
 
 const storageTypes = {
-  local:{
+  local: {
     storage: multer.diskStorage({
       destination: TMP_FOLDER,
-      filename: (request, file, cb) =>{
+      filename: (request, file, cb) => {
         const fileHash = crypto.randomBytes(8).toString("hex")
         const fileName = `${fileHash}-${file.originalname}`
 
@@ -38,8 +38,8 @@ const storageTypes = {
 
 export default {
   dest: TMP_FOLDER,
-  storage: storageTypes[process.env.STORAGE_TYPE].storage,
-  limits:{
+  storage: storageTypes[process.env.STORAGE_TYPE],
+  limits: {
     fileSize: MAX_SIZE_MEGABYTES
   },
   fileFilter: (req, file, cb) => {

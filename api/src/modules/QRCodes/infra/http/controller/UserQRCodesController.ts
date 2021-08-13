@@ -85,6 +85,7 @@ export default class UserQRCodesController {
         Body: movieStream,
         Bucket: process.env.BUCKET_NAME as string,
         Key: key,
+        ContentType: "video/mp4"
       };
 
       //await putS3Object(params, movieStream);

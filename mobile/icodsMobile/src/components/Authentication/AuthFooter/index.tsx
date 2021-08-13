@@ -21,8 +21,8 @@ const LoggedFooter = (props: LoggedFooterProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <TouchableOpacity style={styles.scanner} >
-          <QrCodeScanIcon style={styles.scan} />
+        <TouchableOpacity style={ styles.scanner } onPress={ () => navigation.navigate( 'Scanner' ) }>
+          <QrCodeScanIcon style={ styles.scan } />
         </TouchableOpacity>
         <Text style={styles.scanText}>Escanear</Text>
       </View>

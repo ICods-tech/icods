@@ -1,19 +1,14 @@
-import path from 'path';
-import fs from 'fs';
-import util from 'util';
-import aws from 'aws-sdk';
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
-const exec = util.promisify(require('child_process').exec);
 import GetUserQRCodeService from '@modules/QRCodes/services/GetUserQRCodeService';
+import UploadVideoToS3Service from '@modules/QRCodes/services/UploadVideoToS3Service';
 import GetUserQRCodesService from '@modules/Users/services/user/GetUserQRCodesService';
 import AddQRCodeContentService from '@modules/QRCodes/services/AddQRCodeContentService';
-import { PutObjectRequest } from 'aws-sdk/clients/s3';
+
 interface MulterRequest extends Request {
   file: Express.MulterS3.File;
 }
 
-const s3 = new aws.S3();
 export default class UserQRCodesController {
   public async index(request: Request, response: Response): Promise<Response> {
     try {
@@ -49,51 +44,11 @@ export default class UserQRCodesController {
         key,
         location: url = '',
       } = (request as MulterRequest).file;
-      const ending_videorootPath = path.resolve(
-        __dirname,
-        '..',
-        '..',
-        '..',
-        '..',
-        '..',
-        '..',
-      );
-      const tmpPath = path.resolve(
-        __dirname,
-        '..',
-        '..',
-        '..',
-        '..',
-        '..',
-        '..',
-        'tmp',
-      );
 
-      const { stdout, stderr } = await exec(
-        `npx ffmpeg -i ${url} -i ${ending_videorootPath}/icods.mp4 -filter_complex "[0:v] [0:a] [1:v] [1:a] concat=n=2:v=1:a=1 [v] [a]" -vsync 2 -map "[v]" -map "[a]" ${tmpPath}/${key}`,
-      );
-      console.log('stdout:', stdout);
-      console.error('stderr:', stderr);
+      const uploadVideoToS3Service = new UploadVideoToS3Service()
+      await uploadVideoToS3Service.run(url, key);
 
-      const addQRCodeContentService = container.resolve(
-        AddQRCodeContentService,
-      );
-
-      const movieStream = fs.createReadStream(`${tmpPath}/${key}`);
-      const params: PutObjectRequest = {
-        ACL: 'public-read',
-        Body: movieStream,
-        Bucket: process.env.BUCKET_NAME as string,
-        Key: key,
-        ContentType: "video/mp4"
-      };
-
-      //await putS3Object(params, movieStream);
-      await s3.putObject(params, function (err, data) {
-        if (err) console.log(err, err.stack);
-        else console.log(data);
-      });
-      fs.unlinkSync(`` + tmpPath + `/${key}`);
+      const addQRCodeContentService = container.resolve(AddQRCodeContentService)
       const qrcode = await addQRCodeContentService.run(
         qrcode_id,
         name,
@@ -108,8 +63,4 @@ export default class UserQRCodesController {
     }
   }
 
-  public async putS3Object(
-    params: PutObjectRequest,
-    body: any,
-  ): Promise<void> {}
 }

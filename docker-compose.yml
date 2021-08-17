@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   db:
@@ -9,17 +9,18 @@ services:
     volumes:
       - /home/pgdata:/var/lib/postgresql/data
     ports:
-      - '5432:5432'
-  app:
-    image: icodstech/icods-api:latest  
-    depends_on:
-      - db
-    networks:
-      - default
-    ports:
-      - '5000:5000'
-    command: npm run dev:server
-    links:
-      - db
+      - "5432:5432"
+  # app:
+  #   image: icodstech/icods-api:latest
+  #   depends_on:
+  #     - db
+  #   restart: always
+  #   networks:
+  #     - default
+  #   ports:
+  #     - "5000:5000"
+  #   command: npm run start
+  #   links:
+  #     - db
 volumes:
   postgres:

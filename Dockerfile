@@ -10,4 +10,4 @@ RUN yarn install
 
 COPY ./api ./
 
-CMD [ "npm","dev:server" ]
+CMD [ "npm","build" ]

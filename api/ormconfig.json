@@ -1,16 +1,16 @@
 {
   "type": "postgres",
-  "host": "db",
+  "host": "localhost",
   "port": "5432",
   "username": "postgres",
   "password": "icods_password",
   "synchronize": true,
 
   "entities": [
-    "./src/**/models/*.ts"
+    "./src/**/models/*"
   ],
   "migrations": [
-    "./src/**/database/migrations/*.ts"
+    "./src/**/database/migrations/*"
   ],
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/database/migrations"

@@ -1,19 +1,17 @@
 import React from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
+
+const {width, height} = Dimensions.get('window');
 
 const styles = StyleSheet.create({ 
-  backMenu: {
-    position: 'absolute',
-    left: 2,
-    top: 36,
-  },
   background: {
     flex: 1,
-    height: Dimensions.get('window').height,
+    height: height,
     backgroundColor: '#fff'
   },
   inputContainer: {
     display: 'flex',
+    // top: Platform.OS === 'ios' ? 0 : -56,
     flexDirection: 'column',
     alignItems: 'center',
     marginTop: 8
@@ -22,7 +20,7 @@ const styles = StyleSheet.create({
     width: '60%',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 12,
+    marginTop: 8,
     flexDirection: 'row',
   },
   underlineText: {

@@ -10,6 +10,8 @@ target 'icodsMobile' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'react-native-video', :path => '../node_modules/react-native-video'
+
   target 'icodsMobileTests' do
     inherit! :complete
     # Pods for testing

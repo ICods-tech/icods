@@ -15,6 +15,8 @@ const styles = StyleSheet.create( {
     // backgroundColor: '#2B90D9',
     borderRadius: width * 0.35,
     marginBottom: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   textTile: {
     // font-family: Manrope;
@@ -27,12 +29,24 @@ const styles = StyleSheet.create( {
     marginBottom: 14,
   },
   text: {
-    width: width * 0.8,
+    width: width * 0.85,
     color: 'rgba(0, 0, 0, 0.4)',
     fontSize: 16,
     lineHeight: 22,
     textAlign: 'center',
     letterSpacing: 0.02,
+  },
+  errorButton: {
+    width: width * 0.8,
+    height: 36,
+    backgroundColor: '#2B90D9',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 24,
+  },
+  errorButtonText: {
+    color: '#FFF',
   },
 } );
 

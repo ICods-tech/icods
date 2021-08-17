@@ -19,7 +19,7 @@ const VideoPlayerFooter = ( { url }: VideoPlayerFooterProps ) =>
 
   const { user } = useAuth();
   const navigation = useNavigation();
-  const path = `${ RNFS.PicturesDirectoryPath }/LOGOVETOR_1.mp4`
+  const path = `${ RNFS.PicturesDirectoryPath }/${ Date.now() }.mp4`
 
   const onDownloadPress = async () =>
   {

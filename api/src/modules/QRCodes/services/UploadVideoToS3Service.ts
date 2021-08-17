@@ -16,9 +16,10 @@ export default class UploadVideoToS3Service {
       '..'
     );
     const tmpPath = endingVideoRootPath + '/tmp'
-
+    console.log(`./ffmpeg/ffmpeg -i ${url} -i ${endingVideoRootPath}/icods.mp4 -filter_complex "[0:v]
+    [0:a] [1:v] [1:a] concat=n=2:v=1:a=1 [v] [a]" -vsync 2 -map "[v]" -map "[a]" ${tmpPath}/${key}`)
     await exec(
-      `npx ffmpeg -i ${url} -i ${endingVideoRootPath}/icods.mp4 -filter_complex "[0:v]
+      `./ffmpeg/ffmpeg -i ${url} -i ${endingVideoRootPath}/icods.mp4 -filter_complex "[0:v]
        [0:a] [1:v] [1:a] concat=n=2:v=1:a=1 [v] [a]" -vsync 2 -map "[v]" -map "[a]" ${tmpPath}/${key}`,
     );
 

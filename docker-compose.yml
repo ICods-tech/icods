@@ -10,17 +10,15 @@ services:
       - /home/pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  # app:
-  #   image: icodstech/icods-api:latest
-  #   depends_on:
-  #     - db
-  #   restart: always
-  #   networks:
-  #     - default
-  #   ports:
-  #     - "5000:5000"
-  #   command: npm run start
-  #   links:
-  #     - db
-volumes:
-  postgres:
+  app:
+    build: .  
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - default
+    ports:
+      - "3333:3333"
+    command: npm run dev:server
+    links:
+      - db

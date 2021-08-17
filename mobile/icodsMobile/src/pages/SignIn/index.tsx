@@ -4,12 +4,21 @@ import { useAuth } from '../../hooks/auth'
 import Toast from 'react-native-toast-message';
 import React, { useState, useCallback } from 'react';
 import { useNavigation } from '@react-navigation/native'
+import { 
+  View, 
+  Text, 
+  TouchableWithoutFeedback, 
+  TouchableOpacity, 
+  KeyboardAvoidingView 
+} from 'react-native'
+
 import ButtonAuthentication from '../../components/Button'
 import GoogleIcon from '../../assets/images/Icons/google_icon.svg'
 import FacebookIcon from '../../assets/images/Icons/facebook_icon.svg';
 import FooterAuthentication from '../../components/Authentication/AuthFooter'
-import { View, Text, TouchableWithoutFeedback, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+
 import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
+import { Header } from '../../components/Authentication/Header';
 
 const SignIn = () => {
   const { signIn, user } = useAuth()
@@ -39,7 +48,9 @@ const SignIn = () => {
 
   return (
     <View style={styles.background}>
-      <HeaderAuthentication />
+      {/* <HeaderAuthentication /> */}
+      <Header />
+      
       <KeyboardAvoidingView behavior="height" style={styles.inputContainer}>
         {/* <View style={styles.inputContainer}> */}
           <Input

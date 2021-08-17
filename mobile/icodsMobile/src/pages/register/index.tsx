@@ -12,6 +12,7 @@ import FooterAuthentication from '../../components/Authentication/AuthFooter'
 import { delay } from '../../utils/delay'
 import { handleRegisterRouteErrors } from '../../utils/handleRegisterRouteErrors'
 import { handleFieldAlreadyExistsErrors } from '../../utils/handleFieldAlreadyExistsErrors'
+import { Header } from '../../components/Authentication/Header'
 
 export interface IRouteErrors {
   name: boolean;
@@ -74,7 +75,9 @@ const Register = () => {
 
   return (
     <View style={styles.background}>
-      <HeaderAuthentication />
+      {/* <HeaderAuthentication /> */}
+      <Header />
+      
       <Back style={styles.backMenu} onPress={() => { navigation.navigate('SignIn') }} />
       <Text style={styles.midText}>Fazer uma conta no iCODS é simples e
         rápido, basta preencher os campos!

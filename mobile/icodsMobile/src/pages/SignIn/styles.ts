@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, Platform, StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const {width, height} = Dimensions.get('window');
 
@@ -14,13 +15,14 @@ const styles = StyleSheet.create({
     // top: Platform.OS === 'ios' ? 0 : -56,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 8
+    marginTop: RFValue(25),
+    // backgroundColor: '#f04'
   },
   textUnderneathInputsContainer: {
     width: '60%',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 8,
+    marginTop: RFValue(8),
     flexDirection: 'row',
   },
   underlineText: {
@@ -34,65 +36,66 @@ const styles = StyleSheet.create({
   },
   textUnderneathInputs: {
     color: '#9BAEC8',
-    fontSize: 12,
     letterSpacing: 0.02,
+    fontSize: RFValue(10),
   },
   secondTextUnderneathInputs: {
     color: '#9BAEC8',
-    fontSize: 12,
+    fontSize: RFValue(10),
     letterSpacing: 0.02,
   },
   buttonContainer: {
-    marginTop: 24,
+    marginTop: RFValue(24),
     alignItems: 'center'
   },
   orText: {
     color: '#282C37',
-    fontSize: 12
+    fontSize: RFValue(14)
   },
   orContainer: {
-    marginTop: 24,
+    marginTop: RFValue(24),
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   orLeftHorizontalLine: { 
-    width: 132,
+    width: RFValue(122),
     marginTop: 'auto',
     height: 8, 
     borderTopColor: '0.5px solid rgba(0, 0, 0, 0.12);', 
     borderTopWidth: 1, 
-    marginRight: 12
+    marginRight: RFValue(15)
   },
   orRightHorizontalLine: { 
-    width: 132, 
+    width: RFValue(122), 
     height: 8,
     marginTop: 'auto',
     borderTopColor: '0.5px solid rgba(0, 0, 0, 0.12);', 
     borderTopWidth: 1, 
-    marginLeft: 12
+    marginLeft: RFValue(15)
   },
   alternativeAuthenticationContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: 24,
-    marginBottom: 30,
-    height: 90
+    marginTop: RFValue(24),
+    marginBottom: RFValue(21),
+    height: RFValue(90)
   },
+  
   helpContainer: {
     display: 'flex',
     alignItems: 'center',
-    borderBottomWidth: 0.5,
     width: 196,
     alignSelf: 'center',
-    borderBottomColor: 'rgba(0, 0, 0, 0.4);'
-  }, 
+  },
   helpText: {
-    fontSize: 10,
-    color: 'rgba(0, 0, 0, 0.4);'
+    fontSize: RFValue(10),
+    color: 'rgba(0, 0, 0, 0.4);',
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'rgba(0, 0, 0, 0.4);'
   }
 })
 

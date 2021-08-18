@@ -5,6 +5,7 @@ import EyeClosed from '../../assets/images/eye_closed.svg'
 import UserIcon from '../../assets/images/Icons/signIn-user.svg'
 import KeyIcon from '../../assets/images/Icons/signIn-password.svg'
 import { TextInput, View, TouchableOpacity } from 'react-native'
+import { RFValue } from 'react-native-responsive-fontsize'
 
 interface Props {
   value: string;
@@ -30,12 +31,11 @@ const Input = (props: Props) => {
   }
 
   return (
-    <View style={
-      props.isErrored ?
+    <View style={[props.isErrored ?
         [divStyle, { borderColor: '#DF2C2C' }] :
-        props.bottomErrored ? [divStyle, {borderBottomColor: '#DF2C2C'}] : divStyle} >
-      {props.isLoginUsername && (<UserIcon style={{ alignSelf: 'center', marginLeft: 9, marginRight: 2}}/>)}
-      {props.isLoginPassword && (<KeyIcon style={{ alignSelf: 'center', marginLeft: 9, marginRight: 2}}/>)}
+        props.bottomErrored ? [divStyle, {borderBottomColor: '#DF2C2C'}] : divStyle]} >
+      {props.isLoginUsername && (<UserIcon width={16} height={16} style={{ alignSelf: 'center', marginLeft: RFValue(9), marginRight: RFValue(2)}}/>)}
+      {props.isLoginPassword && (<KeyIcon  width={16} height={16} style={{ alignSelf: 'center', marginLeft: RFValue(9), marginRight: RFValue(2)}}/>)}
       <TextInput
         autoCapitalize='none'
         secureTextEntry={props.isPassword && eyeState}
@@ -51,8 +51,8 @@ const Input = (props: Props) => {
           onPress={() => setEyeState(!eyeState)}
         >
           {eyeState
-            ? <EyeOpen />
-            : <EyeClosed />
+            ? <EyeOpen  width={16} height={16}/>
+            : <EyeClosed  width={16} height={16}/>
           }
         </TouchableOpacity>
       )}

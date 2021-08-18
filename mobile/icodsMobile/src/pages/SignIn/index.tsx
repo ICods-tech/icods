@@ -3,7 +3,8 @@ import Input from '../../components/Input'
 import { useAuth } from '../../hooks/auth'
 import Toast from 'react-native-toast-message';
 import React, { useState, useCallback } from 'react';
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
+import { RFValue } from 'react-native-responsive-fontsize';
 import { 
   View, 
   Text, 
@@ -11,14 +12,28 @@ import {
   TouchableOpacity, 
   KeyboardAvoidingView 
 } from 'react-native'
+import { 
+  HelpButtonContainer, 
+  HelpButtonText, 
+  HelpContainer,
+  HelpContainerTexts,
+  LoginButtonContainer,
+  RegisterAndPassowordForgotContainer,
+  SignInOptions,
+  SpacingContainer,
+  SpacingLine,
+  SpacingText,
+} from './newStyles';
 
-import ButtonAuthentication from '../../components/Button'
+import { Header } from '../../components/Authentication/Header';
+import { SubmitButton } from '../../components/Authentication/SubmitButton';
+import { LoginSocialButton } from '../../components/Authentication/LoginSocialButton';
+import ButtonAuthentication from '../../components/Button';
+
 import GoogleIcon from '../../assets/images/Icons/google_icon.svg'
 import FacebookIcon from '../../assets/images/Icons/facebook_icon.svg';
-import FooterAuthentication from '../../components/Authentication/AuthFooter'
+import FooterAuthentication from '../../components/Authentication/AuthFooter';
 
-import HeaderAuthentication from '../../components/Authentication/HeaderAuthentication'
-import { Header } from '../../components/Authentication/Header';
 
 const SignIn = () => {
   const { signIn, user } = useAuth()
@@ -53,6 +68,8 @@ const SignIn = () => {
       
       <KeyboardAvoidingView behavior="height" style={styles.inputContainer}>
         {/* <View style={styles.inputContainer}> */}
+        <SignInOptions>
+
           <Input
             placeholder={'Email/Username'}
             radius={'top'}
@@ -72,28 +89,51 @@ const SignIn = () => {
           />
         {/* </View> */}
 
-        <View style={styles.textUnderneathInputsContainer}>
-          <TouchableWithoutFeedback onPress={() => {
-            setErrored(false)
-            navigation.navigate('Register')
-          }} >
-            <View style={styles.underlineText}>
-              <Text style={styles.textUnderneathInputs}>Cadastre-se</Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <View style={styles.underlineSecondText}>
-            <Text style={styles.textUnderneathInputs}>Esqueceu a senha?</Text>
-          </View>
-        </View>
-        <View style={styles.buttonContainer}>
-          <ButtonAuthentication text={'Login'} pressed={() => handleLogin()} />
-        </View>
-        <View style={styles.orContainer}>
-          <View style={styles.orLeftHorizontalLine} />
-          <Text style={styles.orText}>Ou</Text>
-          <View style={styles.orRightHorizontalLine} />
-        </View>
-        <View style={styles.alternativeAuthenticationContainer}>
+
+          <RegisterAndPassowordForgotContainer>
+            <HelpButtonContainer
+                onPress={() => {
+                  setErrored(false)
+                  navigation.navigate('Register')}}
+              >
+              <HelpButtonText>Cadastre-se</HelpButtonText>
+            </HelpButtonContainer>
+
+            <HelpButtonContainer>
+              <HelpButtonText>Esqueceu a senha?</HelpButtonText>
+            </HelpButtonContainer>
+          </RegisterAndPassowordForgotContainer>
+
+          <SubmitButton
+            onPress={() => handleLogin()} 
+            text='Entrar'
+          />
+
+          <SpacingContainer>
+            <SpacingLine style={{width: '40%'}}></SpacingLine>
+            <SpacingText>Ou</SpacingText>
+            <SpacingLine style={{width: '40%'}}></SpacingLine>
+          </SpacingContainer>
+
+          <LoginButtonContainer>
+            <LoginSocialButton 
+              title="Entrar com Google"
+              icon={GoogleIcon}
+              onPress={() => {}}
+            />
+
+            <LoginSocialButton 
+              title="Entrar com Facebook"
+              icon={FacebookIcon}
+              onPress={() => {}}
+
+            />
+          
+          </LoginButtonContainer>
+
+        </SignInOptions>
+
+        {/* <View style={styles.alternativeAuthenticationContainer}>
           <ButtonAuthentication
               pressed={() =>{}}
               text="Continue Com Google"
@@ -106,14 +146,24 @@ const SignIn = () => {
               notActivated
               icon={<FacebookIcon style={{ marginRight: 8}}/>}
             />
-        </View>
-        <TouchableOpacity
-          style={styles.helpContainer}
-        >
-          <Text style={styles.helpText}>Algum problema no login? Contate-nos</Text>
-        </TouchableOpacity>
-      </ KeyboardAvoidingView>
+        </View> */}
+        <SignInOptions>
 
+          <HelpContainer>
+              <HelpContainerTexts 
+              style={{marginRight: RFValue(2) }}
+                >Algum problema no login?
+              </HelpContainerTexts>
+              
+              <HelpButtonContainer>
+                <HelpButtonText>Contate-nos</HelpButtonText>
+              </HelpButtonContainer>
+          </HelpContainer>
+
+        </SignInOptions>
+
+
+      </KeyboardAvoidingView>
       <FooterAuthentication />
     </View>
   )

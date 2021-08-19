@@ -38,8 +38,8 @@ import FooterAuthentication from '../../components/Authentication/AuthFooter';
 const SignIn = () => {
   const { signIn, user } = useAuth()
   const navigation = useNavigation()
-  const [ email, setEmail ] = useState<string>( 'jraphael@email.com' )
-  const [ password, setPassword ] = useState<string>( '123456' )
+  const [ email, setEmail ] = useState<string>( 'jorgeoreidafloresta@gmail.com' )
+  const [ password, setPassword ] = useState<string>( '1234' )
   const [errored, setErrored] = useState<boolean>(false)
 
   const handleLogin = useCallback(async () => {

@@ -1,12 +1,13 @@
 import { StyleSheet, Platform, Dimensions } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F2F2F2',
-    height: 72,
+    height: RFValue(72),
     position: 'absolute',
     bottom: 0,
-    marginTop: 62,
+    marginTop: RFValue(62),
   },
   content: {
     display: 'flex',
@@ -16,25 +17,25 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width * 1.0,
   },
   horizontalBlueHomeBar: {
-    width: 24,
+    width: RFValue(24),
     height: 1.5,
     backgroundColor: '#2B90D9',
     transform: [{ translateY: -5 }]
   },
   buttons: {
     display: 'flex',
-    marginTop: 4,
-    marginLeft: 8,
-    marginRight: 8,
-    width: 61,
+    marginTop: RFValue(4),
+    marginLeft: RFValue(8),
+    marginRight: RFValue(8),
+    width: RFValue(61),
     justifyContent: 'center',
     alignItems: 'center',
   },
   scanText: {
     fontWeight: '500',
-    fontSize: 9,
+    fontSize: RFValue(9),
     fontStyle: 'normal',
-    marginBottom: 8,
+    marginBottom: RFValue(8),
     letterSpacing: Dimensions.get('window').width * 0.002,
   },
   scanner: {
@@ -42,12 +43,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 56,
-    height: 56,
-    marginTop: -18,
-    marginBottom: 4,
-    marginLeft: 8,
-    marginRight: 8,
+    width: RFValue(56),
+    height: RFValue(56),
+    marginTop: -RFValue(18),
+    marginBottom: RFValue(4),
+    marginLeft: RFValue(8),
+    marginRight: RFValue(8),
     borderRadius: 128,
   }
 })

@@ -1,5 +1,5 @@
 import styles from './styles'
-import { View, Text } from 'react-native'
+import { View, Text, KeyboardAvoidingView } from 'react-native'
 import Input from '../../components/Input'
 import { useAuth } from '../../hooks/auth'
 import Toast from 'react-native-toast-message'
@@ -12,6 +12,8 @@ import FooterAuthentication from '../../components/Authentication/AuthFooter'
 import { delay } from '../../utils/delay'
 import { handleRegisterRouteErrors } from '../../utils/handleRegisterRouteErrors'
 import { handleFieldAlreadyExistsErrors } from '../../utils/handleFieldAlreadyExistsErrors'
+import { Header } from '../../components/Authentication/Header'
+import { RegisterForm, RegisterTitle } from './newStyles'
 
 export interface IRouteErrors {
   name: boolean;
@@ -74,57 +76,72 @@ const Register = () => {
 
   return (
     <View style={styles.background}>
-      <HeaderAuthentication />
+      {/* <HeaderAuthentication /> */}
+      <KeyboardAvoidingView behavior="height" enabled>
+      <Header />
+      
       <Back style={styles.backMenu} onPress={() => { navigation.navigate('SignIn') }} />
-      <Text style={styles.midText}>Fazer uma conta no iCODS é simples e
+      
+      {/* <Text style={styles.midText}>Fazer uma conta no iCODS é simples e
         rápido, basta preencher os campos!
-      </Text>
-      <View style={styles.inputContainer}>
-        <Input
-          placeholder={'Digite seu nome completo'}
-          radius={'top'}
-          isErrored={isErrored['name']}
-          bottomErrored={isErrored['username']}
-          change={(name: string) => setName(name)}
-          value={name}
-        />
-        <Input
-          placeholder={'Digite um username'}
-          radius={'middle'}
-          isErrored={isErrored['username']}
-          bottomErrored={isErrored['email']}
-          change={(username: string) => setUsername(username)}
-          value={username}
-        />
-        <Input
-          placeholder={'Digite seu email principal'}
-          radius={'middle'}
-          isErrored={isErrored['email']}
-          bottomErrored={isErrored['passwordConfirmation'] || isErrored['password']}
-          change={(email: string) => setEmail(email)}
-          value={email}
-        />
-        <Input
-          placeholder={'Digite sua senha'}
-          radius={'middle'}
-          isErrored={isErrored['passwordConfirmation'] || isErrored['password']}
-          bottomErrored={isErrored['passwordConfirmation']}
-          isPassword
-          change={(password: string) => setPassword(password)}
-          value={password}
-        />
-        <Input
-          placeholder={'Digite novamente sua senha'}
-          radius={'bottom'}
-          isPassword
-          isErrored={isErrored['passwordConfirmation'] || isErrored['password']}
-          change={(passwordConfirmation: string) => setPasswordConfirmation(passwordConfirmation)}
-          value={passwordConfirmation} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <ButtonAuthentication text={'Cadastrar'} pressed={() => { handleSignUp() }} />
-      </View>
-      <FooterAuthentication />
+      </Text> */}
+
+
+      <RegisterTitle>
+        Fazer uma conta no iCODS é simples e
+        rápido, basta preencher os campos!
+      </RegisterTitle>
+
+      <RegisterForm>
+        <View style={styles.inputContainer}>
+            <Input
+              placeholder={'Digite seu nome completo'}
+              radius={'top'}
+              isErrored={isErrored['name']}
+              bottomErrored={isErrored['username']}
+              change={(name: string) => setName(name)}
+              value={name}
+            />
+            <Input
+              placeholder={'Digite um username'}
+              radius={'middle'}
+              isErrored={isErrored['username']}
+              bottomErrored={isErrored['email']}
+              change={(username: string) => setUsername(username)}
+              value={username}
+            />
+            <Input
+              placeholder={'Digite seu email principal'}
+              radius={'middle'}
+              isErrored={isErrored['email']}
+              bottomErrored={isErrored['passwordConfirmation'] || isErrored['password']}
+              change={(email: string) => setEmail(email)}
+              value={email}
+            />
+            <Input
+              placeholder={'Digite sua senha'}
+              radius={'middle'}
+              isErrored={isErrored['passwordConfirmation'] || isErrored['password']}
+              bottomErrored={isErrored['passwordConfirmation']}
+              isPassword
+              change={(password: string) => setPassword(password)}
+              value={password}
+            />
+            <Input
+              placeholder={'Digite novamente sua senha'}
+              radius={'bottom'}
+              isPassword
+              isErrored={isErrored['passwordConfirmation'] || isErrored['password']}
+              change={(passwordConfirmation: string) => setPasswordConfirmation(passwordConfirmation)}
+              value={passwordConfirmation} />
+          </View>
+
+          <View style={styles.buttonContainer}>
+          <ButtonAuthentication text={'Cadastrar'} pressed={() => { handleSignUp() }} />
+        </View>
+      </RegisterForm>
+      {/* <FooterAuthentication /> */}
+    </KeyboardAvoidingView>
     </View>
   )
 }

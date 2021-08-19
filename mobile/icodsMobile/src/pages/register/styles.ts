@@ -1,11 +1,12 @@
 import React from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const styles = StyleSheet.create({
   backMenu: {
     position: 'absolute',
-    left: 2,
-    top: 36,
+    left: RFValue(4),
+    top: RFValue(100),
   },
   background: {
     flex: 1,
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    marginTop: RFValue(17)
   },
   buttonContainer: {
     marginTop: 24,

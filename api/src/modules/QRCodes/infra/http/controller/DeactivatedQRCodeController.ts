@@ -1,7 +1,8 @@
+import fs from 'fs'
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
-import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService'
 import GetDeactivatedQRCodeService from '@modules/QRCodes/services/GetDeactivatedQRCodesService'
+import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService'
 
 export default class DeactivatedQRCodeController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -23,9 +24,12 @@ export default class DeactivatedQRCodeController {
       const numberOfQrCodes = request.body?.numberOfQrCodes || null
       const createDeactivatedQRCode = container.resolve(CreateDeactivatedQRCodeService)
 
-      const qrCode = await createDeactivatedQRCode.run(numberOfQrCodes)
+      let { qrcodes, generatedPdf } = await createDeactivatedQRCode.run(numberOfQrCodes)
+      let pdf = generatedPdf as any
+      const pdfData = fs.readFileSync(pdf.filename)
+      response.contentType('application/pdf')
 
-      return response.json(qrCode)
+      return response.send(pdfData)
     } catch (err) {
       console.log(err)
       return response.status(400).json(err.message)

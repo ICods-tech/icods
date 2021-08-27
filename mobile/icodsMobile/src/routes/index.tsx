@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import Register from '../pages/Register';
+import Register from '../pages/register';
 import SignIn from '../pages/SignIn'
 import Dashboard from '../pages/Dashboard'
 import Profile from '../pages/Profile'

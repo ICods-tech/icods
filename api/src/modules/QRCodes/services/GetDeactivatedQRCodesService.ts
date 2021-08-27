@@ -15,7 +15,7 @@ export default class GetDeactivatedQRCodesService {
 
     if (numberOfQrCodes < 1)
       throw new AppError("You cannot retrieve a negative number of QR Codes")
-
+    
     const deactivatedQRCodes = await this.qrcodeRepository.getMultipleDeactivatedQRCodes(numberOfQrCodes)
 
     return deactivatedQRCodes

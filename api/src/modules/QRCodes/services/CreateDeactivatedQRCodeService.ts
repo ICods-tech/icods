@@ -12,8 +12,7 @@ export default class CreateDeactivatedQRCodesService {
     private qrcodeRepository: IQRCodesRepository
   ) { }
 
-  public async run(numberOfQrCodes: number | null): Promise<
-    { qrcodes: QRCode[], generatedPdf: object }> {
+  public async run(numberOfQrCodes: number | null): Promise<{ qrcodes: QRCode[], generatedPdf: object }> {
     numberOfQrCodes = numberOfQrCodes || 1
 
     if (numberOfQrCodes > 100 || numberOfQrCodes < 1)

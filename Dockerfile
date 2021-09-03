@@ -4,10 +4,10 @@ EXPOSE 3333
 
 WORKDIR /app
 
-COPY ./api/package.json ./api/yarn.lock ./
+COPY ./package.json ./yarn.lock ./
 
 RUN yarn install
 
-COPY ./api ./
+COPY . .
 
-CMD [ "npm","build" ]
+CMD ["npm","build"]

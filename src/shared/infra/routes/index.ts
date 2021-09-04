@@ -10,6 +10,14 @@ import commentRouter from '@modules/Posts/infra/http/routes/comment.routes'
 
 const routes = Router();
 
+routes.get("/health", (req, res) => res.json(
+  {
+    message: "ok 🚀",
+    status: 200 ,
+    version: "1.0.0"
+  }
+));
+
 routes.use(sessionsRouter)
 routes.use(profileRouter)
 routes.use(qrCodesRouter)

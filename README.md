@@ -1,4 +1,4 @@
-# **ICODS :: icods-notifications**
+# **ICODS :: icods-core**
 
 ## Setup:
 

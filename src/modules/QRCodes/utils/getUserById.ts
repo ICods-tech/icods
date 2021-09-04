@@ -1,5 +1,5 @@
-import IUserRepository from "@modules/Users/IRepositories/IUserRepository"
-import AppError from "@shared/error/AppError"
+import IUserRepository from "@modules/Users/interfaces/IUserRepository"
+import AppError from "../../../infra/error/AppError"
 
 export async function getUserById(userId: string, usersRepository: IUserRepository) {
   const user = await usersRepository.findById(userId)

@@ -1,5 +1,5 @@
-import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
-import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepository';
+import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
+import IQRCodesRepository from '@modules/QRCodes/interfaces/IQRCodesRepository';
 import { inject, injectable } from 'tsyringe'
 import { getQRCodeById } from '../utils/getQRCodeById';
 

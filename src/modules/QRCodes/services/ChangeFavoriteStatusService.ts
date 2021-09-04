@@ -1,7 +1,7 @@
-import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
-import IUserRepository from '@modules/Users/IRepositories/IUserRepository';
+import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
+import IUserRepository from '@modules/Users/interfaces/IUserRepository';
 import { injectable, inject } from 'tsyringe'
-import IQRCodesRepository from '../IRepositories/IQRCodesRepository'
+import IQRCodesRepository from '../interfaces/IQRCodesRepository'
 import checkReceivedQRCodeProperties from '../utils/checkReceivedQRCodeProperties';
 import { getQRCodeById } from '../utils/getQRCodeById';
 import { getUserById } from '../utils/getUserById';

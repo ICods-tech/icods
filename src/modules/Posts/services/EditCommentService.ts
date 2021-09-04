@@ -1,7 +1,7 @@
-import AppError from '@shared/error/AppError'
+import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
-import Like from '../infra/typeorm/models/like'
-import ICommentRepository from '../IRepositories/ICommentsRepository'
+import Like from '../typeorm/models/like'
+import ICommentRepository from '../interfaces/ICommentsRepository'
 
 @injectable()
 export default class EditCommentService {

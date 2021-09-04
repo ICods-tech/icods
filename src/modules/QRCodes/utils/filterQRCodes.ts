@@ -1,11 +1,11 @@
-import QRCode from "../infra/typeorm/models/QRCode";
-import { Colors } from "../interfaces/Colors";
+import QRCode from "../typeorm/models/QRCode";
+import { IColors } from "../interfaces/IColors";
 import { sortQRCodeListByDate } from "./sortQRCodeList";
 
 export function filterQrCodes(
   qrCodes: QRCode[] | [],
   receivedQRCodes: boolean,
-  color: Colors | 'noFilter',
+  color: IColors | 'noFilter',
   favorite: boolean,
   month: number | null,
   year: number | null

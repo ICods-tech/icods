@@ -1,6 +1,6 @@
-import AppError from '@shared/error/AppError'
+import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
-import ICommentRepository from '../IRepositories/ICommentsRepository'
+import ICommentRepository from '../interfaces/ICommentsRepository'
 
 @injectable()
 export default class DeleteCommentService {

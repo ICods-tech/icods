@@ -1,8 +1,8 @@
-import QRCode from "../infra/typeorm/models/QRCode"
-import { OrderedQRCodes, QRCodeByDate, QRCodeComparisonDate } from "../interfaces/OrderedQRCodes"
+import QRCode from "../typeorm/models/QRCode"
+import { IOrderedQRCodes, QRCodeByDate, QRCodeComparisonDate } from "../interfaces/IOrderedQRCodes"
 import { formatDateFiltering } from "./formatDateFiltering"
 
-export function addQRCodesToReceivedDates(sortedQRCodes: QRCodeComparisonDate[] | [], orderedReceivedQRCodes: OrderedQRCodes) {
+export function addQRCodesToReceivedDates(sortedQRCodes: QRCodeComparisonDate[] | [], orderedReceivedQRCodes: IOrderedQRCodes) {
   let temporaryMonths: QRCodeByDate = {}
 
   let previousMonth = sortedQRCodes.length && formatDateFiltering(sortedQRCodes[0].comparisonDate as Date)

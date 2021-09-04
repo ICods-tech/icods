@@ -1,6 +1,6 @@
-import AppError from '@shared/error/AppError';
+import AppError from '../../../../infra/error/AppError';
 import { inject, injectable } from 'tsyringe'
-import IFollowRepository from '../../IRepositories/IFollowRepository'
+import IFollowRepository from '../../interfaces/IFollowRepository'
 
 @injectable()
 export default class RequestFollowerService {

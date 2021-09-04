@@ -1,7 +1,7 @@
-import AppError from '@shared/error/AppError'
+import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
-import Post from '../infra/typeorm/models/post'
-import IPostsRepository from '../IRepositories/IPostsRepository'
+import Post from '../typeorm/models/post'
+import IPostsRepository from '../interfaces/IPostsRepository'
 
 @injectable()
 export default class GetPostService {

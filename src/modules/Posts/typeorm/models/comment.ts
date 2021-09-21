@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne, IsNull } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,
+  UpdateDateColumn, JoinColumn, ManyToOne } from 'typeorm'
 import User from '../../../Users/typeorm/models/user'
 import Post from './post'
 

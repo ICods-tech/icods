@@ -13,7 +13,7 @@ export default class FollowerController {
         id
       )
       return response.json({ followerUsers, followersCount })
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }

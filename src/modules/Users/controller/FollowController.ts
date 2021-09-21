@@ -19,7 +19,7 @@ export default class FollowController {
       )
 
       return response.json(follow)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -34,7 +34,7 @@ export default class FollowController {
         id
       )
       return response.json({ followingUsers, followingCount })
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -52,7 +52,7 @@ export default class FollowController {
       )
 
       return response.json({ message: 'User unfollowed successfully 🍇' })
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -65,7 +65,7 @@ export default class FollowController {
       const followRejected = await deleteRequestFollowerService.run(id)
 
       return response.json(followRejected)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -79,7 +79,7 @@ export default class FollowController {
       const follow = await acceptRequestFollowerService.run(id)
 
       return response.json(follow)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }

@@ -13,7 +13,7 @@ export default class DeactivatedQRCodeController {
       const qrCodes = await getDeactivatedQRCode.run(numberOfQrCodes)
 
       return response.json(qrCodes)
-    } catch (err) {
+    } catch (err: any) {
       console.log(err)
       return response.status(400).json(err.message)
     }
@@ -30,7 +30,7 @@ export default class DeactivatedQRCodeController {
       response.contentType('application/pdf')
 
       return response.send(pdfData)
-    } catch (err) {
+    } catch (err: any) {
       console.log(err)
       return response.status(400).json(err.message)
     }

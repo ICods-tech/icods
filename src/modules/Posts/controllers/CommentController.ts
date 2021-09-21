@@ -19,7 +19,7 @@ export default class CommentsController {
       )
 
       return response.json(comment)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -37,7 +37,7 @@ export default class CommentsController {
       )
 
       return response.json(message)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -57,7 +57,7 @@ export default class CommentsController {
       )
 
       return response.json(message)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }

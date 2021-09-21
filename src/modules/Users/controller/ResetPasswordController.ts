@@ -24,7 +24,7 @@ export default class ResetPasswordController {
       )
 
       return response.json(classToClass(updatedUser))
-    } catch (err) {
+    } catch (err: any) {
       return response.status(400).json(err.message)
     }
   }

@@ -28,7 +28,7 @@ export default class AddQRCodeToUserService {
       await this.qrCodesRepository.save(qrcode)
 
       return qrcode
-    } catch (err) {
+    } catch (err: any) {
       console.log(err.message)
       throw new AppError(err.message)
     }

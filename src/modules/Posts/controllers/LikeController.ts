@@ -17,7 +17,7 @@ export default class LikeController {
       )
 
       return response.json(like)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -35,7 +35,7 @@ export default class LikeController {
       )
 
       return response.json(message)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }

@@ -16,7 +16,7 @@ export default class PostController {
       )
 
       return response.json(post)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -28,7 +28,7 @@ export default class PostController {
       const post = await getPostService.run(post_id)
 
       return response.json(post)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }
@@ -40,7 +40,7 @@ export default class PostController {
       const message = await deletePostService.run(post_id)
 
       return response.json(message)
-    } catch (error) {
+    } catch (error: any) {
       return response.status(400).json(error.message)
     }
   }

@@ -16,7 +16,7 @@ export default class AddQRCodeToUserController {
       )
 
       return response.json(qrcodes)
-    } catch(err) {
+    } catch(err: any) {
       return response.status(400).json(err.message)
     }
   }

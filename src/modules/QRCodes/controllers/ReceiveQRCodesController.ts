@@ -19,7 +19,7 @@ export default class ReceiveQRCodeController {
       const qrCode = await receiveQRCodeService.run(qrcode_id, id)
 
       return response.json(qrCode)
-    } catch (err) {
+    } catch (err: any) {
       return response.status(400).json(err.message)
     }
   }
@@ -36,7 +36,7 @@ export default class ReceiveQRCodeController {
       const filteredQRCodes = await filterReceivedQRCodesService.run({ id, color, favorited, month, year })
 
       return response.json(filteredQRCodes)
-    } catch (err) {
+    } catch (err: any) {
       return response.status(400).json(err.message)
     }
   }

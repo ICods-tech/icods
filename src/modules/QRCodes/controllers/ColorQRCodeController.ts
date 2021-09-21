@@ -13,7 +13,7 @@ export default class ColorQRCodeController {
       const qrCode = await changeQRCodeColorService.run(id, qrcode_id, color)
 
       return response.json(qrCode)
-    } catch (err) {
+    } catch (err: any) {
       console.log(err)
       return response.status(400).json(err.message)
     }

@@ -12,7 +12,7 @@ export default class FavoriteQRCodeController {
       const qrCode = await changeFavoriteStatusService.run(id, qrcode_id)
 
       return response.json(qrCode)
-    } catch (err) {
+    } catch (err: any) {
       console.log(err)
       return response.status(400).json(err.message)
     }

@@ -23,7 +23,7 @@ export default class AddQRCodeToUserService {
       const qrcode = await this.qrCodesRepository.activate(qrcode_id, filteredUser)
 
       return qrcode
-    } catch (err) {
+    } catch (err: any) {
       throw new AppError(err.message)
     }
   }

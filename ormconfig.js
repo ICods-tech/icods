@@ -1,7 +1,7 @@
 const HOST = process.env.HOST || "db";
 const PATH_TYPEORM = process.env.PROD || "./dist";
-const USERNAME = process.env.USERNAME || "postgres";
-const PASSWORD = process.env.PASSWORD || "icods_password";
+const USERNAME = process.env.POSTGRES_USERNAME;
+const PASSWORD = process.env.POSTGRES_PASSWORD;
 
 module.exports = {
   type: 'postgres',

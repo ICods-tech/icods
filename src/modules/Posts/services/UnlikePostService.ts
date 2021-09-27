@@ -1,6 +1,6 @@
-import AppError from '@shared/error/AppError'
+import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
-import ILikesRepository from '../IRepositories/ILikesRepository'
+import ILikesRepository from '../interfaces/ILikesRepository'
 
 @injectable()
 export default class UnlikePostService {

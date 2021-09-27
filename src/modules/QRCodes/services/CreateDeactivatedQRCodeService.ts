@@ -1,9 +1,9 @@
 var QRCodeHandler = require('qrcode')
 import { injectable, inject } from 'tsyringe'
 var pdfGenerator = require('../utils/generateQRCodesPdf')
-import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
-import IQRCodesRepository from '../IRepositories/IQRCodesRepository'
-import AppError from '@shared/error/AppError';
+import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
+import IQRCodesRepository from '../interfaces/IQRCodesRepository'
+import AppError from '../../../infra/error/AppError';
 
 @injectable()
 export default class CreateDeactivatedQRCodesService {

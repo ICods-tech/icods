@@ -1,6 +1,6 @@
-import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
-import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepository';
-import AppError from '@shared/error/AppError'
+import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
+import IQRCodesRepository from '@modules/QRCodes/interfaces/IQRCodesRepository';
+import AppError from '../../../infra/error/AppError'
 import fs from 'fs'
 import path from 'path'
 import uploadConfig from '@config/uploadConfig'
@@ -28,7 +28,7 @@ export default class AddQRCodeToUserService {
       await this.qrCodesRepository.save(qrcode)
 
       return qrcode
-    } catch (err) {
+    } catch (err: any) {
       console.log(err.message)
       throw new AppError(err.message)
     }

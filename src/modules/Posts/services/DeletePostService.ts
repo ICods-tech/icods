@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe'
-import IPostsRepository from '../IRepositories/IPostsRepository'
+import IPostsRepository from '../interfaces/IPostsRepository'
 
 @injectable()
 export default class DeletePostService {

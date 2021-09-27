@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe'
-import Like from '../infra/typeorm/models/like'
-import IPostsRepository from '../IRepositories/IPostsRepository'
-import ICommentRepository from '../IRepositories/ICommentsRepository'
-import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
-import AppError from '@shared/error/AppError'
+import Like from '../typeorm/models/like'
+import IPostsRepository from '../interfaces/IPostsRepository'
+import ICommentRepository from '../interfaces/ICommentsRepository'
+import IUserRepository from '@modules/Users/interfaces/IUserRepository'
+import AppError from '../../../infra/error/AppError'
 
 @injectable()
 export default class CommentPostService {

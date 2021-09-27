@@ -1,4 +1,4 @@
-import QRCode from "../infra/typeorm/models/QRCode";
+import QRCode from "../typeorm/models/QRCode";
 
 export function sortQRCodeListByDate(qrCodes: QRCode[] | [], type: 'created_at' | 'received_at' | 'comparisonDate') {
   qrCodes = qrCodes?.length

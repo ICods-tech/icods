@@ -1,4 +1,4 @@
-# **ICODS :: icods-notifications**
+# **ICODS :: icods-core**
 
 ## Setup:
 
@@ -55,7 +55,7 @@ yarn dev:server
 
 
 **OBS:**
-- In order to create an interface and a class in the `repositories` folder within a module, it will be necessary to register the two files so that the` dependency injection` is carried out in the following path `src/shared/container/index.ts` as follows:
+- In order to create an interface and a class in the `repositories` folder within a module, it will be necessary to register the two files so that the` dependency injection` is carried out in the following path `src/shared/container/container.ts` as follows:
 ```
 container.registerSingleton<INomeDaInterfaceRepository>(
   'NomeDaClasseRepository',
@@ -63,4 +63,4 @@ container.registerSingleton<INomeDaInterfaceRepository>(
 );
 ```
 
-- Whenever creating a new module, remember to import the route file in `/src/app/routes/index.ts`, following the standard flow.
+- Whenever creating a new module, remember to import the route file in `/src/app/routes/container.ts`, following the standard flow.

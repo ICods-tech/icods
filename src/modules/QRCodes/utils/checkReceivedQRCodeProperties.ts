@@ -1,5 +1,5 @@
-import AppError from "@shared/error/AppError"
-import QRCode from "../infra/typeorm/models/QRCode"
+import AppError from "../../../infra/error/AppError"
+import QRCode from "../typeorm/models/QRCode"
 
 export default function checkReceivedQRCodeProperties(qrCode: QRCode, userId: string, favorited: boolean): void {
   if (!qrCode.user) throw new AppError('QR Code was not activated yet!')

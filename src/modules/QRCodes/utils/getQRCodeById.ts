@@ -1,5 +1,5 @@
-import AppError from "@shared/error/AppError"
-import IQRCodesRepository from "../IRepositories/IQRCodesRepository"
+import AppError from "../../../infra/error/AppError"
+import IQRCodesRepository from "../interfaces/IQRCodesRepository"
 
 export async function getQRCodeById(qrcodeId: string, qrcodeRepository: IQRCodesRepository) {
   const qrCode = await qrcodeRepository.get(qrcodeId)

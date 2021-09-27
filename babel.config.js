@@ -9,10 +9,10 @@ module.exports = {
     ["@babel/plugin-proposal-class-properties", { "loose": true }],
     ['module-resolver', {
       alias: {
-        "@modules": "./src/modules",
-        "@config": "./src/config",
-        "@shared": "./src/shared",
-        "@models": "./src/modules"
+        "@modules": "./src/modules/",
+        "@config": "./src/config/",
+        "@shared": "./src/infra/",
+        "@models": "./src/modules/"
       }
     }]
   ],

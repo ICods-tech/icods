@@ -1,9 +1,9 @@
-import AppError from '@shared/error/AppError'
-import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
+import AppError from '../../../infra/error/AppError'
+import IUserRepository from '@modules/Users/interfaces/IUserRepository'
 import { inject, injectable } from 'tsyringe'
-import Post from '../infra/typeorm/models/post'
-import IPostsRepository from '../IRepositories/IPostsRepository'
-import IQRCodesRepository from '@modules/QRCodes/IRepositories/IQRCodesRepository'
+import Post from '../typeorm/models/post'
+import IPostsRepository from '../interfaces/IPostsRepository'
+import IQRCodesRepository from '@modules/QRCodes/interfaces/IQRCodesRepository'
 
 @injectable()
 export default class CreatePostService {

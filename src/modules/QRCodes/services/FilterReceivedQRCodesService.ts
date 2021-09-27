@@ -1,10 +1,10 @@
-import QRCode from '@modules/QRCodes/infra/typeorm/models/QRCode';
-import IUserRepository from '@modules/Users/IRepositories/IUserRepository';
-import AppError from '@shared/error/AppError';
+import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
+import IUserRepository from '@modules/Users/interfaces/IUserRepository';
+import AppError from '../../../infra/error/AppError';
 import { inject, injectable } from 'tsyringe'
-import { Colors, colorsObject } from '../interfaces/Colors';
-import { FilterQRCodes } from '../interfaces/FilterQRCodes';
-import { OrderedQRCodes, QRCodeComparisonDate } from '../interfaces/OrderedQRCodes';
+import { IColors, colorsObject } from '../interfaces/IColors';
+import { IFilterQRCodes } from '../interfaces/IFilterQRCodes';
+import { IOrderedQRCodes, QRCodeComparisonDate } from '../interfaces/IOrderedQRCodes';
 import { addQRCodesToReceivedDates } from '../utils/addQRCodesOnReceivedDates';
 import { filterQrCodes } from '../utils/filterQRCodes';
 import { getUserById } from '../utils/getUserById';
@@ -17,11 +17,11 @@ export default class FilterReceivedQRCodesService {
     private usersRepository: IUserRepository
   ) { }
 
-  private checkColorValidity(color: string): color is Colors {
+  private checkColorValidity(color: string): color is IColors {
     return colorsObject.hasOwnProperty(color)
   }
 
-  public async run({ id: userId, color, favorited, month, year }: FilterQRCodes): Promise<OrderedQRCodes | any> {
+  public async run({ id: userId, color, favorited, month, year }: IFilterQRCodes): Promise<IOrderedQRCodes | any> {
     if (!this.checkColorValidity(color)) throw new AppError("Color is not valid!")
     const user = await getUserById(userId, this.usersRepository)
 
@@ -31,7 +31,7 @@ export default class FilterReceivedQRCodesService {
     const sortedMadeQRCodes = filterQrCodes(madeQRCodes as QRCode[] | [], false, color, favorited, month, year)
     const sortedReceivedQRCodes = filterQrCodes(receivedQRCodes as QRCode[] | [], true, color, favorited, month, year)
 
-    const orderedUserQRCodes = { data: [] } as OrderedQRCodes
+    const orderedUserQRCodes = { data: [] } as IOrderedQRCodes
 
     const sortedQRCodes = sortQRCodeListByDate([...sortedMadeQRCodes, ...sortedReceivedQRCodes], 'comparisonDate') as QRCodeComparisonDate[]
 

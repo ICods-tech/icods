@@ -1,9 +1,9 @@
-import AppError from '@shared/error/AppError'
-import IUserRepository from '@modules/Users/IRepositories/IUserRepository'
+import AppError from '../../../../infra/error/AppError'
+import IUserRepository from '@modules/Users/interfaces/IUserRepository'
 import { inject, injectable } from 'tsyringe'
-import Follow from '@modules/Users/infra/typeorm/models/follow'
-import IFollowRepository from '../../IRepositories/IFollowRepository'
-import RabbitmqServer from '@shared/middlewares/RabbitmqServer'
+import Follow from '@modules/Users/typeorm/models/follow'
+import IFollowRepository from '../../interfaces/IFollowRepository'
+import RabbitmqServer from '../../../../infra/middlewares/RabbitmqServer'
 
 @injectable()
 export default class FollowUserService {

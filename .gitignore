@@ -1,2 +1,9 @@
-.DS_Store
-.vscode
+.idea/
+.vscode/
+build/
+tmp/*
+temp/
+.env
+!tmp/.gitkeep
+dist/
+node_modules

@@ -26,7 +26,7 @@ export default class UploadVideoToS3Service {
     const params: PutObjectRequest = {
       ACL: 'public-read',
       Body: movieStream,
-      Bucket: process.env.BUCKET_NAME as string,
+      Bucket: process.env.BUCKET_NAME as string || 'icods-studio',
       Key: key,
       ContentType: "video/mp4"
     };

@@ -7,12 +7,13 @@ module.exports = {
     "babel-plugin-transform-typescript-metadata",
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
     ['module-resolver', {
       alias: {
-        "@modules": "./src/modules/",
-        "@config": "./src/config/",
-        "@shared": "./src/infra/",
-        "@models": "./src/modules/"
+        "@modules": "./dist/modules/",
+        "@config": "./dist/config/",
+        "@shared": "./dist/infra/",
+        "@models": "./dist/modules/"
       }
     }]
   ],

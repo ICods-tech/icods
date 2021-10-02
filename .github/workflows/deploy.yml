@@ -17,15 +17,15 @@ jobs:
           node-version: 15.x
 
       - name: Install Dependencies
-        run: yarn install
+        run: npm install
 
       - name: Build API
-        run: yarn build
+        run: npm run build
 
     defaults:
       run:
         shell: bash
-        
+
   deploy:
     runs-on: ubuntu-latest
     steps:

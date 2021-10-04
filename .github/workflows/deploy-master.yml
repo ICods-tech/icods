@@ -5,7 +5,7 @@ on:
   push:
     branches: [master]
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -21,16 +21,6 @@ jobs:
 
       - name: Build API
         run: npm run build
-
-    defaults:
-      run:
-        shell: bash
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -52,3 +42,7 @@ jobs:
           context: .
           file: Dockerfile
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest
+
+    defaults:
+      run:
+        shell: bash

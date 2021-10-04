@@ -1,4 +1,4 @@
-FROM node:15
+FROM node:15 as builder
 
 EXPOSE 3333
 
@@ -13,4 +13,13 @@ COPY ./package-lock.json .
 RUN npm install
 
 COPY . .
-CMD ["npm","run","build"]
+
+RUN npm run build
+
+FROM node
+
+WORKDIR /app
+
+COPY --from=builder /app/dist .
+
+CMD ["node", "infra/server.js"]

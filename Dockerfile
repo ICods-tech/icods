@@ -23,4 +23,4 @@ WORKDIR /app
 COPY --from=builder /app/dist ./app/dist
 COPY --from=builder /app/node_modules ./app/node_modules
 
-CMD ["node", "infra/server.js"]
+CMD ["node", "/dist/infra/server.js"]

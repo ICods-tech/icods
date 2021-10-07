@@ -1,21 +1,9 @@
 version: "3"
 
 services:
-  db:
-    image: postgres
-    environment:
-      POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: icods_password
-    restart: always
-    volumes:
-      - /home/pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
   icods-api:
     image: icodstech/icods-api:latest
     container_name: icods-api
-    depends_on:
-      - db
     restart: always
     env_file: .env
     networks:
@@ -25,5 +13,3 @@ services:
     expose:
       - "3333"
     command: npm run start
-    links:
-      - db

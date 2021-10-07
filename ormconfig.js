@@ -1,4 +1,4 @@
-const HOST = process.env.HOST || "db";
+const HOST = process.env.HOST || "icods-api-db.chgmd4vaiix6.us-east-1.rds.amazonaws.com";
 const PATH_TYPEORM = process.env.PROD || "./dist";
 const USERNAME = process.env.POSTGRES_USERNAME;
 const PASSWORD = process.env.POSTGRES_PASSWORD;

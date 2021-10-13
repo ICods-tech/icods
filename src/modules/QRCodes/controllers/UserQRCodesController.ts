@@ -44,8 +44,8 @@ export default class UserQRCodesController {
         location: url = '',
       } = (request as MulterRequest).file;
 
-      const uploadVideoToS3Service = new UploadVideoToS3Service()
-      await uploadVideoToS3Service.run(url, key);
+      //const uploadVideoToS3Service = new UploadVideoToS3Service()
+      //await uploadVideoToS3Service.run(url, key);
 
       const addQRCodeContentService = container.resolve(AddQRCodeContentService)
       const qrcode = await addQRCodeContentService.run(

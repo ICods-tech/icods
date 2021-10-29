@@ -1,11 +1,5 @@
 import 'dotenv/config'
 import nodemailer from 'nodemailer'
-import AppError from '../../../../infra/error/AppError';
-import User from '@modules/Users/typeorm/models/user';
-import { injectable, inject } from 'tsyringe'
-import IUser from '@modules/Users/interfaces/IUser'
-import IUsersRepository from '@modules/Users/interfaces/IUserRepository'
-import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
 import welcomeMailTemplate from './welcomeMailTemplate';
 
 interface MailRequest {
@@ -40,14 +34,14 @@ export default class WelcomeMailService {
           pass: password,
         },
       });
-  
+
       let info = await transporter.sendMail({
         from: '"ICods Tech" <icods.tech@gmail.com>',
         to: `${signUpEmail}`,
         subject: "Conta iCods criada com sucesso ✅",
         html: welcomeMailTemplate(signUpName),
       });
-  
+
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
       return {

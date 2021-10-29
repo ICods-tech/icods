@@ -92,12 +92,9 @@ export default class QRCodesRepository implements IQRCodesRepository {
     let qrcode = await this.ormRepostory.findOne(id)
 
     if (!qrcode) throw new AppError('This QRCode does not exist')
-
+    qrcode.enabled = true
     qrcode = {
       ...qrcode,
-      enabled: true,
-      link: `generate_qrcode/${id}`,
-      content: '',
       user
     }
 

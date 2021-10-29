@@ -36,7 +36,7 @@ qrcodeRouter.get(
 
 qrcodeRouter.get(
   '/qrcodes/:qrcode_id',
-  verifyJwtToken,
+  // verifyJwtToken, REMOVENDO JWT POIS NA TELA INICIAL NÃO ESTÁ SENDO POSSÍVEL LER O QRCODE
   userQRCodesController.show
 )
 

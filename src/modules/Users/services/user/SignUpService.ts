@@ -1,9 +1,11 @@
+import 'dotenv/config'
 import AppError from '../../../../infra/error/AppError';
 import User from '@modules/Users/typeorm/models/user';
 import { injectable, inject } from 'tsyringe'
 import IUser from '@modules/Users/interfaces/IUser'
 import IUsersRepository from '@modules/Users/interfaces/IUserRepository'
 import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
+import WelcomeMailService from '../email/WelcomeMailService';
 
 @injectable()
 export default class SignUpService {
@@ -26,6 +28,7 @@ export default class SignUpService {
     }
 
     const hashedPassword = await this.hashProvider.encrypt(password)
+    
     const user = await this.usersRepository.create({
       name,
       username,
@@ -33,6 +36,16 @@ export default class SignUpService {
       password: hashedPassword,
       visibility
     })
+
+    const mailResponse = await new WelcomeMailService().run({
+      signUpName: name,
+      signUpEmail: email,
+      email: process.env.ICODS_CREDENTIALS_EMAIL || '',
+      password: process.env.ICODS_CREDENTIALS_PASSWORD || '',
+    })
+
+    if (mailResponse.status !== 200) throw new AppError(mailResponse.message, mailResponse.status)
+
     return user
   }
 }

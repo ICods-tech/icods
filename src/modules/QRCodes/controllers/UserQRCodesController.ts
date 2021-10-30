@@ -1,7 +1,6 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import GetUserQRCodeService from '@modules/QRCodes/services/GetUserQRCodeService';
-import UploadVideoToS3Service from '@modules/QRCodes/services/UploadVideoToS3Service';
 import GetUserQRCodesService from '@modules/Users/services/user/GetUserQRCodesService';
 import AddQRCodeContentService from '@modules/QRCodes/services/AddQRCodeContentService';
 
@@ -43,10 +42,7 @@ export default class UserQRCodesController {
         key,
         location: url = '',
       } = (request as MulterRequest).file;
-
-      //const uploadVideoToS3Service = new UploadVideoToS3Service()
-      //await uploadVideoToS3Service.run(url, key);
-
+      url.replace("icods-studio","studio-icods") // replace url para novo bucket convertido
       const addQRCodeContentService = container.resolve(AddQRCodeContentService)
       const qrcode = await addQRCodeContentService.run(
         qrcode_id,

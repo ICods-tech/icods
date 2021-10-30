@@ -42,14 +42,14 @@ export default class UserQRCodesController {
         key,
         location: url = '',
       } = (request as MulterRequest).file;
-      url.replace("icods-studio","studio-icods") // replace url para novo bucket convertido
+      const urlUpdated = url.replace("icods-studio","studio-icods") // replace url para novo bucket convertido
       const addQRCodeContentService = container.resolve(AddQRCodeContentService)
       const qrcode = await addQRCodeContentService.run(
         qrcode_id,
         name,
         size,
         key,
-        url,
+        urlUpdated,
       );
 
       return response.json(qrcode);

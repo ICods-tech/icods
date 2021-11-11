@@ -34,7 +34,7 @@ export default class CreatePostService {
     const qrcode = await this.qrcodesRepository.get(qrcodeId)
     console.log(qrcode)
 
-    if (!qrcode || !qrcode.enabled) {
+    if (!qrcode || qrcode.status == 'INACTIVE') {
       throw new AppError("Trying to post a QR code that doesn't exist, or isn't activated!")
     } else if (qrcode.user?.id !== userId) {
       throw new AppError("This QR Code does not belong to that user!")

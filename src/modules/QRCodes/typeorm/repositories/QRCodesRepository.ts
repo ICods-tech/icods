@@ -28,7 +28,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
     const qrcode = this.ormRepostory.create({
       link: '',
       content: '',
-      enabled: false,
+      status: 'INACTIVE',
     })
 
     await this.ormRepostory.save(qrcode)
@@ -48,7 +48,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
   }
 
   public async getMultipleDeactivatedQRCodes(numberOfQrCodes: number): Promise<QRCode[] | []> {
-    let qrcodes = await this.ormRepostory.find({ where: { enabled: false }, take: numberOfQrCodes })
+    let qrcodes = await this.ormRepostory.find({ where: { status: 'INACTIVE' }, take: numberOfQrCodes })
 
     return qrcodes
   }
@@ -92,7 +92,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
     let qrcode = await this.ormRepostory.findOne(id)
 
     if (!qrcode) throw new AppError('This QRCode does not exist')
-    qrcode.enabled = true
+    qrcode.status = 'ACTIVE'
     qrcode = {
       ...qrcode,
       user

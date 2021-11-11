@@ -1,9 +1,6 @@
 import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
 import IQRCodesRepository from '@modules/QRCodes/interfaces/IQRCodesRepository';
 import AppError from '../../../infra/error/AppError'
-import fs from 'fs'
-import path from 'path'
-import uploadConfig from '@config/uploadConfig'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
@@ -23,7 +20,7 @@ export default class AddQRCodeToUserService {
       const qrcode = await this.qrCodesRepository.get(qrcode_id) as QRCode
 
       qrcode.link = url;
-      qrcode.enabled = true;
+      qrcode.status = 'IN_PROGRESS';
       qrcode.content = name;
       await this.qrCodesRepository.save(qrcode)
 

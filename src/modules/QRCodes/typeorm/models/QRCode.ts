@@ -1,5 +1,6 @@
 import Post from '@modules/Posts/typeorm/models/post';
 import { IColors } from '@modules/QRCodes/interfaces/IColors';
+import { IStatus } from '@modules/QRCodes/interfaces/IStatusQRCode';
 import { Column, Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, IsNull } from 'typeorm'
 import User from '../../../Users/typeorm/models/user'
 
@@ -9,8 +10,13 @@ export default class QRCode {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  enabled: boolean;
+  @Column({
+    type: 'enum',
+    enum: ['ACTIVE', 'INACTIVE', 'IN_PROGRESS'],
+    default: 'INACTIVE',
+    nullable: true
+  })
+  status: IStatus;
 
   @Column()
   link: string;

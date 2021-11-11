@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import GetUserQRCodeService from '@modules/QRCodes/services/GetUserQRCodeService';
 import GetUserQRCodesService from '@modules/Users/services/user/GetUserQRCodesService';
 import AddQRCodeContentService from '@modules/QRCodes/services/AddQRCodeContentService';
+import HandleStatusQRCodeService from '../services/HandleStatusQRCodeService';
 
 interface MulterRequest extends Request {
   file: Express.MulterS3.File;
@@ -44,6 +45,8 @@ export default class UserQRCodesController {
       } = (request as MulterRequest).file;
       const urlUpdated = url.replace("icods-studio","studio-icods") // replace url para novo bucket convertido
       const addQRCodeContentService = container.resolve(AddQRCodeContentService)
+      const handleStatusQRCodeService = container.resolve(HandleStatusQRCodeService)
+
       const qrcode = await addQRCodeContentService.run(
         qrcode_id,
         name,
@@ -51,6 +54,9 @@ export default class UserQRCodesController {
         key,
         urlUpdated,
       );
+      setTimeout(() => {
+        handleStatusQRCodeService.run(qrcode_id);
+      },180000)
 
       return response.json(qrcode);
     } catch (err: any) {

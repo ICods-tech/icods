@@ -28,14 +28,8 @@ export default class SignUpService {
     }
 
     const hashedPassword = await this.hashProvider.encrypt(password)
-    
-    const user = await this.usersRepository.create({
-      name,
-      username,
-      email,
-      password: hashedPassword,
-      visibility
-    })
+
+
 
     const mailResponse = await new WelcomeMailService().run({
       signUpName: name,
@@ -44,7 +38,15 @@ export default class SignUpService {
       password: process.env.ICODS_CREDENTIALS_PASSWORD || '',
     })
 
-    if (mailResponse.status !== 200) throw new AppError(mailResponse.message, mailResponse.status)
+    if (mailResponse.status !== 200) console.error(mailResponse.message, mailResponse.status)
+
+    const user = await this.usersRepository.create({
+      name,
+      username,
+      email,
+      password: hashedPassword,
+      visibility
+    })
 
     return user
   }

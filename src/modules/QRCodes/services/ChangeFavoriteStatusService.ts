@@ -20,7 +20,7 @@ export default class ChangeFavoriteStatusService {
     await getUserById(userId, this.usersRepository);
     let qrCode = await getQRCodeById(qrcodeId, this.qrcodeRepository)
 
-    checkReceivedQRCodeProperties(qrCode, userId, true)
+    checkReceivedQRCodeProperties(qrCode, userId, true, false)
 
     qrCode = await this.qrcodeRepository.changeFavoriteStatus(qrCode)
     return qrCode

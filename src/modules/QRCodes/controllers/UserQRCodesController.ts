@@ -43,7 +43,7 @@ export default class UserQRCodesController {
         key,
         location: url = '',
       } = (request as MulterRequest).file;
-      const urlUpdated = url.replace("icods-studio","studio-icods") // replace url para novo bucket convertido
+      url.replace("icods-studio","studio-icods") // replace url para novo bucket convertido
       const addQRCodeContentService = container.resolve(AddQRCodeContentService)
       const handleStatusQRCodeService = container.resolve(HandleStatusQRCodeService)
 
@@ -52,7 +52,7 @@ export default class UserQRCodesController {
         name,
         size,
         key,
-        urlUpdated,
+        url,
       );
       setTimeout(() => {
         handleStatusQRCodeService.run(qrcode_id);

@@ -37,6 +37,7 @@ export default class UserQRCodesController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
       const { qrcode_id } = request.params;
+      const { user } = request;
       const {
         originalname: name,
         size,
@@ -53,6 +54,7 @@ export default class UserQRCodesController {
         size,
         key,
         url,
+        user.id,
       );
       setTimeout(() => {
         handleStatusQRCodeService.run(qrcode_id);

@@ -28,7 +28,7 @@ export default class ChangeFavoriteStatusService {
     await getUserById(userId, this.usersRepository)
     let qrCode = await getQRCodeById(qrcodeId, this.qrcodeRepository)
 
-    checkReceivedQRCodeProperties(qrCode, userId, false)
+    checkReceivedQRCodeProperties(qrCode, userId, false, false)
 
     const type = qrCode.user?.id === userId
       ? 'madeColor'

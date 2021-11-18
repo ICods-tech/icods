@@ -22,7 +22,7 @@ export default class ReceiveQRCodeService {
     const receivingUser = await getUserById(userId, this.usersRepository)
     let qrcode = await getQRCodeById(qrcode_id, this.qrCodesRepository)
 
-    checkReceivedQRCodeProperties(qrcode, userId, false)
+    checkReceivedQRCodeProperties(qrcode, userId, false, true)
     if (qrcode.user?.id === userId) throw new AppError("You cannot send a QR Code to yourself")
 
     const { created_at, updated_at, password, qrcodes, receivedQRCodes, ...filteredReceivingUser } = receivingUser

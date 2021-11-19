@@ -47,6 +47,10 @@ export default class UserRepository implements IUserRepository {
     return userQrcodes?.qrcodes || undefined
   }
 
+  public async deleteUser(user_id: string): Promise<void> {
+    await this.ormRepository.delete(user_id)
+  }
+
   public async create(data: IUser): Promise<User> {
     const user = this.ormRepository.create(data)
     await this.ormRepository.save(user)

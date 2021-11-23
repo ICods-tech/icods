@@ -3,6 +3,7 @@ import User from '@modules/Users/typeorm/models/user'
 import QRCode from '@modules/QRCodes/typeorm/models/QRCode'
 
 export default interface IUserRepository {
+  deleteUser(id: string): Promise<void>
   findById(id: string): Promise<User | undefined>
   findByIds(ids: string[]): Promise<[] | User[]>
   findByEmail(email: string): Promise<User | undefined>

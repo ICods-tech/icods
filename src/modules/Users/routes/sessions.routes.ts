@@ -4,11 +4,13 @@ import { body, check } from 'express-validator'
 import SignUpController from '../controller/SignUpController'
 import SignInController from '../controller/SignInController'
 import ResetPasswordController from '../controller/ResetPasswordController'
+import DeleteUserController from '../controller/DeleteUserController';
 
 const sessionsRouter = Router()
 const signUpController = new SignUpController()
 const signInController = new SignInController()
 const resetPasswordController = new ResetPasswordController()
+const deleteUserController = new DeleteUserController()
 
 sessionsRouter.post('/signup',
     body('name')
@@ -32,12 +34,20 @@ sessionsRouter.post('/signup',
         }
         return true;
       }),
-    signUpController.create)
+  signUpController.create)
+    
 sessionsRouter.post('/signIn', signInController.create)
+
 sessionsRouter.patch(
     '/resetPassword',
     verifyJwtToken,
     resetPasswordController.update
+)
+
+sessionsRouter.delete(
+  '/delete-user',
+  verifyJwtToken,
+  deleteUserController.delete
 )
 
 export default sessionsRouter

@@ -1,4 +1,5 @@
 import { Connection, Channel, connect } from "amqplib";
+const logger = require("./Logger");
 
 export default class RabbitmqServer {
   private conn: Connection;
@@ -10,7 +11,7 @@ export default class RabbitmqServer {
     this.conn = await connect(this.uri);
     this.channel = await this.conn.createChannel();
     await this.channel.assertQueue(process.env.QUEUE_NAME as string, { durable: true });
-    console.log("connected successfully to rabbitmq")
+    logger.log("connected successfully to rabbitmq")
   }
 
   async publishInQueue(queue: string, message: string) {

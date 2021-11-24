@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import ChangeQRCodeColorService from '@modules/QRCodes/services/ChangeQRCodeColorService'
+const logger = require("../../../infra/middlewares/Logger");
 
 export default class ColorQRCodeController {
   public async update(request: Request, response: Response): Promise<Response> {
@@ -14,7 +15,7 @@ export default class ColorQRCodeController {
 
       return response.json(qrCode)
     } catch (err: any) {
-      console.log(err)
+      logger.log(err)
       return response.status(400).json(err.message)
     }
   }

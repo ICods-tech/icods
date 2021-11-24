@@ -1,6 +1,7 @@
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import ChangeFavoriteStatusService from '@modules/QRCodes/services/ChangeFavoriteStatusService'
+const logger = require("../../../infra/middlewares/Logger");
 
 export default class FavoriteQRCodeController {
   public async update(request: Request, response: Response): Promise<Response> {
@@ -13,7 +14,7 @@ export default class FavoriteQRCodeController {
 
       return response.json(qrCode)
     } catch (err: any) {
-      console.log(err)
+      logger.log(err)
       return response.status(400).json(err.message)
     }
   }

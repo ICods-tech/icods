@@ -8,6 +8,7 @@ import cors from 'cors';
 import routes from './routes';
 import { errors } from 'celebrate'
 import AppError from './error/AppError'
+const logger = require("./middlewares/Logger");
 
 const app = express();
 app.use(cors());
@@ -25,7 +26,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     })
   }
 
-  console.error(err)
+  logger.error(err)
 
   return res.status(400).json({
     message: 'Internal Server Error',
@@ -36,6 +37,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(port, async () => {
   await startConnection()
-  console.log(`App listening on port ${port}! 🚀`);
+  logger.info(`App listening on port ${port}! 🚀`)
 });
 

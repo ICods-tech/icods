@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import nodemailer from 'nodemailer'
 import welcomeMailTemplate from './welcomeMailTemplate';
+const logger = require("../../../../infra/middlewares/Logger");
 
 interface MailRequest {
   email: string;
@@ -42,14 +43,14 @@ export default class WelcomeMailService {
         html: welcomeMailTemplate(signUpName),
       });
 
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+      logger.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 
       return {
         message: info.response,
         status: 200
       }
     } catch (error: any) {
-      console.log(error)
+      logger.log(error)
       return {
         message: error.response,
         status: error.responseCode

@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe'
 import Post from '../typeorm/models/post'
 import IPostsRepository from '../interfaces/IPostsRepository'
 import IQRCodesRepository from '@modules/QRCodes/interfaces/IQRCodesRepository'
+const logger = require("../../../infra/middlewares/Logger");
 
 @injectable()
 export default class CreatePostService {
@@ -20,7 +21,7 @@ export default class CreatePostService {
   ) { }
 
   public async run(userId: string, qrcodeId: string): Promise<Post> {
-    console.log(userId, qrcodeId)
+    logger.log(userId, qrcodeId)
     if (!userId || !qrcodeId) {
       throw new AppError("All fields must be filled!")
     }
@@ -32,7 +33,7 @@ export default class CreatePostService {
     }
 
     const qrcode = await this.qrcodesRepository.get(qrcodeId)
-    console.log(qrcode)
+    logger.log(qrcode)
 
     if (!qrcode || qrcode.status == 'INACTIVE') {
       throw new AppError("Trying to post a QR code that doesn't exist, or isn't activated!")

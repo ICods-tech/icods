@@ -3,6 +3,7 @@ import IQRCodesRepository from '@modules/QRCodes/interfaces/IQRCodesRepository';
 import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import IUserRepository from '@modules/Users/interfaces/IUserRepository';
+const logger = require("../../../infra/middlewares/Logger");
 
 @injectable()
 export default class AddQRCodeToUserService {
@@ -32,7 +33,7 @@ export default class AddQRCodeToUserService {
 
       return qrcode
     } catch (err: any) {
-      console.log(err.message)
+      logger.log(err.message)
       throw new AppError(err.message)
     }
   }

@@ -6,6 +6,8 @@ import IUser from '@modules/Users/interfaces/IUser'
 import IUsersRepository from '@modules/Users/interfaces/IUserRepository'
 import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
 import WelcomeMailService from '../email/WelcomeMailService';
+const logger = require("../../../../infra/middlewares/Logger");
+
 
 @injectable()
 export default class SignUpService {
@@ -38,7 +40,7 @@ export default class SignUpService {
       password: process.env.ICODS_CREDENTIALS_PASSWORD || '',
     })
 
-    if (mailResponse.status !== 200) console.error(mailResponse.message, mailResponse.status)
+    if (mailResponse.status !== 200) logger.error(mailResponse.message, mailResponse.status)
 
     const user = await this.usersRepository.create({
       name,

@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe'
 import Follow from '@modules/Users/typeorm/models/follow'
 import IFollowRepository from '../../interfaces/IFollowRepository'
 import RabbitmqServer from '../../../../infra/middlewares/RabbitmqServer'
+const logger = require("../../../../infra/middlewares/Logger");
 
 @injectable()
 export default class FollowUserService {
@@ -43,7 +44,7 @@ export default class FollowUserService {
         await rabbit.publishInQueue(process.env.QUEUE_NAME as string, JSON.stringify(follow))
         return { message: 'You send request for follow 🤗!' }
       } catch (error) {
-        console.error(error);
+        logger.error(error);
         return { message: 'You send request notification failed 😞' }
       }
     } {

@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import GetDeactivatedQRCodeService from '@modules/QRCodes/services/GetDeactivatedQRCodesService'
 import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService'
+const logger = require("../../../infra/middlewares/Logger");
 
 export default class DeactivatedQRCodeController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -14,7 +15,7 @@ export default class DeactivatedQRCodeController {
 
       return response.json(qrCodes)
     } catch (err: any) {
-      console.log(err)
+      logger.log(err)
       return response.status(400).json(err.message)
     }
   }
@@ -31,7 +32,7 @@ export default class DeactivatedQRCodeController {
 
       return response.send(pdfData)
     } catch (err: any) {
-      console.log(err)
+      logger.log(err)
       return response.status(400).json(err.message)
     }
   }

@@ -35,7 +35,9 @@
     "qrcode": "^1.4.4",
     "tsyringe": "^4.3.0",
     "typeorm": "^0.2.25",
-    "uuidv4": "^6.2.3"
+    "uuidv4": "^6.2.3",
+    "winston": "^3.3.3",
+    "winston-cloudwatch": "^3.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",

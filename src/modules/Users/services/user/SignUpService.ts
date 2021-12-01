@@ -31,8 +31,6 @@ export default class SignUpService {
 
     const hashedPassword = await this.hashProvider.encrypt(password)
 
-
-
     const mailResponse = await new WelcomeMailService().run({
       signUpName: name,
       signUpEmail: email,

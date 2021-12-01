@@ -27,10 +27,9 @@ const storageTypes = {
     key: (req, file, cb) => {
       crypto.randomBytes(16, (err, hash) => { // /90c24e5b7c486162-uruguayfeelnaturxe1minmp4
         if (err) cb(err);
-        const fileHash = crypto.randomBytes(8).toString("hex")
+        const fileHash = new Date().toISOString().slice(0,10).replace(/-/g,"_") + '_' + new Date().getTime()
         const sanitizeFileName = file.originalname.replace(/[^0-9a-zA-Z]/g, '').slice(0, -3)
-        const fileName = `${fileHash}-${sanitizeFileName}.mp4`
-
+        const fileName = `${sanitizeFileName}_${fileHash}.mp4`
         cb(null, fileName);
       });
     },

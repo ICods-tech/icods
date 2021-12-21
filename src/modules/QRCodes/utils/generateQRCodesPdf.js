@@ -1,6 +1,5 @@
 var fs = require("fs")
 var path = require('path')
-var QRCode = require('qrcode');
 var pdf = require("pdf-creator-node")
 
 exports.generateQrcodesPdf = async function (qrcodesData) {

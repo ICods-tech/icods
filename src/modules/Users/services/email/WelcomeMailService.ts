@@ -37,7 +37,7 @@ export default class WelcomeMailService {
       });
 
       let info = await transporter.sendMail({
-        from: '"ICods Tech" <icods.tech@gmail.com>',
+        from: '"iCods Tech" <contato@icods.com.br>',
         to: `${signUpEmail}`,
         subject: "Conta iCods criada com sucesso ✅",
         html: welcomeMailTemplate(signUpName),

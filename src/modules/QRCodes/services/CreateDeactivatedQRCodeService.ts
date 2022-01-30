@@ -24,9 +24,11 @@ export default class CreateDeactivatedQRCodesService {
     for (let i = 0; i < numberOfQrCodes; i++) {
       let newQrCode = await this.qrcodeRepository.create()
       newDeactivatedQRCodes.push(newQrCode)
+      const qrcodeDeeplink = `https://icodsmobile.page.link/?link=https://icods.com.br?id=${newQrCode.id}&apn=com.icodsmobile`;
+
       qrcodesImagesList.push({
-        id: newQrCode.id,
-        qrcodeDataUrl: await QRCodeHandler.toDataURL(newQrCode.id)
+        id: qrcodeDeeplink,
+        qrcodeDataUrl: await QRCodeHandler.toDataURL(qrcodeDeeplink)
       })
     }
 

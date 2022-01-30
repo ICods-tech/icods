@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, IsNull } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, IsNull, BeforeInsert } from 'typeorm'
 import QRCode from '../../../QRCodes/typeorm/models/QRCode'
 import { Exclude } from 'class-transformer'
 import Post from '@modules/Posts/typeorm/models/post';
@@ -29,6 +29,12 @@ export default class User {
   @Column()
   @Exclude()
   password: string;
+
+  @Column({
+    nullable: true,
+  })
+  @Exclude()
+  tempPassword: string;
 
   @Column()
   visibility: boolean;
@@ -63,4 +69,5 @@ export default class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
 }

@@ -1,9 +1,9 @@
 import "reflect-metadata"
 import './container'
+import 'dotenv/config';
 import { startConnection } from './typeorm'
 import '@modules/Users/providers'
 import express, { Request, Response, NextFunction } from 'express';
-import 'dotenv/config';
 import cors from 'cors';
 import routes from './routes';
 import { errors } from 'celebrate'

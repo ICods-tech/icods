@@ -27,6 +27,10 @@ const cloudwatchConfig = {
     return `[${level}] : \nMessage: ${message}`;
   }
 }
-logger.add(new WinstonCloudWatch(cloudwatchConfig))
+
+if(process.env.ENVIRONMENT !== 'development'){
+  console.log('cloudwatchConfig', cloudwatchConfig);
+  logger.add(new WinstonCloudWatch(cloudwatchConfig))
+}
 
 module.exports = logger

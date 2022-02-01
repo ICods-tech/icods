@@ -38,6 +38,7 @@ export type SendWelcomeEmail = {
   type: 'welcomeMail';
   data: {
     userName: string;
+    link?: string;
   };
 };
 export const EMAIL_TEMPLATES_PATH = path.resolve('src','infra', 'templates');
@@ -55,12 +56,15 @@ export function sendEmailWithSES({
     path.join(EMAIL_TEMPLATES_PATH, hbsTemplates[type]),
     'utf8',
   );
+  // handlebars.registerHelper("myLink", function(text, url) {
+    // return dataToSend.
+//  });
   const template = handlebars.compile(source);
-
   const dataToSend = {
     userName: data.userName,
-    email: recipientEmail,
+    link: data.link,
   };
+
   const emailParams:SendEmailRequest = {
     Source: String(process.env.AWS_SES_EMAIL_SENDER),
     ConfigurationSetName: 'iCods',

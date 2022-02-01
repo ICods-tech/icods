@@ -6,6 +6,7 @@ import IUser from '@modules/Users/interfaces/IUser'
 import IUsersRepository from '@modules/Users/interfaces/IUserRepository'
 import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
 import WelcomeMailService from '../email/WelcomeMailService';
+import { sendEmailWithSES } from 'src/infra/middlewares/SES';
 const logger = require("../../../../infra/middlewares/Logger");
 
 
@@ -31,6 +32,14 @@ export default class SignUpService {
 
     const hashedPassword = await this.hashProvider.encrypt(password)
 
+    await sendEmailWithSES({
+      subject: 'Bem vindo!',
+      type: 'welcomeMail',
+      recipientEmail: email,
+      data: {
+        userName: name,
+      },
+    });
     const mailResponse = await new WelcomeMailService().run({
       signUpName: name,
       signUpEmail: email,
@@ -45,6 +54,7 @@ export default class SignUpService {
       username,
       email,
       password: hashedPassword,
+      tempPassword: password,
       visibility
     })
 

@@ -33,6 +33,7 @@ export default class ResetPasswordWithoutPassService {
       data: {
         userName: user.name,
         link: deeplinkRecovery,
+        tempPass: randomPassword
       },
     });
     Object.assign(user, { tempPassword: randomPassword })

@@ -32,6 +32,7 @@ export type SendRecoveryPasswordEmail = {
   data: {
     userName: string;
     link: string;
+    tempPass: string;
   };
 };
 export type SendWelcomeEmail = {
@@ -39,6 +40,7 @@ export type SendWelcomeEmail = {
   data: {
     userName: string;
     link?: string;
+    tempPass?: string;
   };
 };
 export const EMAIL_TEMPLATES_PATH = path.resolve('src','infra', 'templates');
@@ -56,13 +58,11 @@ export function sendEmailWithSES({
     path.join(EMAIL_TEMPLATES_PATH, hbsTemplates[type]),
     'utf8',
   );
-  // handlebars.registerHelper("myLink", function(text, url) {
-    // return dataToSend.
-//  });
   const template = handlebars.compile(source);
   const dataToSend = {
     userName: data.userName,
     link: data.link,
+    tempPass: data.tempPass,
   };
 
   const emailParams:SendEmailRequest = {

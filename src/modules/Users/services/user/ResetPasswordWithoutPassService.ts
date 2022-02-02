@@ -3,7 +3,7 @@ import User from '@modules/Users/typeorm/models/user'
 import IUserRepository from '@modules/Users/interfaces/IUserRepository'
 import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
 import { inject, injectable } from 'tsyringe'
-import { sendEmailWithSES } from 'src/infra/middlewares/SES'
+import { sendEmailWithSES } from '../../../../infra/middlewares/SES'
 
 @injectable()
 export default class ResetPasswordWithoutPassService {

@@ -6,7 +6,7 @@ import IUser from '@modules/Users/interfaces/IUser'
 import IUsersRepository from '@modules/Users/interfaces/IUserRepository'
 import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
 import WelcomeMailService from '../email/WelcomeMailService';
-import { sendEmailWithSES } from 'src/infra/middlewares/SES';
+import { sendEmailWithSES } from '../../../../infra/middlewares/SES';
 const logger = require("../../../../infra/middlewares/Logger");
 
 

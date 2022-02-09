@@ -25,9 +25,7 @@ jobs:
       - name: "Run unit tests"
         run: |
           echo "Running unit tests"
-
-    name: "Deployment"
-    steps:
+      # DEPLOY
       - name: "Checkout Code"
         uses: "actions/checkout@v2"
 

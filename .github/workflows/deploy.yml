@@ -39,7 +39,6 @@ jobs:
         uses: mathieudutour/github-tag-action@v4.5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-        run: echo "::set-output name=tag::${{ steps.tagging.outputs.new_version }}"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1

@@ -12,7 +12,7 @@ name: "workflow"
       - develop
 
 jobs:
-  ci-cd:
+  ci:
     name: "Integration"
     runs-on: "ubuntu-latest"
     steps:
@@ -25,7 +25,10 @@ jobs:
       - name: "Run unit tests"
         run: |
           echo "Running unit tests"
-      # DEPLOY
+  cd:
+    name: "Deployment"
+    runs-on: "ubuntu-latest"
+    steps:
       - name: "Checkout Code"
         uses: "actions/checkout@v2"
 

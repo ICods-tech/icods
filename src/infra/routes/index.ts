@@ -7,6 +7,7 @@ import followingRouter from '@modules/Users/routes/follow.routes'
 import postRouter from '@modules/Posts/routes/post.routes'
 import likeRouter from '@modules/Posts/routes/like.routes'
 import commentRouter from '@modules/Posts/routes/comment.routes'
+import businessRouter from '@modules/Business/routes/session.routes';
 
 const routes = Router();
 
@@ -19,6 +20,7 @@ routes.get("/health", (req, res) => res.json(
 ));
 
 routes.use(sessionsRouter)
+routes.use(businessRouter)
 routes.use(profileRouter)
 routes.use(qrCodesRouter)
 routes.use(receivedQrCodesRouter)

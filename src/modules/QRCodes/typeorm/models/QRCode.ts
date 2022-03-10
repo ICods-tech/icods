@@ -1,9 +1,9 @@
+import Lot from '@modules/Business/typeorm/models/lots';
 import Post from '@modules/Posts/typeorm/models/post';
 import { IColors } from '@modules/QRCodes/interfaces/IColors';
 import { IStatus } from '@modules/QRCodes/interfaces/IStatusQRCode';
 import { Column, Entity, OneToOne, JoinColumn, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, IsNull } from 'typeorm'
 import User from '../../../Users/typeorm/models/user'
-
 
 @Entity('qrcodes')
 export default class QRCode {
@@ -52,6 +52,13 @@ export default class QRCode {
     eager: true
   })
   user?: Omit<User, 'created_at' | 'updated_at' | 'password' | 'qrcodes'>;
+
+  @ManyToOne(type => Lot, lot => lot.qrcodes, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+    eager: true
+  })
+  lot?: Omit<Lot, 'created_at' | 'updated_at' | 'qrcodes'>;
 
   @ManyToOne(type => User, user => user.receivedQRCodes, {
     onUpdate: 'CASCADE',

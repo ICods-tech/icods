@@ -7,7 +7,13 @@
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --transpile-only --inspect --ignore-watch node_modules src/infra/server.ts",
     "start": "node dist/infra/server.js",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "migrate:create": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ormconfig.js migration:create -n",
+    "migrate:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ormconfig.js migration:generate -n",
+    "migrate:up": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ormconfig.js migration:run",
+    "migrate:down": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ormconfig.js migration:revert",
+    "migrate:clear-cache": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config ormconfig.js cache:clear"
+
   },
   "dependencies": {
     "amqplib": "^0.7.1",

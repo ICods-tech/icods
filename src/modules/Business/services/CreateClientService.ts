@@ -1,12 +1,9 @@
-import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
-import jwt from 'jsonwebtoken'
+import Client from '@modules/Business/typeorm/models/clients'
 import AppError from 'src/infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
-import IBusiness from '../interfaces/IBusiness'
 import IBusinessRepository from '../interfaces/IBusinessRepository'
+import IClient from '../interfaces/IClient'
 import IClientsRepository from '../interfaces/IClientsRepository'
-import Client from '@modules/Business/typeorm/models/clients'
-import IClient from '@modules/Business/interfaces/IClients'
 
 @injectable()
 export default class CreateClientService {
@@ -19,20 +16,26 @@ export default class CreateClientService {
     private clientsRepository: IClientsRepository
   ) {}
 
-  public async run(businessId: string, {name, email, phone}: IClient): Promise<{ client: Client }> {
-    const business = await this.businessRepository.findById(businessId!)
+  public async run(businessId: string, {name, email, phone}: IClient): Promise<Client> {
+    const business = await this.businessRepository.findById(businessId)
 
     if (!business) {
       throw new AppError('Business not found')
     }
 
-    const client = await this.clientsRepository.createClient({
+    // Create findByName for validation duplicated keys
+
+    const client = await this.clientsRepository.findByEmail(email)
+    if (client) {
+      throw new AppError('Client already exists')
+    }
+
+    return await this.clientsRepository.createClient({
       name,
       email,
       phone,
       business
     })
 
-    return { client }
   }
 }

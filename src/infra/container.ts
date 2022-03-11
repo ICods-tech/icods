@@ -24,6 +24,9 @@ import BusinessRepository from '@modules/Business/typeorm/repositories/Businesse
 import IClientsRepository from '@modules/Business/interfaces/IClientsRepository'
 import ClientsRepository from '@modules/Business/typeorm/repositories/ClientsRepository'
 
+import LotsRepository from '@modules/Business/typeorm/repositories/LotsRepository'
+import ILotsRepository from '@modules/Business/interfaces/ILotsRepository'
+
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
   UsersRepository
@@ -62,4 +65,9 @@ container.registerSingleton<IBusinessRepository>(
 container.registerSingleton<IClientsRepository>(
   'ClientsRepository',
   ClientsRepository
+)
+
+container.registerSingleton<ILotsRepository>(
+  'LotsRepository',
+  LotsRepository
 )

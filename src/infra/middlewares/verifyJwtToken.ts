@@ -7,6 +7,7 @@ interface TokenPayload {
   iat: number,
   exp: number
 }
+const {SECRET, BUSINESS_SECRET} = process.env
 
 export default function ensureAuthenticated(req: Request, res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization?.split(',')[0]
@@ -16,18 +17,19 @@ export default function ensureAuthenticated(req: Request, res: Response, next: N
   }
 
   const [, token] = authHeader.split(' ')
+  const isBusiness = req.path.includes('business')
 
   try {
-    const verifyToken = verify(token, process.env.SECRET as string)
+    const verifyToken = verify(token, (isBusiness ? BUSINESS_SECRET : SECRET) as string)
 
     const { id } = verifyToken as TokenPayload
 
-    req.user = {
-      id
-    }
+    if (isBusiness) req.business = {id}
+    else req.user = {id}
 
     return next()
   } catch (err) {
+    console.log(err);
     throw new AppError('Invalid JWT token', 401)
   }
 }

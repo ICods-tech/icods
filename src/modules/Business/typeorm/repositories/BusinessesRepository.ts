@@ -2,6 +2,7 @@ import IBusiness from '@modules/Business/interfaces/IBusiness';
 import IBusinessRepository from '@modules/Business/interfaces/IBusinessRepository';
 import { getRepository, Repository } from 'typeorm';
 import Business from '../models/business';
+import Client from '../models/clients';
 
 export default class BusinessRepository implements IBusinessRepository {
   private ormRepository: Repository<Business>;

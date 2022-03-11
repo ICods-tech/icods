@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, IsNull, BeforeInsert } from 'typeorm'
-import Client from './clients'
 import { Exclude } from 'class-transformer'
+import Clients from './clients';
 
 @Entity('businesses')
 export default class Business {
@@ -24,10 +24,11 @@ export default class Business {
   @Exclude()
   password: string;
 
-  @OneToMany(type => Client, client => client.business, {
-    cascade: true
+  @OneToMany(type => Clients, client => client.business, {
+    cascade: true,
+    eager: true
   })
-  clients?: Client[] | [];
+  clients?: Clients[] | [];
 
   @CreateDateColumn()
   created_at: Date;

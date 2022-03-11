@@ -25,7 +25,6 @@ export default class Clients {
   @ManyToOne(type => Business, business => business.clients, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
-    eager: true
   })
   business?: Omit<Business, 'created_at' | 'updated_at' | 'password' | 'clients'>;
 

@@ -1,0 +1,23 @@
+import Client from '@modules/Business/typeorm/models/clients'
+import AppError from 'src/infra/error/AppError'
+import { inject, injectable } from 'tsyringe'
+import IBusinessRepository from '../interfaces/IBusinessRepository'
+
+@injectable()
+export default class GetAllClientsBusinessService {
+
+  constructor(
+    @inject('BusinessRepository')
+    private businessRepository: IBusinessRepository,
+  ) {}
+
+  public async run(businessId: string): Promise<{ clients: Client[] | undefined }> {
+    const business = await this.businessRepository.findById(businessId)
+
+    if (!business) {
+      throw new AppError('Business not found')
+    }
+
+    return { clients: business.clients }
+  }
+}

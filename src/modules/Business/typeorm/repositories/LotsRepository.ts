@@ -28,8 +28,8 @@ export default class LotsRepository implements ILotsRepository {
     return lots || undefined;
   }
 
-  public async createLot(client: Client, qrcodes: QRCode[]): Promise<Lots> {
-    const lot = this.ormRepository.create({ client, qrcodes });
+  public async createLot(client: Client): Promise<Lots> {
+    const lot = this.ormRepository.create({ client });
     await this.ormRepository.save(lot);
 
     return lot;

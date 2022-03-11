@@ -2,7 +2,7 @@ import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import ResetPasswordWithoutPassService from '../services/user/ResetPasswordWithoutPassService';
-import { checkUserSignUpFieldErrors } from '../../../shared/utils/checkUserSignUpFieldErrors';
+import { checkFieldErrors } from '../../../shared/utils/checkFieldErrors';
 
 export default class ResetPasswordWithoutPassController {
   public async sendMailRecovery(request: Request, response: Response): Promise<Response> {
@@ -21,7 +21,7 @@ export default class ResetPasswordWithoutPassController {
 
   public async run(request: Request, response: Response): Promise<Response> {
     try {
-      checkUserSignUpFieldErrors(request)
+      checkFieldErrors(request)
       const {email, tempPassword, newPassword} = request.body
 
       const resetPasswordWithoutPassService = container.resolve(ResetPasswordWithoutPassService)

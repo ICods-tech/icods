@@ -1,29 +1,32 @@
-import { checkUserSignUpFieldErrors } from "@shared/utils/checkUserSignUpFieldErrors";
-import { classToClass } from "class-transformer";
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import SignInBusinessService from "../services/SignInBusinessService";
-const logger = require("../../../infra/middlewares/Logger");
+import { checkFieldErrors } from '@shared/utils/checkFieldErrors';
+import { classToClass } from 'class-transformer';
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+import IClient from '../interfaces/IClient';
+import CreateClientService from '../services/CreateClientService';
+const logger = require('../../../infra/middlewares/Logger');
 
-export default class SignInBusinessController {
-    public async  create(request: Request, response: Response): Promise<Response> {
-      try {
-        checkUserSignUpFieldErrors(request)
-        const { email, password } = request.body
+export default class CreateClientController {
+  public async create(request: Request, response: Response): Promise<Response> {
+    try {
 
-        const signInBusinessService = container.resolve(SignInBusinessService)
+      checkFieldErrors(request);
+      const { name, email, phone } = request.body;
+      const { business } = request;
 
-        const { business, token } = await signInBusinessService.run(
-          email,
-          password
-        )
+      const createClientService = container.resolve(CreateClientService);
 
-        return response.json({ business: classToClass(business), token });
-      } catch (err: any) {
-        console.log('err', err);
-
-        logger.log(err)
-        return response.status(400).json(err.message)
+      const client: IClient = {
+        name,
+        email,
+        phone,
       }
+      const clientCreated = await createClientService.run(business.id, client);
+
+      return response.json(classToClass(clientCreated));
+    } catch (err: any) {
+      logger.log(err);
+      return response.status(400).json(err.message);
     }
+  }
 }

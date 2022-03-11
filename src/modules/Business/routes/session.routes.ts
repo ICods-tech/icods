@@ -1,28 +1,39 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
+import verifyJwtToken from 'src/infra/middlewares/verifyJwtToken';
+import CreateClientController from '../controller/CreateClientController';
+import GetAllClientsController from '../controller/getAllClientsController';
 import SignInBusinessController from '../controller/SignInBusinessController';
 import SignUpController from '../controller/SignUpBusinessController';
 
-const businessRouter = Router()
-const signUpController = new SignUpController()
-const signInBusinessController = new SignInBusinessController()
+const businessRouter = Router();
+const signUpController = new SignUpController();
+const signInBusinessController = new SignInBusinessController();
+const createClientController = new CreateClientController();
+const getAllClientsController = new GetAllClientsController();
 
-
-businessRouter.post('/signin-business',
+businessRouter.post(
+  '/signin-business',
   body('email')
-    .isString().not().isEmpty().withMessage('Nome da empresa é obrigatório '),
+    .isString()
+    .not()
+    .isEmpty()
+    .withMessage('Nome da empresa é obrigatório '),
   body('password')
     .isString()
     .isLength({ min: 6, max: 40 })
     .withMessage('Campo deve possuir entre 6 e 40 caracteres'),
-  signInBusinessController.create)
+  signInBusinessController.create,
+);
 
-
-businessRouter.post('/signup-business',
-  body('companyName').isString().not().isEmpty().withMessage('Nome da empresa é obrigatório '),
-  body('email')
-    .isEmail()
-    .withMessage('Campo deve possuir um e-mail válido'),
+businessRouter.post(
+  '/signup-business',
+  body('companyName')
+    .isString()
+    .not()
+    .isEmpty()
+    .withMessage('Nome da empresa é obrigatório '),
+  body('email').isEmail().withMessage('Campo deve possuir um e-mail válido'),
   body('password')
     .isString()
     .isLength({ min: 6, max: 40 })
@@ -33,12 +44,32 @@ businessRouter.post('/signup-business',
     }
     return true;
   }),
-  signUpController.create)
+  signUpController.create,
+);
 
-// businessRouter.delete(
-//   '/delete-business',
-//   verifyJwtToken,
-//   deleteUserController.delete
-// )
+businessRouter.post(
+  '/client-business',
+  body('name')
+    .isString()
+    .not()
+    .isEmpty()
+    .withMessage('Nome do cliente é obrigatório '),
+  body('email').isEmail().withMessage('Campo deve possuir um e-mail válido'),
+  body('phone')
+    .isString()
+    .not()
+    .isEmpty()
+    .withMessage('Telefone do cliente é obrigatório '),
+    verifyJwtToken,
+  createClientController.create,
+);
 
-export default businessRouter
+
+businessRouter.get(
+  '/client-business',
+  verifyJwtToken,
+  getAllClientsController.run,
+);
+
+
+export default businessRouter;

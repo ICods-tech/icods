@@ -1,4 +1,4 @@
-import { checkUserSignUpFieldErrors } from "@shared/utils/checkUserSignUpFieldErrors";
+import { checkFieldErrors } from "@shared/utils/checkFieldErrors";
 import { classToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
@@ -8,7 +8,7 @@ const logger = require("../../../infra/middlewares/Logger");
 export default class SignInBusinessController {
     public async  create(request: Request, response: Response): Promise<Response> {
       try {
-        checkUserSignUpFieldErrors(request)
+        checkFieldErrors(request)
         const { email, password } = request.body
 
         const signInBusinessService = container.resolve(SignInBusinessService)

@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, IsNull, BeforeInsert } from 'typeorm'
-import { Exclude } from 'class-transformer'
+import { Exclude } from 'class-transformer';
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import Clients from './clients';
 
 @Entity('businesses')
@@ -26,7 +26,6 @@ export default class Business {
 
   @OneToMany(type => Clients, client => client.business, {
     cascade: true,
-    eager: true
   })
   clients?: Clients[] | [];
 

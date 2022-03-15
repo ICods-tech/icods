@@ -35,7 +35,15 @@ export default class LotsRepository implements ILotsRepository {
     return lot;
   }
 
-  public async updateLot(lot: ILots): Promise<ILots> {
+  public async getAllQRCodesByLot(lotId: string): Promise<QRCode[] | undefined> {
+    const lot = await this.ormRepository.findOne(lotId, {
+      relations: ['qrcodes'],
+    });
+
+    return lot!.qrcodes;
+  }
+
+  public async updateLot(lot: Lots): Promise<Lots> {
     await this.ormRepository.save(lot);
 
     return lot;

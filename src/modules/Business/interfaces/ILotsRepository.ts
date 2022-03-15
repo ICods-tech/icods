@@ -5,7 +5,8 @@ import ILots from "./ILots"
 
 export default interface ILotsRepository {
   findById(id: string): Promise<Lots | undefined>
+  getAllQRCodesByLot(id: string): Promise<QRCode[] | undefined>
   findAllByBusiness(businessId: string): Promise<Lots[] | undefined>
   createLot(client: Clients): Promise<Lots>
-  updateLot(data: ILots): Promise<ILots>
+  updateLot(data: Lots): Promise<Lots>
 }

@@ -34,6 +34,14 @@ export default class BusinessRepository implements IBusinessRepository {
     return business;
   }
 
+  public async getAllBusinessClients(id: string): Promise<Client[] | undefined> {
+    const business = await this.ormRepository.findOne(id, {
+      relations: ['clients'],
+    });
+
+    return business!.clients;
+  }
+
   public async save(business: Business): Promise<Business> {
     return await this.ormRepository.save(business);
   }

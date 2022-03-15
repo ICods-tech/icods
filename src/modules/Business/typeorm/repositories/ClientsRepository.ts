@@ -9,6 +9,9 @@ export default class ClientsRepository implements IClientsRepository {
   constructor() {
     this.ormRepository = getRepository('clients');
   }
+  async findByName(name: string): Promise<Client | undefined> {
+    return await this.ormRepository.findOne({ where: { name } });
+  }
   async update(client: IClients): Promise<IClients> {
     return await this.ormRepository.save(client);
   }

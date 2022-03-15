@@ -29,9 +29,10 @@ export default class Clients {
   business?: Omit<Business, 'created_at' | 'updated_at' | 'password' | 'clients'>;
 
   @OneToMany(type => Lots, (lot: Lots) => lot.client, {
-    cascade: true
+    cascade: true,
+    eager: true,
   })
-  lots?: Lots[] | [];
+  lots: Lots[] | [];
 
   @CreateDateColumn()
   created_at: Date;

@@ -18,6 +18,8 @@ export default class GetAllClientsBusinessService {
       throw new AppError('Business not found')
     }
 
-    return { clients: business.clients }
+    const clients = await this.businessRepository.getAllBusinessClients(businessId);
+
+    return { clients }
   }
 }

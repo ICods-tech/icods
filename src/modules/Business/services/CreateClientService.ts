@@ -23,10 +23,9 @@ export default class CreateClientService {
       throw new AppError('Business not found')
     }
 
-    // Create findByName for validation duplicated keys
-
-    const client = await this.clientsRepository.findByEmail(email)
-    if (client) {
+    const clientByName= await this.clientsRepository.findByName(name)
+    const clientByEmail = await this.clientsRepository.findByEmail(email)
+    if (clientByEmail || clientByName) {
       throw new AppError('Client already exists')
     }
 

@@ -56,7 +56,6 @@ export default class QRCode {
   @ManyToOne(type => Lot, lot => lot.qrcodes, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
-    eager: true
   })
   lot?: Omit<Lot, 'created_at' | 'updated_at' | 'qrcodes'>;
 

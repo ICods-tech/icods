@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import Business from './business';
 import Lots from './lots';
 
@@ -22,13 +30,16 @@ export default class Clients {
   @Column()
   phone: string;
 
-  @ManyToOne(type => Business, business => business.clients, {
+  @ManyToOne((type) => Business, (business) => business.clients, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  business?: Omit<Business, 'created_at' | 'updated_at' | 'password' | 'clients'>;
+  business?: Omit<
+    Business,
+    'created_at' | 'updated_at' | 'password' | 'clients'
+  >;
 
-  @OneToMany(type => Lots, (lot: Lots) => lot.client, {
+  @OneToMany((type) => Lots, (lot: Lots) => lot.client, {
     cascade: true,
     eager: true,
   })

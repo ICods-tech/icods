@@ -8,6 +8,7 @@ import postRouter from '@modules/Posts/routes/post.routes'
 import likeRouter from '@modules/Posts/routes/like.routes'
 import commentRouter from '@modules/Posts/routes/comment.routes'
 import businessRouter from '@modules/Business/routes/session.routes';
+import verifyJwtToken from '../middlewares/verifyJwtToken';
 
 const routes = Router();
 
@@ -18,6 +19,15 @@ routes.get("/health", (req, res) => res.json(
     version: "1.0.0"
   }
 ));
+
+routes.get(
+  '/validator-token',
+  verifyJwtToken, (req, res) => {
+      res.status(200).send({
+          message: 'Token válido'
+      })
+  }
+)
 
 routes.use(sessionsRouter)
 routes.use(businessRouter)

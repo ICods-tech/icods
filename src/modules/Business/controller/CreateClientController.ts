@@ -1,7 +1,7 @@
-import { checkFieldErrors } from '@shared/utils/checkFieldErrors';
 import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { checkFieldErrors } from '../../../shared/utils/checkFieldErrors';
 import IClient from '../interfaces/IClient';
 import CreateClientService from '../services/CreateClientService';
 const logger = require('../../../infra/middlewares/Logger');

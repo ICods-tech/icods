@@ -1,4 +1,4 @@
-import { checkFieldErrors } from "@shared/utils/checkFieldErrors";
+import { checkFieldErrors } from '../../../shared/utils/checkFieldErrors';
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import GetAllLotsService from "../services/GetAllLotsService";

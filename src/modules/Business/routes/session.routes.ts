@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { body } from 'express-validator';
-import verifyJwtToken from 'src/infra/middlewares/verifyJwtToken';
+import verifyJwtToken from '../../../infra/middlewares/verifyJwtToken';
 import CreateClientController from '../controller/CreateClientController';
 import GetAllClientsController from '../controller/GetAllClientsController';
 import GetAllLotsFromClientController from '../controller/GetAllLotsFromClientController';

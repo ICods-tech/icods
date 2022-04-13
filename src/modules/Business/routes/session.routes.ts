@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import verifyJwtToken from 'src/infra/middlewares/verifyJwtToken';
 import CreateClientController from '../controller/CreateClientController';
 import GetAllClientsController from '../controller/GetAllClientsController';
+import GetAllLotsFromClientController from '../controller/GetAllLotsFromClientController';
 import GetAllQRCodesFromLotController from '../controller/GetAllQRCodesFromLotController';
 import SignInBusinessController from '../controller/SignInBusinessController';
 import SignUpController from '../controller/SignUpBusinessController';
@@ -13,6 +14,7 @@ const signInBusinessController = new SignInBusinessController();
 const createClientController = new CreateClientController();
 const getAllClientsController = new GetAllClientsController();
 const getAllQRcodeFromLotController = new GetAllQRCodesFromLotController();
+const getAllLotsFromClientController = new GetAllLotsFromClientController();
 
 businessRouter.post(
   '/signin-business',
@@ -77,6 +79,12 @@ businessRouter.get(
   '/client-business-qrcodes/:lotId',
   verifyJwtToken,
   getAllQRcodeFromLotController.run,
+);
+
+businessRouter.get(
+  '/client-business-lots/:clientId',
+  verifyJwtToken,
+  getAllLotsFromClientController.run,
 );
 
 

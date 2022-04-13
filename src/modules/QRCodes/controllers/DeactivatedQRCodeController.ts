@@ -1,8 +1,8 @@
-import fs from 'fs'
-import { container } from 'tsyringe';
+import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService';
+import GetDeactivatedQRCodeService from '@modules/QRCodes/services/GetDeactivatedQRCodesService';
 import { Request, Response } from 'express';
-import GetDeactivatedQRCodeService from '@modules/QRCodes/services/GetDeactivatedQRCodesService'
-import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService'
+import fs from 'fs';
+import { container } from 'tsyringe';
 const logger = require("../../../infra/middlewares/Logger");
 
 export default class DeactivatedQRCodeController {

@@ -12,6 +12,16 @@ export default class LotsRepository implements ILotsRepository {
     this.ormRepository = getRepository('lots');
   }
 
+  public async findByClientId(id: string): Promise<Lot[] | []> {
+    const lots = await this.ormRepository.find({
+      where: {
+        client: id,
+      },
+    });
+
+    return lots || [];
+  }
+
   public async findById(id: string): Promise<Lot | undefined> {
     const lot = await this.ormRepository.findOne(id);
 

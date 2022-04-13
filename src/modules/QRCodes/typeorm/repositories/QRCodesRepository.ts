@@ -29,7 +29,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
     const qrcode = this.ormRepostory.create({
       link: '',
       content: '',
-      lot: lot ? lot : undefined,
+      lot: lot?.id,
       status: 'INACTIVE',
     })
 

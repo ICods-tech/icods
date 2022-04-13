@@ -5,7 +5,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
 import Business from './business';
 import Lots from './lots';
@@ -41,7 +41,6 @@ export default class Clients {
 
   @OneToMany((type) => Lots, (lot: Lots) => lot.client, {
     cascade: true,
-    eager: true,
   })
   lots: Lots[] | [];
 

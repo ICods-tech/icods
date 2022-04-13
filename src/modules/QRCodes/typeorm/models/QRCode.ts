@@ -1,3 +1,4 @@
+import Lots from '@modules/Business/typeorm/models/lots';
 import Lot from '@modules/Business/typeorm/models/lots';
 import Post from '@modules/Posts/typeorm/models/post';
 import { IColors } from '@modules/QRCodes/interfaces/IColors';
@@ -57,7 +58,7 @@ export default class QRCode {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  lot?: Omit<Lot, 'created_at' | 'updated_at' | 'qrcodes'>;
+  lot?: string;
 
   @ManyToOne(type => User, user => user.receivedQRCodes, {
     onUpdate: 'CASCADE',

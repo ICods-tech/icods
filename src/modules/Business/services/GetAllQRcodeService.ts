@@ -1,4 +1,4 @@
-import AppError from 'src/infra/error/AppError'
+import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import QRCode from '../../QRCodes/typeorm/models/QRCode'
 import ILotsRepository from '../interfaces/ILotsRepository'

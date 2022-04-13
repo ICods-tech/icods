@@ -1,6 +1,6 @@
-import IClients from '@modules/Business/interfaces/IClients';
-import IClientsRepository from '@modules/Business/interfaces/IClientsRepository';
 import { getRepository, Repository } from 'typeorm';
+import IClients from '../../interfaces/IClients';
+import IClientsRepository from '../../interfaces/IClientsRepository';
 import { default as Client, default as Clients } from '../models/clients';
 
 export default class ClientsRepository implements IClientsRepository {

@@ -1,6 +1,6 @@
-import IBusiness from '@modules/Business/interfaces/IBusiness';
-import IBusinessRepository from '@modules/Business/interfaces/IBusinessRepository';
 import { getRepository, Repository } from 'typeorm';
+import IBusiness from '../../interfaces/IBusiness';
+import IBusinessRepository from '../../interfaces/IBusinessRepository';
 import Business from '../models/business';
 import Client from '../models/clients';
 

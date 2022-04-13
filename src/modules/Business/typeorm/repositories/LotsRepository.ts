@@ -1,8 +1,7 @@
-import ILots from '@modules/Business/interfaces/ILots';
-import ILotsRepository from '@modules/Business/interfaces/ILotsRepository';
-import { default as Lot, default as Lots } from '@modules/Business/typeorm/models/lots';
-import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
 import { getRepository, Repository } from 'typeorm';
+import QRCode from '../../../QRCodes/typeorm/models/QRCode';
+import ILotsRepository from '../../interfaces/ILotsRepository';
+import { default as Lot, default as Lots } from '../../typeorm/models/lots';
 import { default as Client } from '../models/clients';
 
 export default class LotsRepository implements ILotsRepository {

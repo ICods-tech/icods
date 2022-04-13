@@ -1,4 +1,4 @@
-import { checkFieldErrors } from "@shared/utils/checkFieldErrors";
+import { checkFieldErrors } from '../../../shared/utils/checkFieldErrors';
 import { classToClass } from "class-transformer";
 import { Request, Response } from "express";
 import { container } from "tsyringe";

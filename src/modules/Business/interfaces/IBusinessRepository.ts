@@ -1,6 +1,6 @@
 import IBusiness from './IBusiness'
-import Business from '@modules/Business/typeorm/models/business'
-import Clients from '@modules/Business/typeorm/models/clients'
+import Business from '../typeorm/models/business'
+import Clients from '../typeorm/models/clients'
 
 export default interface IBusinessRepository {
   findById(id: string): Promise<Business | undefined>

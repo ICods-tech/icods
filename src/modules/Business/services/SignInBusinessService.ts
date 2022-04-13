@@ -1,11 +1,9 @@
-import User from '@modules/Users/typeorm/models/user'
-import IUserRepository from '@modules/Users/interfaces/IUserRepository'
-import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
-import { inject, injectable } from 'tsyringe'
 import jwt from 'jsonwebtoken'
-import IBusinessRepository from '../interfaces/IBusinessRepository'
 import AppError from 'src/infra/error/AppError'
+import { inject, injectable } from 'tsyringe'
+import IHashProvider from '../../Users/providers/hashProvider/model/IHashProvider'
 import IBusiness from '../interfaces/IBusiness'
+import IBusinessRepository from '../interfaces/IBusinessRepository'
 
 @injectable()
 export default class SignInBusinessService {

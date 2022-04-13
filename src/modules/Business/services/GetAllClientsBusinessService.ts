@@ -1,7 +1,7 @@
-import Client from '@modules/Business/typeorm/models/clients'
 import AppError from 'src/infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import IBusinessRepository from '../interfaces/IBusinessRepository'
+import Client from '../typeorm/models/clients'
 
 @injectable()
 export default class GetAllClientsBusinessService {

@@ -1,4 +1,4 @@
-import QRCode from "@modules/QRCodes/typeorm/models/QRCode"
+import QRCode from "../../QRCodes/typeorm/models/QRCode"
 import Clients from "../typeorm/models/clients"
 import Lots from "../typeorm/models/lots"
 

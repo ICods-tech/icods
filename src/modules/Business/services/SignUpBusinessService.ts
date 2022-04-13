@@ -1,10 +1,10 @@
-import 'dotenv/config'
-import { injectable, inject } from 'tsyringe'
-import IHashProvider from '@modules/Users/providers/hashProvider/model/IHashProvider'
-import IBusinessRepository from '../interfaces/IBusinessRepository';
-import IBusiness from '../interfaces/IBusiness';
-import Business from '../typeorm/models/business';
+import 'dotenv/config';
 import AppError from 'src/infra/error/AppError';
+import { inject, injectable } from 'tsyringe';
+import IHashProvider from '../../Users/providers/hashProvider/model/IHashProvider';
+import IBusiness from '../interfaces/IBusiness';
+import IBusinessRepository from '../interfaces/IBusinessRepository';
+import Business from '../typeorm/models/business';
 
 @injectable()
 export default class SignUpService {

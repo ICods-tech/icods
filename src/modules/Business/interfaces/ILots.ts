@@ -1,4 +1,4 @@
-import QRCode from '@modules/QRCodes/typeorm/models/QRCode'
+import QRCode from '../../QRCodes/typeorm/models/QRCode'
 
 export default interface ILots {
   id: string;

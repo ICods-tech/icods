@@ -1,6 +1,6 @@
-import QRCode from '@modules/QRCodes/typeorm/models/QRCode'
 import AppError from 'src/infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
+import QRCode from '../../QRCodes/typeorm/models/QRCode'
 import ILotsRepository from '../interfaces/ILotsRepository'
 
 @injectable()

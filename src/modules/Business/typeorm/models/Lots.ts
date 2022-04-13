@@ -1,5 +1,5 @@
-import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
-import { AfterLoad, Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import QRCode from '../../../QRCodes/typeorm/models/QRCode';
 import Client from './clients';
 
 @Entity('lots')

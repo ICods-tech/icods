@@ -4,6 +4,7 @@ import { Repository, getRepository } from 'typeorm'
 import IQRCodesRepository from '@modules/QRCodes/interfaces/IQRCodesRepository'
 import User from '@modules/Users/typeorm/models/user';
 import { IColors } from '@modules/QRCodes/interfaces/IColors';
+import Lots from '@modules/Business/typeorm/models/lots';
 
 export default class QRCodesRepository implements IQRCodesRepository {
 
@@ -24,10 +25,11 @@ export default class QRCodesRepository implements IQRCodesRepository {
     return filteredUser
   }
 
-  public async create(): Promise<QRCode> {
+  public async create(lot?: Lots): Promise<QRCode> {
     const qrcode = this.ormRepostory.create({
       link: '',
       content: '',
+      lot: lot?.id,
       status: 'INACTIVE',
     })
 

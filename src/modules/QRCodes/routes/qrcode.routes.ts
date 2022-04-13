@@ -13,7 +13,8 @@ const addQRCodeToUserController = new AddQRCodeToUserController()
 const userQRCodesController = new UserQRCodesController()
 
 qrcodeRouter.post(
-  '/generate_deactivated_qrcode',
+  '/business/generate_deactivated_qrcode',
+  verifyJwtToken,
   deactivatedQRCodeController.create
 )
 

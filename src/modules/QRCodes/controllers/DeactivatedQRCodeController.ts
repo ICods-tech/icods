@@ -1,8 +1,8 @@
-import fs from 'fs'
-import { container } from 'tsyringe';
+import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService';
+import GetDeactivatedQRCodeService from '@modules/QRCodes/services/GetDeactivatedQRCodesService';
 import { Request, Response } from 'express';
-import GetDeactivatedQRCodeService from '@modules/QRCodes/services/GetDeactivatedQRCodesService'
-import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService'
+import fs from 'fs';
+import { container } from 'tsyringe';
 const logger = require("../../../infra/middlewares/Logger");
 
 export default class DeactivatedQRCodeController {
@@ -22,10 +22,11 @@ export default class DeactivatedQRCodeController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     try {
+      const {clientId} = request.body
       const numberOfQrCodes = request.body?.numberOfQrCodes || null
       const createDeactivatedQRCode = container.resolve(CreateDeactivatedQRCodeService)
 
-      let { qrcodes, generatedPdf } = await createDeactivatedQRCode.run(numberOfQrCodes)
+      let { qrcodes, generatedPdf } = await createDeactivatedQRCode.run(clientId, numberOfQrCodes)
       let pdf = generatedPdf as any
       const pdfData = fs.readFileSync(pdf.filename)
       response.contentType('application/pdf')

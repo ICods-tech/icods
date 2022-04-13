@@ -18,6 +18,15 @@ import LikesRepository from '@modules/Posts/typeorm/repositories/likesRepository
 import ICommentsRepository from '@modules/Posts/interfaces/ICommentsRepository'
 import CommentsRepository from '@modules/Posts/typeorm/repositories/commentsRepository'
 
+import IBusinessRepository from '@modules/Business/interfaces/IBusinessRepository'
+import BusinessRepository from '@modules/Business/typeorm/repositories/BusinessesRepository'
+
+import IClientsRepository from '@modules/Business/interfaces/IClientsRepository'
+import ClientsRepository from '@modules/Business/typeorm/repositories/ClientsRepository'
+
+import LotsRepository from '@modules/Business/typeorm/repositories/LotsRepository'
+import ILotsRepository from '@modules/Business/interfaces/ILotsRepository'
+
 container.registerSingleton<IUserRepository>(
   'UsersRepository',
   UsersRepository
@@ -46,4 +55,19 @@ container.registerSingleton<IFollowRepository>(
 container.registerSingleton<IQRCodesRepository>(
   'QRCodeRepository',
   QRCodeRepository
+)
+
+container.registerSingleton<IBusinessRepository>(
+  'BusinessRepository',
+  BusinessRepository
+)
+
+container.registerSingleton<IClientsRepository>(
+  'ClientsRepository',
+  ClientsRepository
+)
+
+container.registerSingleton<ILotsRepository>(
+  'LotsRepository',
+  LotsRepository
 )

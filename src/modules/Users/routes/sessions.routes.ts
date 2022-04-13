@@ -1,12 +1,11 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
 import verifyJwtToken from '../../../infra/middlewares/verifyJwtToken';
-import { Router } from 'express'
-import { body, check } from 'express-validator'
-import SignUpController from '../controller/SignUpController'
-import SignInController from '../controller/SignInController'
-import ResetPasswordController from '../controller/ResetPasswordController'
 import DeleteUserController from '../controller/DeleteUserController';
-import ResetPasswordWithoutPassService from '../services/user/ResetPasswordWithoutPassService';
+import ResetPasswordController from '../controller/ResetPasswordController';
 import ResetPasswordWithoutPassController from '../controller/ResetWithoutPassController';
+import SignInController from '../controller/SignInController';
+import SignUpController from '../controller/SignUpController';
 
 const sessionsRouter = Router()
 const signUpController = new SignUpController()

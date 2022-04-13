@@ -1,4 +1,4 @@
-import AppError from 'src/infra/error/AppError'
+import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
 import IClientsRepository from '../interfaces/IClientsRepository'
 import ILotsRepository from '../interfaces/ILotsRepository'

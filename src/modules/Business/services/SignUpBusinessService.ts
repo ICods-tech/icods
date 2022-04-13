@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import AppError from 'src/infra/error/AppError';
+import AppError from '../../../infra/error/AppError';
 import { inject, injectable } from 'tsyringe';
 import IHashProvider from '../../Users/providers/hashProvider/model/IHashProvider';
 import IBusiness from '../interfaces/IBusiness';

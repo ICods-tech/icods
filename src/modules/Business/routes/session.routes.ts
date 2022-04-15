@@ -5,6 +5,7 @@ import CreateClientController from '../controller/CreateClientController';
 import GetAllClientsController from '../controller/GetAllClientsController';
 import GetAllLotsFromClientController from '../controller/GetAllLotsFromClientController';
 import GetAllQRCodesFromLotController from '../controller/GetAllQRCodesFromLotController';
+import GetClientByIdController from '../controller/GetClientByIdController';
 import SignInBusinessController from '../controller/SignInBusinessController';
 import SignUpController from '../controller/SignUpBusinessController';
 
@@ -15,6 +16,7 @@ const createClientController = new CreateClientController();
 const getAllClientsController = new GetAllClientsController();
 const getAllQRcodeFromLotController = new GetAllQRCodesFromLotController();
 const getAllLotsFromClientController = new GetAllLotsFromClientController();
+const getClientByIdController = new GetClientByIdController();
 
 businessRouter.post(
   '/signin-business',
@@ -85,6 +87,12 @@ businessRouter.get(
   '/client-business-lots/:clientId',
   verifyJwtToken,
   getAllLotsFromClientController.run,
+);
+
+businessRouter.get(
+  '/business/client/:id',
+  verifyJwtToken,
+  getClientByIdController.run,
 );
 
 

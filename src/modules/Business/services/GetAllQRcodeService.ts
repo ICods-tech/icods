@@ -11,7 +11,7 @@ export default class GetAllQRCodesLotService {
     private lotsRepository: ILotsRepository,
   ) {}
 
-  public async run(lotId: string): Promise<QRCode[] | [] | undefined> {
+  public async run(lotId: string): Promise<QRCode[]> {
 
     const lots = await this.lotsRepository.findById(lotId)
 
@@ -20,6 +20,9 @@ export default class GetAllQRCodesLotService {
     }
 
     const qrcodes = await this.lotsRepository.getAllQRCodesByLot(lotId)
+    if(!qrcodes) {
+      throw new AppError('QRCodes not found', 404)
+    }
 
     return qrcodes;
   }

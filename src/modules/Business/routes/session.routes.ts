@@ -2,10 +2,12 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import verifyJwtToken from '../../../infra/middlewares/verifyJwtToken';
 import CreateClientController from '../controller/CreateClientController';
+import DeactivatedQRCodeController from '../controller/DeactivatedQRCodeController';
 import GetAllClientsController from '../controller/GetAllClientsController';
 import GetAllLotsFromClientController from '../controller/GetAllLotsFromClientController';
 import GetAllQRCodesFromLotController from '../controller/GetAllQRCodesFromLotController';
 import GetClientByIdController from '../controller/GetClientByIdController';
+import GetQRCodeFile from '../controller/GetFileQRCodes';
 import SignInBusinessController from '../controller/SignInBusinessController';
 import SignUpController from '../controller/SignUpBusinessController';
 
@@ -17,6 +19,26 @@ const getAllClientsController = new GetAllClientsController();
 const getAllQRcodeFromLotController = new GetAllQRCodesFromLotController();
 const getAllLotsFromClientController = new GetAllLotsFromClientController();
 const getClientByIdController = new GetClientByIdController();
+const deactivatedQRCodeController = new DeactivatedQRCodeController();
+const getQRCodeFile = new GetQRCodeFile();
+
+
+businessRouter.post(
+  '/business/generate_deactivated_qrcode',
+  verifyJwtToken,
+  deactivatedQRCodeController.create
+)
+
+businessRouter.get(
+  '/get_deactivated_qrcode/data?:numberOfQrCodes',
+  deactivatedQRCodeController.index
+)
+
+businessRouter.get(
+  '/business/qrcode-file/:id',
+  verifyJwtToken,
+  getQRCodeFile.run,
+);
 
 businessRouter.post(
   '/signin-business',
@@ -94,6 +116,7 @@ businessRouter.get(
   verifyJwtToken,
   getClientByIdController.run,
 );
+
 
 
 export default businessRouter;

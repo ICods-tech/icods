@@ -1,7 +1,7 @@
-import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
+import QRCode from '../../QRCodes/typeorm/models/QRCode';
 import AppError from '../../../infra/error/AppError';
 import { injectable, inject } from 'tsyringe'
-import IQRCodesRepository from '../interfaces/IQRCodesRepository'
+import IQRCodesRepository from '../../QRCodes/interfaces/IQRCodesRepository';
 
 @injectable()
 export default class GetDeactivatedQRCodesService {

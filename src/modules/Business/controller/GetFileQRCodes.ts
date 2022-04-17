@@ -7,7 +7,7 @@ import GetAllQRCodesLotService from "../services/GetAllQRcodeService";
 import GetQRCodeFileService from "../services/GetQRCodeFileService";
 const logger = require("../../../infra/middlewares/Logger");
 
-export default class GetQRCodeFile {
+export default class GetQRCodeFileController {
 
   async run(request : Request, response: Response):Promise<Response> {
     try {

@@ -3,11 +3,13 @@ import { body } from 'express-validator';
 import verifyJwtToken from '../../../infra/middlewares/verifyJwtToken';
 import CreateClientController from '../controller/CreateClientController';
 import DeactivatedQRCodeController from '../controller/DeactivatedQRCodeController';
+import DeleteLotController from '../controller/DeleteLotController';
+import DeleteQRCodeController from '../controller/DeleteQRCodeController';
 import GetAllClientsController from '../controller/GetAllClientsController';
 import GetAllLotsFromClientController from '../controller/GetAllLotsFromClientController';
 import GetAllQRCodesFromLotController from '../controller/GetAllQRCodesFromLotController';
 import GetClientByIdController from '../controller/GetClientByIdController';
-import GetQRCodeFile from '../controller/GetFileQRCodes';
+import GetQRCodeFileController from '../controller/GetFileQRCodes';
 import SignInBusinessController from '../controller/SignInBusinessController';
 import SignUpController from '../controller/SignUpBusinessController';
 
@@ -20,7 +22,9 @@ const getAllQRcodeFromLotController = new GetAllQRCodesFromLotController();
 const getAllLotsFromClientController = new GetAllLotsFromClientController();
 const getClientByIdController = new GetClientByIdController();
 const deactivatedQRCodeController = new DeactivatedQRCodeController();
-const getQRCodeFile = new GetQRCodeFile();
+const getQRCodeFileController = new GetQRCodeFileController();
+const deleteQRCodeController = new DeleteQRCodeController();
+const deleteLotController = new DeleteLotController();
 
 
 businessRouter.post(
@@ -37,7 +41,19 @@ businessRouter.get(
 businessRouter.get(
   '/business/qrcode-file/:id',
   verifyJwtToken,
-  getQRCodeFile.run,
+  getQRCodeFileController.run,
+);
+
+businessRouter.delete(
+  '/business/qrcode/:id',
+  verifyJwtToken,
+  deleteQRCodeController.delete,
+);
+
+businessRouter.delete(
+  '/business/lot/:id',
+  verifyJwtToken,
+  deleteLotController.delete,
 );
 
 businessRouter.post(

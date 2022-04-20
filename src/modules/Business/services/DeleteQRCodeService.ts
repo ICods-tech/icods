@@ -1,13 +1,16 @@
 import IQRCodesRepository from '../../QRCodes/interfaces/IQRCodesRepository'
 import { inject, injectable } from 'tsyringe'
 import AppError from '../../../infra/error/AppError'
+import ILotsRepository from '../interfaces/ILotsRepository'
 
 @injectable()
 export default class DeleteQRCodeService {
 
   constructor(
     @inject('QRCodeRepository')
-    private qrCodesRepository: IQRCodesRepository
+    private qrCodesRepository: IQRCodesRepository,
+    @inject('LotsRepository')
+    private lotsRepository: ILotsRepository
   ) { }
 
   public async run(id: string): Promise<string> {
@@ -18,10 +21,12 @@ export default class DeleteQRCodeService {
     }
     try {
       await this.qrCodesRepository.delete(id)
-
+      //ignore lint next line
+      qrcode.lot?.numberOfQRCodes -= 1
+      if(qrcode.lot) await this.lotsRepository.update(qrcode.lot)
+      return "qrcode deleted successfully";
     } catch (error) {
       throw new AppError('Error deleting qrcode', 500)
     }
-    return "qrcode deleted successfully";
   }
 }

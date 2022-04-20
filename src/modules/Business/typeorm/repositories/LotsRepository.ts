@@ -21,13 +21,11 @@ export default class LotsRepository implements ILotsRepository {
         client: id,
       },
     });
-
     return lots || [];
   }
 
   public async findById(id: string): Promise<Lot | undefined> {
     const lot = await this.ormRepository.findOne(id);
-
     return lot || undefined;
   }
 
@@ -37,14 +35,12 @@ export default class LotsRepository implements ILotsRepository {
         businessId,
       }
     })
-
     return lots || undefined;
   }
 
-  public async createLot(client: Client): Promise<Lots> {
+  public async create(client: Client): Promise<Lots> {
     const lot = this.ormRepository.create({ client });
     await this.ormRepository.save(lot);
-
     return lot;
   }
 
@@ -52,13 +48,10 @@ export default class LotsRepository implements ILotsRepository {
     const lot = await this.ormRepository.findOne(lotId, {
       relations: ['qrcodes'],
     });
-
     return lot!.qrcodes;
   }
 
-  public async updateLot(lot: Lots): Promise<Lots> {
-    await this.ormRepository.save(lot);
-
-    return lot;
+  public async update(lot: Lot): Promise<Lots | undefined> {
+    return await this.ormRepository.save(lot);
   }
 }

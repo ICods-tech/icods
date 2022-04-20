@@ -37,7 +37,7 @@ export default class CreateDeactivatedQRCodesService {
     const newDeactivatedQRCodes = []
     const qrcodesImagesList = []
 
-    const lot = await this.lotsRepository.createLot(client)
+    const lot = await this.lotsRepository.create(client)
     for (let i = 0; i < numberOfQrCodes; i++) {
       let newQrCode = await this.qrcodeRepository.create(lot)
       newDeactivatedQRCodes.push(newQrCode)
@@ -51,7 +51,7 @@ export default class CreateDeactivatedQRCodesService {
 
     lot.numberOfQRCodes = numberOfQrCodes
 
-    await this.lotsRepository.updateLot(lot)
+    await this.lotsRepository.update(lot)
 
 
     const generatedPdf = await pdfGenerator.generateQrcodesPdf(qrcodesImagesList)

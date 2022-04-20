@@ -7,4 +7,5 @@ export default interface IClientsRepository {
   findByEmail(email: string): Promise<Client | undefined>
   createClient(data: IClients): Promise<Client>
   update(data: IClients): Promise<IClients>
+  delete(id: string): Promise<void>
 }

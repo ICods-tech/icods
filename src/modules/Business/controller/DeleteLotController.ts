@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import DeleteLotService from '../services/DeleteLotService';
 
-export default class DeleteQRCodeController {
+export default class DeleteLotController {
   public async delete(request: Request, response: Response): Promise<Response> {
     try {
       const { id } = request.params

@@ -16,7 +16,7 @@ export default class GetQRCodeFileController {
 
       let qrcodes;
       const getQRCodeFileService = container.resolve(GetQRCodeFileService)
-      if(qrcode){
+      if(qrcode === "true"){
         const getUserQRCodeService= container.resolve(GetUserQRCodeService);
         qrcodes = [await getUserQRCodeService.runBusiness(id)];
       }else{
@@ -28,7 +28,8 @@ export default class GetQRCodeFileController {
 
       let pdf = generatedPdf as any
 
-      const pdfData = fs.readFileSync(pdf.filename)
+      const pdfData = fs.readFileSync(pdf.filename, {encoding: 'base64'})
+      response.header('Content-Disposition', `attachment; filename="qrcodes.pdf"`);
       response.contentType('application/pdf')
       return response.send(pdfData)
     } catch (err: any) {

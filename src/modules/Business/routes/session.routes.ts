@@ -3,6 +3,7 @@ import { body } from 'express-validator';
 import verifyJwtToken from '../../../infra/middlewares/verifyJwtToken';
 import CreateClientController from '../controller/CreateClientController';
 import DeactivatedQRCodeController from '../controller/DeactivatedQRCodeController';
+import DeleteClientController from '../controller/DeleteClientController';
 import DeleteLotController from '../controller/DeleteLotController';
 import DeleteQRCodeController from '../controller/DeleteQRCodeController';
 import GetAllClientsController from '../controller/GetAllClientsController';
@@ -25,6 +26,7 @@ const deactivatedQRCodeController = new DeactivatedQRCodeController();
 const getQRCodeFileController = new GetQRCodeFileController();
 const deleteQRCodeController = new DeleteQRCodeController();
 const deleteLotController = new DeleteLotController();
+const deleteClientController = new DeleteClientController();
 
 
 businessRouter.post(
@@ -34,7 +36,7 @@ businessRouter.post(
 )
 
 businessRouter.get(
-  '/get_deactivated_qrcode/data?:numberOfQrCodes',
+  '/business/get_deactivated_qrcode/data?:numberOfQrCodes',
   deactivatedQRCodeController.index
 )
 
@@ -45,19 +47,19 @@ businessRouter.get(
 );
 
 businessRouter.delete(
-  '/business/qrcode/:id',
+  '/business/qrcodes/:id',
   verifyJwtToken,
   deleteQRCodeController.delete,
 );
 
 businessRouter.delete(
-  '/business/lot/:id',
+  '/business/lots/:id',
   verifyJwtToken,
   deleteLotController.delete,
 );
 
 businessRouter.post(
-  '/signin-business',
+  '/business/signin',
   body('email')
     .isString()
     .not()
@@ -71,7 +73,7 @@ businessRouter.post(
 );
 
 businessRouter.post(
-  '/signup-business',
+  '/business/signup',
   body('companyName')
     .isString()
     .not()
@@ -92,7 +94,7 @@ businessRouter.post(
 );
 
 businessRouter.post(
-  '/client-business',
+  '/business/clients',
   body('name')
     .isString()
     .not()
@@ -108,31 +110,34 @@ businessRouter.post(
   createClientController.create,
 );
 
-
 businessRouter.get(
-  '/client-business',
-  verifyJwtToken,
-  getAllClientsController.run,
-);
-
-businessRouter.get(
-  '/client-business-qrcodes/:lotId',
+  '/business/clients/lots/:lotId/qrcodes',
   verifyJwtToken,
   getAllQRcodeFromLotController.run,
 );
 
 businessRouter.get(
-  '/client-business-lots/:clientId',
+  '/business/clients/:clientId/lots',
   verifyJwtToken,
   getAllLotsFromClientController.run,
 );
 
 businessRouter.get(
-  '/business/client/:id',
+  '/business/clients/:id',
   verifyJwtToken,
   getClientByIdController.run,
 );
 
+businessRouter.get(
+  '/business/clients',
+  verifyJwtToken,
+  getAllClientsController.run,
+);
 
+businessRouter.delete(
+  '/business/clients/:id',
+  verifyJwtToken,
+  deleteClientController.delete,
+);
 
 export default businessRouter;

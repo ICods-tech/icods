@@ -1,5 +1,5 @@
-import AppError from '../../../infra/error/AppError'
 import { inject, injectable } from 'tsyringe'
+import AppError from '../../../infra/error/AppError'
 import IBusinessRepository from '../interfaces/IBusinessRepository'
 import IClient from '../interfaces/IClient'
 import IClientsRepository from '../interfaces/IClientsRepository'
@@ -26,7 +26,7 @@ export default class CreateClientService {
     const clientByName= await this.clientsRepository.findByName(name)
     const clientByEmail = await this.clientsRepository.findByEmail(email)
     if (clientByEmail || clientByName) {
-      throw new AppError('Client already exists')
+      throw new AppError({ errors: [{ msg: "Cliente já cadastrado!"} as any] })
     }
 
     return await this.clientsRepository.createClient({

@@ -64,12 +64,12 @@ businessRouter.post(
     .isString()
     .not()
     .isEmpty()
-    .withMessage('Nome da empresa é obrigatório '),
-  body('password')
-    .isString()
-    .isLength({ min: 6, max: 40 })
-    .withMessage('Campo deve possuir entre 6 e 40 caracteres'),
-  signInBusinessController.create,
+    .withMessage('Campo email não pode ser vazio'),
+    body('password')
+      .isString()
+      .not().isEmpty()
+      .withMessage('Campo senha não pode ser vazio'),
+    signInBusinessController.create,
 );
 
 businessRouter.post(
@@ -100,7 +100,7 @@ businessRouter.post(
     .not()
     .isEmpty()
     .withMessage('Nome do cliente é obrigatório '),
-  body('email').isEmail().withMessage('Campo deve possuir um e-mail válido'),
+  body('email').isEmail().withMessage('Campo email deve possuir um e-mail válido'),
   body('phone')
     .isString()
     .not()

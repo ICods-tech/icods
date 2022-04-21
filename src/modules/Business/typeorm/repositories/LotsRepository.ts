@@ -52,6 +52,11 @@ export default class LotsRepository implements ILotsRepository {
   }
 
   public async update(lot: Lot): Promise<Lots | undefined> {
+    if(lot.numberOfQRCodes === 0) {
+      await this.delete(lot.id);
+      return;
+    }
+
     return await this.ormRepository.save(lot);
   }
 }

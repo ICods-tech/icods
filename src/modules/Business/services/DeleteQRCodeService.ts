@@ -2,6 +2,8 @@ import IQRCodesRepository from '../../QRCodes/interfaces/IQRCodesRepository'
 import { inject, injectable } from 'tsyringe'
 import AppError from '../../../infra/error/AppError'
 import ILotsRepository from '../interfaces/ILotsRepository'
+import Lots from '../typeorm/models/lots'
+import ILots from '../interfaces/ILots'
 
 @injectable()
 export default class DeleteQRCodeService {
@@ -22,7 +24,9 @@ export default class DeleteQRCodeService {
     try {
       await this.qrCodesRepository.delete(id)
       //ignore lint next line
-      qrcode.lot?.numberOfQRCodes -= 1
+      const { numberOfQRCodes } = (qrcode.lot) as unknown as Lots;
+      (qrcode as any).lot.numberOfQRCodes = numberOfQRCodes - 1;
+
       if(qrcode.lot) await this.lotsRepository.update(qrcode.lot)
       return "qrcode deleted successfully";
     } catch (error) {

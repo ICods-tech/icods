@@ -16,4 +16,11 @@ export default class GetUserQRCodeService {
 
     return filteredQrCode
   }
+
+  public async runBusiness(qrcode_id: string): Promise<QRCode> {
+    const qrcode = await getQRCodeById(qrcode_id, this.qrCodesRepository)
+    const { receivedColor, favorited, ...filteredQrCode } = qrcode
+
+    return filteredQrCode
+  }
 }

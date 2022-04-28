@@ -21,13 +21,13 @@ export default class SignInBusinessService {
     let business = await this.businessRepository.findByEmail(email)
 
     if (!business) {
-      throw new AppError('Empresa com esse email não existe')
+      throw new AppError({ errors: [{ msg: "Empresa com esse email não existe!"} as any] })
     }
 
     const passwordValidation  = await this.hashProvider.compareHash(password, business.password)
 
     if(!passwordValidation) {
-      throw new AppError('Business password is incorrect')
+      throw new AppError({ errors: [{ msg: "Senha incorreta!"} as any] })
     }
 
     const { id } = business

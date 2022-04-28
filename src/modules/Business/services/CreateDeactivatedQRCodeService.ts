@@ -1,8 +1,8 @@
 var QRCodeHandler = require('qrcode')
 import { injectable, inject } from 'tsyringe'
-var pdfGenerator = require('../utils/generateQRCodesPdf')
+var pdfGenerator = require('../../../shared/utils/generateQRCodesPdf');
 import QRCode from '@modules/QRCodes/typeorm/models/QRCode';
-import IQRCodesRepository from '../interfaces/IQRCodesRepository'
+import IQRCodesRepository from '../../QRCodes/interfaces/IQRCodesRepository';
 import AppError from '../../../infra/error/AppError';
 import IClientsRepository from '@modules/Business/interfaces/IClientsRepository';
 import ILotsRepository from '@modules/Business/interfaces/ILotsRepository';
@@ -37,7 +37,7 @@ export default class CreateDeactivatedQRCodesService {
     const newDeactivatedQRCodes = []
     const qrcodesImagesList = []
 
-    const lot = await this.lotsRepository.createLot(client)
+    const lot = await this.lotsRepository.create(client)
     for (let i = 0; i < numberOfQrCodes; i++) {
       let newQrCode = await this.qrcodeRepository.create(lot)
       newDeactivatedQRCodes.push(newQrCode)
@@ -51,7 +51,8 @@ export default class CreateDeactivatedQRCodesService {
 
     lot.numberOfQRCodes = numberOfQrCodes
 
-    await this.lotsRepository.updateLot(lot)
+    await this.lotsRepository.update(lot)
+
 
     const generatedPdf = await pdfGenerator.generateQrcodesPdf(qrcodesImagesList)
 

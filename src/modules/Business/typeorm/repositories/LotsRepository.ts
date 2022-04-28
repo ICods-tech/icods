@@ -11,19 +11,21 @@ export default class LotsRepository implements ILotsRepository {
     this.ormRepository = getRepository('lots');
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.delete(id);
+  }
+
   public async findByClientId(id: string): Promise<Lot[] | []> {
     const lots = await this.ormRepository.find({
       where: {
         client: id,
       },
     });
-
     return lots || [];
   }
 
   public async findById(id: string): Promise<Lot | undefined> {
     const lot = await this.ormRepository.findOne(id);
-
     return lot || undefined;
   }
 
@@ -33,14 +35,12 @@ export default class LotsRepository implements ILotsRepository {
         businessId,
       }
     })
-
     return lots || undefined;
   }
 
-  public async createLot(client: Client): Promise<Lots> {
+  public async create(client: Client): Promise<Lots> {
     const lot = this.ormRepository.create({ client });
     await this.ormRepository.save(lot);
-
     return lot;
   }
 
@@ -48,13 +48,16 @@ export default class LotsRepository implements ILotsRepository {
     const lot = await this.ormRepository.findOne(lotId, {
       relations: ['qrcodes'],
     });
-
     return lot!.qrcodes;
   }
 
-  public async updateLot(lot: Lots): Promise<Lots> {
-    await this.ormRepository.save(lot);
+  public async update(lot: string): Promise<Lots | undefined> {
+    const { numberOfQRCodes, id } = (lot) as unknown as Lots;
+    if(numberOfQRCodes === 0) {
+      await this.delete(id);
+      return;
+    }
 
-    return lot;
+    return await this.ormRepository.save(lot as any);
   }
 }

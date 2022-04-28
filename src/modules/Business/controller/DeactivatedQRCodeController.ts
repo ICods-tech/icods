@@ -1,5 +1,5 @@
-import CreateDeactivatedQRCodeService from '@modules/QRCodes/services/CreateDeactivatedQRCodeService';
-import GetDeactivatedQRCodeService from '@modules/QRCodes/services/GetDeactivatedQRCodesService';
+import CreateDeactivatedQRCodeService from '../services/CreateDeactivatedQRCodeService';
+import GetDeactivatedQRCodeService from '../services/GetDeactivatedQRCodesService';
 import { Request, Response } from 'express';
 import fs from 'fs';
 import { container } from 'tsyringe';

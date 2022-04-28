@@ -2,9 +2,15 @@ import { Router } from 'express';
 import { body } from 'express-validator';
 import verifyJwtToken from '../../../infra/middlewares/verifyJwtToken';
 import CreateClientController from '../controller/CreateClientController';
+import DeactivatedQRCodeController from '../controller/DeactivatedQRCodeController';
+import DeleteClientController from '../controller/DeleteClientController';
+import DeleteLotController from '../controller/DeleteLotController';
+import DeleteQRCodeController from '../controller/DeleteQRCodeController';
 import GetAllClientsController from '../controller/GetAllClientsController';
 import GetAllLotsFromClientController from '../controller/GetAllLotsFromClientController';
 import GetAllQRCodesFromLotController from '../controller/GetAllQRCodesFromLotController';
+import GetClientByIdController from '../controller/GetClientByIdController';
+import GetQRCodeFileController from '../controller/GetFileQRCodes';
 import SignInBusinessController from '../controller/SignInBusinessController';
 import SignUpController from '../controller/SignUpBusinessController';
 
@@ -15,23 +21,59 @@ const createClientController = new CreateClientController();
 const getAllClientsController = new GetAllClientsController();
 const getAllQRcodeFromLotController = new GetAllQRCodesFromLotController();
 const getAllLotsFromClientController = new GetAllLotsFromClientController();
+const getClientByIdController = new GetClientByIdController();
+const deactivatedQRCodeController = new DeactivatedQRCodeController();
+const getQRCodeFileController = new GetQRCodeFileController();
+const deleteQRCodeController = new DeleteQRCodeController();
+const deleteLotController = new DeleteLotController();
+const deleteClientController = new DeleteClientController();
+
 
 businessRouter.post(
-  '/signin-business',
+  '/business/generate_deactivated_qrcode',
+  verifyJwtToken,
+  deactivatedQRCodeController.create
+)
+
+businessRouter.get(
+  '/business/get_deactivated_qrcode/data?:numberOfQrCodes',
+  deactivatedQRCodeController.index
+)
+
+businessRouter.get(
+  '/business/qrcode-file/:id',
+  verifyJwtToken,
+  getQRCodeFileController.run,
+);
+
+businessRouter.delete(
+  '/business/qrcodes/:id',
+  verifyJwtToken,
+  deleteQRCodeController.delete,
+);
+
+businessRouter.delete(
+  '/business/lots/:id',
+  verifyJwtToken,
+  deleteLotController.delete,
+);
+
+businessRouter.post(
+  '/business/signin',
   body('email')
     .isString()
     .not()
     .isEmpty()
-    .withMessage('Nome da empresa é obrigatório '),
-  body('password')
-    .isString()
-    .isLength({ min: 6, max: 40 })
-    .withMessage('Campo deve possuir entre 6 e 40 caracteres'),
-  signInBusinessController.create,
+    .withMessage('Campo email não pode ser vazio'),
+    body('password')
+      .isString()
+      .not().isEmpty()
+      .withMessage('Campo senha não pode ser vazio'),
+    signInBusinessController.create,
 );
 
 businessRouter.post(
-  '/signup-business',
+  '/business/signup',
   body('companyName')
     .isString()
     .not()
@@ -52,13 +94,13 @@ businessRouter.post(
 );
 
 businessRouter.post(
-  '/client-business',
+  '/business/clients',
   body('name')
     .isString()
     .not()
     .isEmpty()
     .withMessage('Nome do cliente é obrigatório '),
-  body('email').isEmail().withMessage('Campo deve possuir um e-mail válido'),
+  body('email').isEmail().withMessage('Campo email deve possuir um e-mail válido'),
   body('phone')
     .isString()
     .not()
@@ -68,24 +110,34 @@ businessRouter.post(
   createClientController.create,
 );
 
-
 businessRouter.get(
-  '/client-business',
-  verifyJwtToken,
-  getAllClientsController.run,
-);
-
-businessRouter.get(
-  '/client-business-qrcodes/:lotId',
+  '/business/clients/lots/:lotId/qrcodes',
   verifyJwtToken,
   getAllQRcodeFromLotController.run,
 );
 
 businessRouter.get(
-  '/client-business-lots/:clientId',
+  '/business/clients/:clientId/lots',
   verifyJwtToken,
   getAllLotsFromClientController.run,
 );
 
+businessRouter.get(
+  '/business/clients/:id',
+  verifyJwtToken,
+  getClientByIdController.run,
+);
+
+businessRouter.get(
+  '/business/clients',
+  verifyJwtToken,
+  getAllClientsController.run,
+);
+
+businessRouter.delete(
+  '/business/clients/:id',
+  verifyJwtToken,
+  deleteClientController.delete,
+);
 
 export default businessRouter;

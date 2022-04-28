@@ -57,6 +57,7 @@ export default class QRCode {
   @ManyToOne(type => Lot, lot => lot.qrcodes, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
+    eager: true
   })
   lot?: string;
 

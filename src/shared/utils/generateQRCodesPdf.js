@@ -16,11 +16,11 @@ exports.generateQrcodesPdf = async function (qrcodesData) {
 
 
   var options = {
-    format: "A3",
+    format: "A4",
     orientation: "portrait",
-    border: "10mm",
+    border: "5mm",
     header: {
-      height: "25mm",
+      height: "5mm",
       contents: ''
     },
     footer: {

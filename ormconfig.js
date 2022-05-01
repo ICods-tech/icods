@@ -9,7 +9,7 @@ module.exports = {
   port: '5432',
   username: USERNAME,
   password: PASSWORD,
-  synchronize: true,
+  synchronize: false,
   entities: [`${PATH_TYPEORM}/**/models/*`],
   migrations: [`${PATH_TYPEORM}/**/database/migrations/*`],
   cli: {

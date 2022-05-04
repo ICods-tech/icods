@@ -51,13 +51,8 @@ export default class LotsRepository implements ILotsRepository {
     return lot!.qrcodes;
   }
 
-  public async update(lot: string): Promise<Lots | undefined> {
-    const { numberOfQRCodes, id } = (lot) as unknown as Lots;
-    if(numberOfQRCodes === 0) {
-      await this.delete(id);
-      return;
-    }
-
+  public async update(lot: Lots): Promise<Lots | undefined> {
     return await this.ormRepository.save(lot as any);
   }
+
 }

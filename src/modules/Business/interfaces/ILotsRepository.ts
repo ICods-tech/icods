@@ -9,5 +9,5 @@ export default interface ILotsRepository {
   getAllQRCodesByLot(id: string): Promise<QRCode[] | undefined>
   findAllByBusiness(businessId: string): Promise<Lots[] | undefined>
   create(client: Clients): Promise<Lots>
-  update(lot: string): Promise<Lots | undefined>
+  update(lot: Lots): Promise<Lots | undefined>
 }

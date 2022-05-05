@@ -10,4 +10,5 @@ export default interface ILotsRepository {
   findAllByBusiness(businessId: string): Promise<Lots[] | undefined>
   create(client: Clients): Promise<Lots>
   update(lot: Lots): Promise<Lots | undefined>
+  deleteQRCode(lot: Lots, qrcodeId: string): Promise<void>
 }

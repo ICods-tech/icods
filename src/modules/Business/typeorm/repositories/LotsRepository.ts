@@ -4,6 +4,8 @@ import ILotsRepository from '../../interfaces/ILotsRepository';
 import { default as Lot, default as Lots } from '../../typeorm/models/lots';
 import { default as Client } from '../models/clients';
 
+const EMPTY_LOT = 1;
+
 export default class LotsRepository implements ILotsRepository {
   private ormRepository: Repository<Lot>;
 
@@ -55,4 +57,23 @@ export default class LotsRepository implements ILotsRepository {
     return await this.ormRepository.save(lot as any);
   }
 
+  public async deleteQRCode(lot: Lot, qrcodeId: string): Promise<void> {
+    const lotToUpdate = await this.ormRepository.findOne(lot.id, {
+      loadEagerRelations: true
+    }) as Lot;
+
+    lotToUpdate.numberOfQRCodes -= 1;
+    const qrCodesFromLot = await lotToUpdate.qrcodes;
+    const filteredQRCodes = qrCodesFromLot?.filter(qrcode => qrcode.id !== qrcodeId);
+
+    lotToUpdate.qrcodes = new Promise((resolve) => {
+      resolve(filteredQRCodes!);
+    });
+
+    if (lotToUpdate.numberOfQRCodes < EMPTY_LOT) {
+      await this.delete(lotToUpdate.id);
+    } else {
+      await this.ormRepository.save(lotToUpdate);
+    }
+  }
 }

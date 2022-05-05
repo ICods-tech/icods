@@ -1,9 +1,9 @@
-import IQRCodesRepository from '../../QRCodes/interfaces/IQRCodesRepository'
 import { inject, injectable } from 'tsyringe'
 import AppError from '../../../infra/error/AppError'
+import IQRCodesRepository from '../../QRCodes/interfaces/IQRCodesRepository'
 import ILotsRepository from '../interfaces/ILotsRepository'
 import Lots from '../typeorm/models/lots'
-import ILots from '../interfaces/ILots'
+const logger = require("../../../infra/middlewares/Logger");
 
 @injectable()
 export default class DeleteQRCodeService {
@@ -16,21 +16,26 @@ export default class DeleteQRCodeService {
   ) { }
 
   public async run(id: string): Promise<string> {
-    const qrcode = await this.qrCodesRepository.get(id)
-
-    if (!qrcode) {
-      throw new AppError('qrcode not found', 404)
-    }
     try {
-      await this.qrCodesRepository.delete(id)
-      //ignore lint next line
-      const { numberOfQRCodes } = (qrcode.lot) as unknown as Lots;
-      (qrcode as any).lot.numberOfQRCodes = numberOfQRCodes - 1;
+      const qrcode = await this.qrCodesRepository.get(id)
 
-      if(qrcode.lot) await this.lotsRepository.update(qrcode.lot)
+      if (!qrcode) {
+        throw new AppError('qrcode not found', 404)
+      }
+
+      await this.qrCodesRepository.delete(id);
+
+      const lot = qrcode?.lot as unknown as Lots;
+
+      if (lot) {
+        await this.lotsRepository.deleteQRCode(lot, id);
+      }
+
       return "qrcode deleted successfully";
     } catch (error) {
+      logger.log(error);
       throw new AppError('Error deleting qrcode', 500)
     }
   }
+
 }

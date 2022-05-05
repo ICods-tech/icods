@@ -50,9 +50,8 @@ export default class CreateDeactivatedQRCodesService {
     }
 
     lot.numberOfQRCodes = numberOfQrCodes
-
+    lot.qrcodes = newDeactivatedQRCodes as any;
     await this.lotsRepository.update(lot)
-
 
     const generatedPdf = await pdfGenerator.generateQrcodesPdf(qrcodesImagesList)
 

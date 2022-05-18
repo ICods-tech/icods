@@ -58,7 +58,7 @@ sessionsRouter.patch(
     .isLength({ min: 6, max: 40 })
         .withMessage('Campo deve possuir entre 6 e 40 caracteres'),
     body('passwordConfirmation').custom((value, { req }) => {
-        if (value !== req.body.password) {
+        if (value !== req.body.newPassword) {
           throw new Error('Senhas devem ser iguais');
         }
         return true;

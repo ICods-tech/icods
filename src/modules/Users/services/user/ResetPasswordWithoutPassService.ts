@@ -23,7 +23,7 @@ export default class ResetPasswordWithoutPassService {
     }
     const randomPassword = Math.random().toString(36).slice(-8);
 
-    const deeplinkRecovery = `https://icodsmobile.page.link/recovery?link=https://icods.com.br?email=${email}&pass=${randomPassword}&apn=com.icodsmobile`
+    const deeplinkRecovery = `https://icodsmobile.page.link?link=https://icods.com.br?email=${email}%pass=${randomPassword}&apn=com.icodsmobile`
     await sendEmailWithSES({
       subject: 'Recuperação de senha!',
       type: 'recoveryPassword',

@@ -23,8 +23,9 @@ export default class ResetPasswordController {
         password_confirmation
       )
 
-      return response.json(classToClass(updatedUser))
+      return response.json(updatedUser)
     } catch (err: any) {
+      console.log(err);
       return response.status(400).json(err.message)
     }
   }

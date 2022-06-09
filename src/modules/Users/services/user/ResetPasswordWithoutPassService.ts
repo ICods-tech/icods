@@ -21,7 +21,7 @@ export default class ResetPasswordWithoutPassService {
     if (!user) {
       throw new AppError('User does not exist')
     }
-    const randomPassword = Math.random().toString(36).slice(-8);
+    const randomPassword = Math.random().toString(36).slice(-6);
 
     const deeplinkRecovery = `https://icodsmobile.page.link?link=https://icods.com.br?email=${email}%pass=${randomPassword}&apn=com.icodsmobile`
     await sendEmailWithSES({

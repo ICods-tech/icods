@@ -56,6 +56,7 @@ export default class QRCodesRepository implements IQRCodesRepository {
   }
 
   public async save(qrcode: QRCode): Promise<void> {
+    qrcode.active_at = new Date()
     await this.ormRepostory.save(qrcode)
   }
 

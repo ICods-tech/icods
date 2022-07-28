@@ -79,4 +79,7 @@ export default class QRCode {
 
   @Column({ type: 'timestamptz', nullable: true })
   received_at?: Date
+
+  @Column({ type: 'timestamptz', nullable: true })
+  active_at?: Date
 }

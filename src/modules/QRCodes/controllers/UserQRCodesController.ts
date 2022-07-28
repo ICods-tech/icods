@@ -47,7 +47,7 @@ export default class UserQRCodesController {
       const urlUpdated =  "http://video.icods-api.com.br/"+key
       const addQRCodeContentService = container.resolve(AddQRCodeContentService)
       const handleStatusQRCodeService = container.resolve(HandleStatusQRCodeService)
-
+      
       const qrcode = await addQRCodeContentService.run(
         qrcode_id,
         name,
